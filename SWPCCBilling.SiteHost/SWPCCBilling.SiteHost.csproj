@@ -7,7 +7,7 @@
     <ProjectGuid>{1AE58D1E-7014-4ADF-AA43-BCCF9DE2414F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SWPCCBilling</RootNamespace>
+    <RootNamespace>SWPCCBilling.SiteHost</RootNamespace>
     <AssemblyName>SWPCCBilling</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Nancy">
       <HintPath>..\packages\Nancy.0.18.0\lib\net40\Nancy.dll</HintPath>
     </Reference>
@@ -49,12 +52,288 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HelloModule.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="SiteHostMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="bower_components\bootstrap\.bower.json" />
+    <None Include="bower_components\bootstrap\bower.json" />
+    <None Include="bower_components\bootstrap\CNAME" />
+    <None Include="bower_components\bootstrap\composer.json" />
+    <None Include="bower_components\bootstrap\CONTRIBUTING.md" />
+    <None Include="bower_components\bootstrap\js\.jshintrc" />
+    <None Include="bower_components\bootstrap\less\accordion.less">
+      <Compile>True</Compile>
+      <Minify>True</Minify>
+    </None>
+    <None Include="bower_components\bootstrap\less\alerts.less">
+      <Compile>True</Compile>
+      <Minify>True</Minify>
+    </None>
+    <None Include="bower_components\bootstrap\less\badges.less">
+      <Compile>True</Compile>
+      <Minify>True</Minify>
+    </None>
+    <None Include="bower_components\bootstrap\less\bootstrap.less" />
+    <None Include="bower_components\bootstrap\less\breadcrumbs.less" />
+    <None Include="bower_components\bootstrap\less\button-groups.less" />
+    <None Include="bower_components\bootstrap\less\buttons.less" />
+    <None Include="bower_components\bootstrap\less\carousel.less" />
+    <None Include="bower_components\bootstrap\less\close.less" />
+    <None Include="bower_components\bootstrap\less\code.less" />
+    <None Include="bower_components\bootstrap\less\component-animations.less" />
+    <None Include="bower_components\bootstrap\less\dropdowns.less" />
+    <None Include="bower_components\bootstrap\less\forms.less" />
+    <None Include="bower_components\bootstrap\less\grid.less" />
+    <None Include="bower_components\bootstrap\less\jumbotron.less" />
+    <None Include="bower_components\bootstrap\less\labels.less" />
+    <None Include="bower_components\bootstrap\less\list-group.less" />
+    <None Include="bower_components\bootstrap\less\media.less" />
+    <None Include="bower_components\bootstrap\less\mixins.less" />
+    <None Include="bower_components\bootstrap\less\modals.less" />
+    <None Include="bower_components\bootstrap\less\navbar.less" />
+    <None Include="bower_components\bootstrap\less\navs.less" />
+    <None Include="bower_components\bootstrap\less\normalize.less" />
+    <None Include="bower_components\bootstrap\less\pager.less" />
+    <None Include="bower_components\bootstrap\less\pagination.less" />
+    <None Include="bower_components\bootstrap\less\panels.less" />
+    <None Include="bower_components\bootstrap\less\popovers.less" />
+    <None Include="bower_components\bootstrap\less\print.less" />
+    <None Include="bower_components\bootstrap\less\progress-bars.less" />
+    <None Include="bower_components\bootstrap\less\responsive-utilities.less" />
+    <None Include="bower_components\bootstrap\less\scaffolding.less" />
+    <None Include="bower_components\bootstrap\less\tables.less" />
+    <None Include="bower_components\bootstrap\less\thumbnails.less" />
+    <None Include="bower_components\bootstrap\less\tooltip.less" />
+    <None Include="bower_components\bootstrap\less\type.less" />
+    <None Include="bower_components\bootstrap\less\utilities.less" />
+    <None Include="bower_components\bootstrap\less\variables.less" />
+    <None Include="bower_components\bootstrap\less\wells.less">
+      <Compile>False</Compile>
+      <Minify>False</Minify>
+    </None>
+    <None Include="bower_components\bootstrap\LICENSE" />
+    <None Include="bower_components\bootstrap\package.json" />
+    <None Include="bower_components\bootstrap\README.md" />
+    <None Include="bower_components\bootstrap\_config.yml" />
+    <None Include="bower_components\ember-data\.bower.json" />
+    <None Include="bower_components\ember-data\.gitignore" />
+    <None Include="bower_components\ember-data\.jshintrc" />
+    <None Include="bower_components\ember-data\.travis.yml" />
+    <None Include="bower_components\ember-data\Assetfile" />
+    <None Include="bower_components\ember-data\BREAKING_CHANGES.md" />
+    <None Include="bower_components\ember-data\CHANGELOG" />
+    <None Include="bower_components\ember-data\config.ru" />
+    <None Include="bower_components\ember-data\CONTRIBUTING.md" />
+    <None Include="bower_components\ember-data\docs\ARCHITECTURE.md" />
+    <None Include="bower_components\ember-data\docs\diagrams\Ember Data diagrams.graffle" />
+    <None Include="bower_components\ember-data\docs\package.json" />
+    <None Include="bower_components\ember-data\docs\yuidoc.json" />
+    <None Include="bower_components\ember-data\ember-data-source.gemspec" />
+    <None Include="bower_components\ember-data\ember-dev.yml" />
+    <None Include="bower_components\ember-data\Gemfile" />
+    <None Include="bower_components\ember-data\Gemfile.lock" />
+    <None Include="bower_components\ember-data\lib\ember\data\source.rb" />
+    <None Include="bower_components\ember-data\lib\ember\data\version.rb" />
+    <None Include="bower_components\ember-data\LICENSE" />
+    <None Include="bower_components\ember-data\packages\ember-data\package.json" />
+    <None Include="bower_components\ember-data\Rakefile" />
+    <None Include="bower_components\ember-data\README.md" />
+    <None Include="bower_components\ember-data\VERSION" />
+    <None Include="bower_components\ember\.bower.json" />
+    <None Include="bower_components\ember\.gitignore" />
+    <None Include="bower_components\ember\bower.json" />
+    <None Include="bower_components\ember\component.json" />
+    <None Include="bower_components\ember\composer.json" />
+    <None Include="bower_components\ember\Makefile" />
+    <None Include="bower_components\ember\package.json" />
+    <None Include="bower_components\ember\README.md" />
+    <None Include="bower_components\handlebars\.bower.json" />
+    <None Include="bower_components\handlebars\.gitignore" />
+    <None Include="bower_components\handlebars\bower.json" />
+    <None Include="bower_components\handlebars\component.json" />
+    <None Include="bower_components\handlebars\composer.json" />
+    <None Include="bower_components\jquery\.bower.json" />
+    <None Include="bower_components\jquery\.gitignore" />
+    <None Include="bower_components\jquery\component.json" />
+    <None Include="bower_components\jquery\composer.json" />
+    <None Include="bower_components\jquery\jquery.min.map" />
+    <None Include="bower_components\jquery\package.json" />
+    <None Include="bower_components\jquery\README.md" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bower_components\bootstrap\assets\css\docs.css" />
+    <Content Include="bower_components\bootstrap\assets\css\pygments-manni.css" />
+    <Content Include="bower_components\bootstrap\assets\ico\apple-touch-icon-114-precomposed.png" />
+    <Content Include="bower_components\bootstrap\assets\ico\apple-touch-icon-144-precomposed.png" />
+    <Content Include="bower_components\bootstrap\assets\ico\apple-touch-icon-57-precomposed.png" />
+    <Content Include="bower_components\bootstrap\assets\ico\apple-touch-icon-72-precomposed.png" />
+    <Content Include="bower_components\bootstrap\assets\ico\favicon.png" />
+    <Content Include="bower_components\bootstrap\assets\js\application.js" />
+    <Content Include="bower_components\bootstrap\assets\js\holder.js" />
+    <Content Include="bower_components\bootstrap\assets\js\html5shiv.js" />
+    <Content Include="bower_components\bootstrap\assets\js\jquery.js" />
+    <Content Include="bower_components\bootstrap\assets\js\respond.min.js" />
+    <Content Include="bower_components\bootstrap\components.html" />
+    <Content Include="bower_components\bootstrap\css.html" />
+    <Content Include="bower_components\bootstrap\customize.html" />
+    <EmbeddedResource Include="bower_components\bootstrap\dist\css\bootstrap.css" />
+    <EmbeddedResource Include="bower_components\bootstrap\dist\css\bootstrap.min.css" />
+    <EmbeddedResource Include="bower_components\bootstrap\dist\js\bootstrap.js" />
+    <EmbeddedResource Include="bower_components\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="bower_components\bootstrap\getting-started.html" />
+    <Content Include="bower_components\bootstrap\Gruntfile.js" />
+    <Content Include="bower_components\bootstrap\index.html" />
+    <Content Include="bower_components\bootstrap\javascript.html" />
+    <Content Include="bower_components\bootstrap\js\affix.js" />
+    <Content Include="bower_components\bootstrap\js\alert.js" />
+    <Content Include="bower_components\bootstrap\js\button.js" />
+    <Content Include="bower_components\bootstrap\js\carousel.js" />
+    <Content Include="bower_components\bootstrap\js\collapse.js" />
+    <Content Include="bower_components\bootstrap\js\dropdown.js" />
+    <Content Include="bower_components\bootstrap\js\modal.js" />
+    <Content Include="bower_components\bootstrap\js\popover.js" />
+    <Content Include="bower_components\bootstrap\js\scrollspy.js" />
+    <Content Include="bower_components\bootstrap\js\tab.js" />
+    <Content Include="bower_components\bootstrap\js\tests\index.html" />
+    <Content Include="bower_components\bootstrap\js\tests\phantom.js" />
+    <Content Include="bower_components\bootstrap\js\tests\server.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\affix.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\alert.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\button.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\carousel.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\collapse.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\dropdown.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\modal.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\phantom.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\popover.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\scrollspy.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\tab.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\tooltip.js" />
+    <Content Include="bower_components\bootstrap\js\tests\unit\transition.js" />
+    <Content Include="bower_components\bootstrap\js\tests\vendor\jquery.js" />
+    <Content Include="bower_components\bootstrap\js\tests\vendor\qunit.css" />
+    <Content Include="bower_components\bootstrap\js\tests\vendor\qunit.js" />
+    <Content Include="bower_components\bootstrap\js\tooltip.js" />
+    <Content Include="bower_components\bootstrap\js\transition.js" />
+    <Content Include="bower_components\bootstrap\_includes\ads.html" />
+    <Content Include="bower_components\bootstrap\_includes\footer.html" />
+    <Content Include="bower_components\bootstrap\_includes\header.html" />
+    <Content Include="bower_components\bootstrap\_includes\nav-components.html" />
+    <Content Include="bower_components\bootstrap\_includes\nav-css.html" />
+    <Content Include="bower_components\bootstrap\_includes\nav-customize.html" />
+    <Content Include="bower_components\bootstrap\_includes\nav-getting-started.html" />
+    <Content Include="bower_components\bootstrap\_includes\nav-javascript.html" />
+    <Content Include="bower_components\bootstrap\_includes\nav-main.html" />
+    <Content Include="bower_components\bootstrap\_includes\old-bs-docs.html" />
+    <Content Include="bower_components\bootstrap\_includes\social-buttons.html" />
+    <Content Include="bower_components\bootstrap\_layouts\customize.html" />
+    <Content Include="bower_components\bootstrap\_layouts\default.html" />
+    <Content Include="bower_components\bootstrap\_layouts\home.html" />
+    <Content Include="bower_components\ember-data\docs\images\ember-data-in-progress.png" />
+    <Content Include="bower_components\ember-data\generators\license.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\adapters.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\adapters\fixture_adapter.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\adapters\rest_adapter.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\core.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\ext.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\ext\date.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\initializers.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\main.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\serializers\fixture_serializer.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\serializers\json_serializer.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\serializers\new_json_serializer.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\serializers\rest_serializer.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\adapter.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\changes.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\changes\attribute_change.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\changes\relationship_change.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\debug.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\debug\debug_info.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\mixins\load_promise.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\mixins\mappable.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\model.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\model\attributes.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\model\model.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\model\states.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\record_arrays.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\record_arrays\adapter_populated_record_array.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\record_arrays\filtered_record_array.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\record_arrays\many_array.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\record_arrays\record_array.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\record_array_manager.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\relationships.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\relationships\belongs_to.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\relationships\ext.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\relationships\has_many.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\serializer.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\store.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\system\transaction.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\lib\transforms\json_transforms.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\application_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\belongs_to_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\client_id_generation_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\dirtiness_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\embedded\embedded_dirtying_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\embedded\embedded_loading_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\embedded\embedded_saving_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\embedded\embedded_without_ids_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\find_all_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\find_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\fixture_adapter_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\has_many_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\inverse_relationships_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\json_serialization_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\lifecycle_hooks_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\mapping_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\materialization_tests.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\method_aliases_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\per_type_adapters.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\prematerialized_data_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\queries_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\record_persistence_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\relationships\embedded_polymorphic_has_many_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\relationships\introspection_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\relationships\inverse_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\relationships\many_to_many_relationships_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\relationships\many_to_none_relationships_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\relationships\one_to_many_relationships_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\relationships\one_to_none_relationships_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\relationships\one_to_one_relationships_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\reload_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\rest_adapter_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\rollback_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\save_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\store_adapter_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\store_model_filter_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\transactions\basic_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\transactions\relationships_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\transaction_adapter_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\integration\transform_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\adapter_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\debug_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\fixture_adapter_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\model_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\record_array_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\relationships_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\rest_adapter_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\serializers\json_serializer_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\serializers\rest_serializer_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\serializer_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\store\push_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\store\serializer_for_test.js" />
+    <Content Include="bower_components\ember-data\packages\ember-data\tests\unit\store_test.js" />
+    <Content Include="bower_components\ember-data\tests\ember_configuration.js" />
+    <EmbeddedResource Include="bower_components\ember\ember.js" />
+    <EmbeddedResource Include="bower_components\ember\ember.min.js" />
+    <EmbeddedResource Include="bower_components\handlebars\handlebars.js" />
+    <EmbeddedResource Include="bower_components\handlebars\handlebars.runtime.js" />
+    <Content Include="bower_components\jquery\jquery-migrate.js" />
+    <Content Include="bower_components\jquery\jquery-migrate.min.js" />
+    <EmbeddedResource Include="bower_components\jquery\jquery.js" />
+    <EmbeddedResource Include="bower_components\jquery\jquery.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
