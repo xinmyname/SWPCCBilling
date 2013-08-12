@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomBootstrapper.cs" />
+    <Compile Include="EmbeddedResourceContentConventionBuilder.cs" />
     <Compile Include="HelloModule.cs" />
     <Compile Include="SiteHostMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -161,6 +163,10 @@
     <None Include="bower_components\jquery\jquery.min.map" />
     <None Include="bower_components\jquery\package.json" />
     <None Include="bower_components\jquery\README.md" />
+    <None Include="bower_components\normalize-css\.bower.json" />
+    <None Include="bower_components\normalize-css\bower.json" />
+    <None Include="bower_components\normalize-css\LICENSE.md" />
+    <None Include="bower_components\normalize-css\README.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +185,8 @@
     <Content Include="bower_components\bootstrap\components.html" />
     <Content Include="bower_components\bootstrap\css.html" />
     <Content Include="bower_components\bootstrap\customize.html" />
+    <EmbeddedResource Include="bower_components\normalize-css\normalize.css" />
+    <EmbeddedResource Include="Content\index.html" />
     <EmbeddedResource Include="bower_components\bootstrap\dist\css\bootstrap.css" />
     <EmbeddedResource Include="bower_components\bootstrap\dist\css\bootstrap.min.css" />
     <EmbeddedResource Include="bower_components\bootstrap\dist\js\bootstrap.js" />

@@ -59,6 +59,10 @@ namespace SWPCCBilling.SiteHost
 
         public static void ListEmbeddedResources()
         {
+            string[] resources = typeof (SiteHostMain).Assembly.GetManifestResourceNames();
+
+            foreach (string resource in resources)
+                Console.WriteLine(resource);
         }
 
         public SiteHostMain(ILog log, NancyHost host, string hostUrl)
