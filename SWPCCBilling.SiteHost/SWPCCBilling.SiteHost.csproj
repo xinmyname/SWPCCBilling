@@ -143,6 +143,8 @@
     <None Include="bower_components\normalize-css\bower.json" />
     <None Include="bower_components\normalize-css\LICENSE.md" />
     <None Include="bower_components\normalize-css\README.md" />
+    <None Include="Content\app.coffee" />
+    <None Include="Content\style.scss" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +163,18 @@
     <Content Include="bower_components\bootstrap\components.html" />
     <Content Include="bower_components\bootstrap\css.html" />
     <Content Include="bower_components\bootstrap\customize.html" />
+    <EmbeddedResource Include="Content\app.js">
+      <DependentUpon>app.coffee</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\app.min.js">
+      <DependentUpon>app.coffee</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\style.css">
+      <DependentUpon>style.scss</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\style.min.css">
+      <DependentUpon>style.scss</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="bower_components\normalize-css\normalize.css" />
     <EmbeddedResource Include="Content\index.html" />
     <EmbeddedResource Include="bower_components\bootstrap\dist\css\bootstrap.css" />
