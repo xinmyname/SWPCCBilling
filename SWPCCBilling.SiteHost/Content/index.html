@@ -8,30 +8,45 @@
     <link rel="stylesheet" href="lib/bootstrap/docs/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="style.css"/>
 </head>
-    <body>
+<body>
         
-        <script type="text/x-handlebars">
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <a class="brand" href="#">SWPCC Billing</a>
-                    <ul class="nav">
-                        <li><a href="#">Families</a></li>
-                        <li><a href="#">Fees</a></li>
-                        <li><a href="#">Payments</a></li>
-                        <li><a href="#">Discounts</a></li>
-                        <li><a href="#">Ledger</a></li>
-                        <li><a href="#">Reports</a></li>
-                        <li><a href="#">Invoicing</a></li>
-                        <li><a href="#">Tools</a></li>
-                    </ul>
-                </div>
+    <script type="text/x-handlebars">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <a class="brand" href="#">SWPCC Billing</a>
+                <ul class="nav">
+                    <li>{{#linkTo 'families'}}Families{{/linkTo}}</li>
+                    <li>{{#linkTo 'fees'}}Fees{{/linkTo}}</li>
+                    <li>{{#linkTo 'payments'}}Payments{{/linkTo}}</li>
+                    <li>{{#linkTo 'discounts'}}Discounts{{/linkTo}}</li>
+                    <li>{{#linkTo 'ledger'}}Ledger{{/linkTo}}</li>
+                    <li>{{#linkTo 'reports'}}Reports{{/linkTo}}</li>
+                    <li>{{#linkTo 'invoicing'}}Invoicing{{/linkTo}}</li>
+                    <li>{{#linkTo 'tools'}}Tools{{/linkTo}}</li>
+                </ul>
             </div>
-        </script>
+        </div>
+        
+        {{outlet}}
+    </script>
 
-        <script src="lib/jquery/jquery.js"></script>
-        <script src="lib/handlebars/handlebars.js"></script>
-        <script src="lib/ember/ember.js"></script>
-        <script src="app.js"></script>
+    <script type="text/x-handlebars" id="index">
+        <div class="index">
+            <h2>Dashboard</h2>
+        </div>
+    </script>    
 
-    </body>
+    <script type="text/x-handlebars" id="families">
+        <div class='families'>
+            <h2>Families</h2>
+        </div>
+        
+    </script>
+
+    <script src="lib/jquery/jquery.js"></script>
+    <script src="lib/handlebars/handlebars.js"></script>
+    <script src="lib/ember/ember.js"></script>
+    <script src="app.js"></script>
+
+</body>
 </html>

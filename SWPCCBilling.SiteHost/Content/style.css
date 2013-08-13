@@ -1,3 +1,11 @@
-html, body {
-  margin: 20px; }
-
+﻿html,
+body {
+  margin: 20px;
+}
+a {
+  cursor: pointer;
+}
+.navbar .nav > li > a.active {
+  color: #000;
+  font-weight: bold;
+}

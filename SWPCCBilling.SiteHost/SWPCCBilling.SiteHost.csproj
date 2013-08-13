@@ -178,7 +178,7 @@
     <None Include="bower_components\normalize-css\LICENSE.md" />
     <None Include="bower_components\normalize-css\README.md" />
     <None Include="Content\app.coffee" />
-    <None Include="Content\style.scss" />
+    <None Include="Content\style.less" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -189,10 +189,10 @@
       <DependentUpon>app.coffee</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Content\style.css">
-      <DependentUpon>style.scss</DependentUpon>
+      <DependentUpon>style.less</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Content\style.min.css">
-      <DependentUpon>style.scss</DependentUpon>
+      <DependentUpon>style.less</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="bower_components\normalize-css\normalize.css" />
     <EmbeddedResource Include="Content\index.html" />
