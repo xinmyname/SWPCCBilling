@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Community.CsharpSqlite">
+      <HintPath>..\packages\Csharp-Sqlite.3.7.7.1\lib\net40\Community.CsharpSqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Community.CsharpSqlite.SQLiteClient">
+      <HintPath>..\packages\Csharp-Sqlite.3.7.7.1\lib\net40\Community.CsharpSqlite.SQLiteClient.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -53,7 +59,15 @@
   <ItemGroup>
     <Compile Include="CustomBootstrapper.cs" />
     <Compile Include="EmbeddedResourceContentConventionBuilder.cs" />
-    <Compile Include="HelloModule.cs" />
+    <Compile Include="FamilyStore.cs" />
+    <Compile Include="FeeModule.cs" />
+    <Compile Include="FeeStore.cs" />
+    <Compile Include="Models\Child.cs" />
+    <Compile Include="Models\Discount.cs" />
+    <Compile Include="Models\Family.cs" />
+    <Compile Include="Models\Fee.cs" />
+    <Compile Include="Models\Parent.cs" />
+    <Compile Include="StartupModule.cs" />
     <Compile Include="SiteHostMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

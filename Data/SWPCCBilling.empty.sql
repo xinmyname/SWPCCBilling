@@ -65,8 +65,7 @@ CREATE TABLE [FamilyDiscount]
 (
 	[FamilyId] INTEGER NOT NULL,
 	[FeeId] INTEGER NOT NULL,
-	[Type] TEXT NOT NULL,
-	[Amount] NUMERIC NOT NULL,
+	[Percent] NUMERIC NOT NULL,
 	[EffectiveDate] DATE NOT NULL,
 	FOREIGN KEY(FamilyId) REFERENCES Family(Id),
 	FOREIGN KEY(FeeId) REFERENCES Fee(Id)
