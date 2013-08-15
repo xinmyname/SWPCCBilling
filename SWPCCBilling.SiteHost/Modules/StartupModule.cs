@@ -1,6 +1,6 @@
 ﻿using Nancy.Responses;
 
-namespace SWPCCBilling
+namespace SWPCCBilling.Modules
 {
     public class StartupModule : Nancy.NancyModule
     {

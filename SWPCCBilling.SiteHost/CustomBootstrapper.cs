@@ -1,5 +1,11 @@
-﻿using Nancy;
+﻿using System;
+using System.Data;
+using Community.CsharpSqlite.SQLiteClient;
+using Nancy;
 using Nancy.Conventions;
+using Nancy.TinyIoc;
+using SWPCCBilling.Infrastructure;
+using SWPCCBilling.Properties;
 
 namespace SWPCCBilling
 {
@@ -20,6 +26,11 @@ namespace SWPCCBilling
                     "/",
                     GetType().Assembly,
                     "Content"));
+        }
+
+        protected override void ConfigureApplicationContainer(TinyIoCContainer container)
+        {
+            base.ConfigureApplicationContainer(container);
         }
     }
 }

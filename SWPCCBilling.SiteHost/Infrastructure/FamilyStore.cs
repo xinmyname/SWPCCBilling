@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SWPCCBilling.Models;
 
-namespace SWPCCBilling
+namespace SWPCCBilling.Infrastructure
 {
     public class FamilyStore
     {
