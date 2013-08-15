@@ -55,10 +55,12 @@
                                     <th>Amount</th>
                                 </tr>
                             </thead>
+                            {{#each model}}
                             <tr>
-                                <td><a href="#">Name</a></td>
-                                <td>$0.00</td>
+                                <td><a href="#">{{Name}}</a></td>
+                                <td>${{Amount}}</td>
                             </tr>
+                            {{/each}}
                         </table>
                     </div>
                 </div>

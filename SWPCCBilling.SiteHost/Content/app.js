@@ -10,11 +10,17 @@
       return $.getJSON("fees").then(function(response) {
         var fees;
         fees = Em.A();
-        response.data.children.forEach(function(child) {
-          return fees.pushObject(App.Fee.create(child.data));
+        response.forEach(function(child) {
+          return fees.pushObject(App.Fee.create(child));
         });
         return fees;
       });
+    }
+  });
+
+  App.FeesRoute = Ember.Route.extend({
+    model: function() {
+      return App.Fee.loadAll();
     }
   });
 

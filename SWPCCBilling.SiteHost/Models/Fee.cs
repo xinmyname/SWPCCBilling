@@ -5,13 +5,13 @@
         public int Id { get; set; } 
         public string Name { get; set; }
         public string Type { get; set; }
-        public decimal Amount { get; set; }
+        public long? Amount { get; set; }
 
         public Fee()
         {
         }
 
-        public Fee(int id, string name, string type, decimal amount)
+        public Fee(int id, string name, string type, long amount)
         {
             Id = id;
             Name = name;
