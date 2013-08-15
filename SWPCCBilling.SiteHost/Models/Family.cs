@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SWPCCBilling.SiteHost.Models
+namespace SWPCCBilling.Models
 {
     public class Family
     {

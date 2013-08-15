@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using Nancy.Hosting.Self;
 using log4net;
+using SWPCCBilling.Properties;
 
-namespace SWPCCBilling.SiteHost
+namespace SWPCCBilling
 {
     class SiteHostMain
     {
@@ -15,7 +16,7 @@ namespace SWPCCBilling.SiteHost
 
         static void Main(string[] args)
         {
-            var log = LogManager.GetLogger("SWPCCBilling.SiteHost");
+            var log = LogManager.GetLogger("SWPCCBilling");
 
             switch (args.FirstOrDefault())
             {
@@ -33,7 +34,7 @@ namespace SWPCCBilling.SiteHost
 
             try
             {
-                string hostUrl = ConfigurationManager.AppSettings["hostUrl"];
+                string hostUrl = Settings.Default.HostUrl;
 
                 new SiteHostMain(log, new NancyHost(new Uri(hostUrl)), hostUrl)
                     .Run();

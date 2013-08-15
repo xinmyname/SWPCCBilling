@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWPCCBilling.SiteHost", "SWPCCBilling.SiteHost\SWPCCBilling.SiteHost.csproj", "{1AE58D1E-7014-4ADF-AA43-BCCF9DE2414F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWPCCBilling", "SWPCCBilling.SiteHost\SWPCCBilling.csproj", "{1AE58D1E-7014-4ADF-AA43-BCCF9DE2414F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3ED1B2E-872D-4D9E-BF8A-2E781A5981F4}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using Nancy.Conventions;
 
-namespace SWPCCBilling.SiteHost
+namespace SWPCCBilling
 {
     public class CustomBootstrapper : DefaultNancyBootstrapper
     {
@@ -13,13 +13,13 @@ namespace SWPCCBilling.SiteHost
                     EmbeddedStaticContentConventionBuilder.AddDirectory(
                     "/lib",
                     GetType().Assembly,
-                    "SiteHost.bower_components"));
+                    "bower_components"));
 
             conventions.StaticContentsConventions.Add(
                     EmbeddedStaticContentConventionBuilder.AddDirectory(
                     "/",
                     GetType().Assembly,
-                    "SiteHost.Content"));
+                    "Content"));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Nancy;
 
-namespace SWPCCBilling.SiteHost
+namespace SWPCCBilling
 {
     public class FeeModule : NancyModule
     {

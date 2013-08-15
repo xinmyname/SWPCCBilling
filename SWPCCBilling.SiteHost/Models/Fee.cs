@@ -1,4 +1,4 @@
-﻿namespace SWPCCBilling.SiteHost.Models
+﻿namespace SWPCCBilling.Models
 {
     public class Fee
     {

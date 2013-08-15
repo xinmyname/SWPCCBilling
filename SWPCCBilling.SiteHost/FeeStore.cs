@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using SWPCCBilling.SiteHost.Models;
+using SWPCCBilling.Models;
 
-namespace SWPCCBilling.SiteHost
+namespace SWPCCBilling
 {
     public class FeeStore
     {

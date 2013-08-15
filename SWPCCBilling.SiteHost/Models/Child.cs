@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SWPCCBilling.SiteHost.Models
+namespace SWPCCBilling.Models
 {
     public class Child
     {

@@ -8,7 +8,7 @@ using Nancy;
 using Nancy.Helpers;
 using Nancy.Responses;
 
-namespace SWPCCBilling.SiteHost
+namespace SWPCCBilling
 {
     public class EmbeddedStaticContentConventionBuilder
     {
