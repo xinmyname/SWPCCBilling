@@ -39,25 +39,21 @@ CREATE TABLE [Fee]
 	[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	[Name] TEXT NOT NULL,
 	[Type] TEXT NOT NULL,
-	[Amount] NUMERIC NULL
+	[Amount] REAL NULL
 );
 
 DROP TABLE IF EXISTS [FamilyParent];
 CREATE TABLE [FamilyParent] 
 (
 	[FamilyId] INTEGER NOT NULL,
-	[ParentId] INTEGER NOT NULL,
-	FOREIGN KEY(FamilyId) REFERENCES Family(Id),
-	FOREIGN KEY(ParentId) REFERENCES Parent(Id)
+	[ParentId] INTEGER NOT NULL
 );
 
 DROP TABLE IF EXISTS [FamilyChild];
 CREATE TABLE [FamilyChild] 
 (
 	[FamilyId] INTEGER NOT NULL,
-	[ChildId] INTEGER NOT NULL,
-	FOREIGN KEY(FamilyId) REFERENCES Family(Id),
-	FOREIGN KEY(ChildId) REFERENCES Child(Id)
+	[ChildId] INTEGER NOT NULL
 );
 
 DROP TABLE IF EXISTS [FamilyDiscount];
@@ -65,10 +61,8 @@ CREATE TABLE [FamilyDiscount]
 (
 	[FamilyId] INTEGER NOT NULL,
 	[FeeId] INTEGER NOT NULL,
-	[Percent] NUMERIC NOT NULL,
-	[EffectiveDate] DATE NOT NULL,
-	FOREIGN KEY(FamilyId) REFERENCES Family(Id),
-	FOREIGN KEY(FeeId) REFERENCES Fee(Id)
+	[Percent] REAL NOT NULL,
+	[EffectiveDate] DATE NOT NULL
 );
 
 DROP TABLE IF EXISTS [ChildDays];
@@ -80,8 +74,7 @@ CREATE TABLE [ChildDays]
 	[Wed] INTEGER DEFAULT '0' NOT NULL,
 	[Thu] INTEGER DEFAULT '0' NOT NULL,
 	[Fri] INTEGER DEFAULT '0' NOT NULL,
-	[EffectiveDate] DATE NOT NULL,
-	FOREIGN KEY(ChildId) REFERENCES Child(Id)
+	[EffectiveDate] DATE NOT NULL
 );
 
 DROP TABLE IF EXISTS [Payment];
@@ -90,10 +83,9 @@ CREATE TABLE [Payment]
 	[FamilyId] INTEGER NOT NULL,
 	[InvoiceId] INTEGER NULL,
 	[CheckNum] TEXT NULL,
-	[Amount] NUMERIC NOT NULL,
+	[Amount] REAL NOT NULL,
 	[Received] DATE NOT NULL,
-	[Deposited] DATE NULL,
-	FOREIGN KEY(FamilyId) REFERENCES Family(Id)
+	[Deposited] DATE NULL
 );
 
 DROP TABLE IF EXISTS [Ledger];
@@ -104,11 +96,8 @@ CREATE TABLE [Ledger]
 	[Date] DATE NOT NULL,
 	[FeeId] INTEGER NULL,
 	[PaymentId] INTEGER NULL,
-	[Amount] NUMERIC NOT NULL,
-	[Notes] TEXT NULL,
-	FOREIGN KEY(FamilyId) REFERENCES Family(Id),
-	FOREIGN KEY(FeeId) REFERENCES Fee(Id),
-	FOREIGN KEY(PaymentId) REFERENCES Payment(Id)
+	[Amount] REAL NOT NULL,
+	[Notes] TEXT NULL
 );
 
 DROP TABLE IF EXISTS [Invoice];
@@ -117,16 +106,25 @@ CREATE TABLE [Invoice]
 	[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	[FamilyId] INTEGER NOT NULL,
 	[Date] DATE NOT NULL,
-	[PastDue] NUMERIC NOT NULL,
-	[NowDue] NUMERIC NOT NULL,
-	FOREIGN KEY(FamilyId) REFERENCES Family(Id)
+	[PastDue] REAL NOT NULL,
+	[NowDue] REAL NOT NULL
 );
 
 DROP TABLE IF EXISTS [InvoiceLine];
 CREATE TABLE [InvoiceLine]
 (
-	[InvoiceId] NOT NULL,
-	[LedgerId] NOT NULL,
-	FOREIGN KEY(InvoiceId) REFERENCES Invoice(Id),
-	FOREIGN KEY(LedgerId) REFERENCES Ledger(Id)
+	[InvoiceId] INTEGER NOT NULL,
+	[LedgerId] INTEGER NOT NULL
 );
+
+DROP TABLE IF EXISTS [SelectFeeType];
+CREATE TABLE [SelectFeeType]
+(
+	[Type] TEXT NOT NULL,
+	[Description] TEST NOT NULL
+);
+
+INSERT INTO [SelectFeeType] VALUES ('F', 'Fixed');
+INSERT INTO [SelectFeeType] VALUES ('V', 'Varying');
+INSERT INTO [SelectFeeType] VALUES ('P', 'Per-Minute');
+

@@ -66,7 +66,7 @@
     <Compile Include="CustomBootstrapper.cs" />
     <Compile Include="Infrastructure\EmbeddedResourceContentConventionBuilder.cs" />
     <Compile Include="Infrastructure\FamilyStore.cs" />
-    <Compile Include="Modules\FeeModule.cs" />
+    <Compile Include="Modules\FeesModule.cs" />
     <Compile Include="Infrastructure\FeeStore.cs" />
     <Compile Include="Models\Child.cs" />
     <Compile Include="Models\Discount.cs" />
@@ -271,8 +271,8 @@
     <Content Include="bower_components\bootstrap\docs\assets\img\examples\slide-01.jpg" />
     <Content Include="bower_components\bootstrap\docs\assets\img\examples\slide-02.jpg" />
     <Content Include="bower_components\bootstrap\docs\assets\img\examples\slide-03.jpg" />
-    <Content Include="bower_components\bootstrap\docs\assets\img\glyphicons-halflings-white.png" />
-    <Content Include="bower_components\bootstrap\docs\assets\img\glyphicons-halflings.png" />
+    <EmbeddedResource Include="bower_components\bootstrap\docs\assets\img\glyphicons-halflings-white.png" />
+    <EmbeddedResource Include="bower_components\bootstrap\docs\assets\img\glyphicons-halflings.png" />
     <Content Include="bower_components\bootstrap\docs\assets\img\grid-baseline-20px.png" />
     <Content Include="bower_components\bootstrap\docs\assets\img\less-logo-large.png" />
     <Content Include="bower_components\bootstrap\docs\assets\img\responsive-illustrations.png" />
@@ -349,8 +349,8 @@
     <Content Include="bower_components\bootstrap\docs\index.html" />
     <Content Include="bower_components\bootstrap\docs\javascript.html" />
     <Content Include="bower_components\bootstrap\docs\scaffolding.html" />
-    <Content Include="bower_components\bootstrap\img\glyphicons-halflings-white.png" />
-    <Content Include="bower_components\bootstrap\img\glyphicons-halflings.png" />
+    <None Include="bower_components\bootstrap\img\glyphicons-halflings-white.png" />
+    <None Include="bower_components\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="bower_components\bootstrap\js\bootstrap-affix.js" />
     <Content Include="bower_components\bootstrap\js\bootstrap-alert.js" />
     <Content Include="bower_components\bootstrap\js\bootstrap-button.js" />

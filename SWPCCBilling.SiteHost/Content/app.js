@@ -3,7 +3,12 @@
 
   App = Ember.Application.create();
 
-  App.Fee = Ember.Object.extend({});
+  App.Fee = Ember.Object.extend({
+    Id: null,
+    Name: null,
+    Type: null,
+    Amount: null
+  });
 
   App.Fee.reopenClass({
     loadAll: function() {
@@ -15,6 +20,19 @@
         });
         return fees;
       });
+    },
+    save: function(fee) {
+      return $.ajax({
+        type: 'post',
+        url: 'fees/add',
+        data: {
+          Id: fee.Id,
+          Name: fee.Name,
+          Type: fee.Type,
+          Amount: fee.Amount
+        },
+        async: false
+      });
     }
   });
 
@@ -24,9 +42,26 @@
     }
   });
 
+  App.FeesAddRoute = Ember.Route.extend({
+    setupController: function(controller) {
+      return controller.set('fee', App.Fee.create());
+    }
+  });
+
+  App.FeesController = Ember.ObjectController.extend({
+    add: function() {
+      var newFee;
+      newFee = App.Fee.save(this.fee);
+      this.get('controllers.fees').pushObject(newFee);
+      return this.transitionToRoute('fees');
+    }
+  });
+
   App.Router.map(function() {
     this.resource('families');
-    this.resource('fees');
+    this.resource('fees', function() {
+      return this.route('add');
+    });
     this.resource('payments');
     this.resource('discounts');
     this.resource('ledger');
