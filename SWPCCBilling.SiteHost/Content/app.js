@@ -43,24 +43,30 @@
   });
 
   App.FeesAddRoute = Ember.Route.extend({
-    setupController: function(controller) {
-      return controller.set('fee', App.Fee.create());
-    }
+    setupController: function(controller) {}
+  });
+
+  App.FeesEditRoute = Ember.Route.extend({
+    setupController: function(controller) {}
   });
 
   App.FeesController = Ember.ObjectController.extend({
     add: function() {
-      var newFee;
-      newFee = App.Fee.save(this.fee);
-      this.get('controllers.fees').pushObject(newFee);
-      return this.transitionToRoute('fees');
-    }
+      var _this = this;
+      return $.getJSON("fees/add").then(function(newFee) {
+        _this.get('controllers.fees').pushObject(newFee);
+        return _this.transitionToRoute('fees');
+      });
+    },
+    edit: function() {}
   });
 
   App.Router.map(function() {
     this.resource('families');
     this.resource('fees', function() {
-      return this.route('add');
+      return this.route('add', this.route('edit', {
+        path: ":Id"
+      }));
     });
     this.resource('payments');
     this.resource('discounts');

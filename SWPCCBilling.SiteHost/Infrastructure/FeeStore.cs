@@ -22,25 +22,22 @@ namespace SWPCCBilling.Infrastructure
             return fees;
         }
 
-        public void Save(Fee fee)
+        public void Add(Fee fee)
         {
             IDbConnection con = _dbFactory.OpenDatabase();
             IDbCommand cmd = con.CreateCommand();
-            cmd.CommandText = "INSERT OR REPLACE INTO Fee VALUES(?,?,?,?)";
+            cmd.CommandText = "INSERT INTO Fee (Name,Type,Amount) VALUES (?,?,?)";
 
             var p1 = cmd.CreateParameter();
-            p1.Value = fee.Id;
+            p1.Value = fee.Name;
             var p2 = cmd.CreateParameter();
-            p2.Value = fee.Name;
+            p2.Value = fee.Type;
             var p3 = cmd.CreateParameter();
-            p3.Value = fee.Type;
-            var p4 = cmd.CreateParameter();
-            p4.Value = fee.Amount;
+            p3.Value = fee.Amount;
 
             cmd.Parameters.Add(p1);
             cmd.Parameters.Add(p2);
             cmd.Parameters.Add(p3);
-            cmd.Parameters.Add(p4);
 
             fee.Id = cmd.ExecuteNonQuery();
 

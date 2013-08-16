@@ -17,10 +17,10 @@ namespace SWPCCBilling.Modules
         {
             _feeStore = feeStore;
             Get["/fees"] = _ => Response.AsJson(_feeStore.LoadAll());
-            Post["/fees/add"] = _ =>
+            Get["/fees/add"] = _ =>
             {
-                var newFee = new Fee(0, "New Fee", FeeTypeFixed, 0m);
-                _feeStore.Save(newFee);
+                var newFee = new Fee(0, "New Fee", FeeTypeFixed, 0.0);
+                _feeStore.Add(newFee);
                 return Response.AsJson(newFee);
             };
         }

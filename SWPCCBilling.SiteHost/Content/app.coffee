@@ -32,18 +32,22 @@ App.FeesRoute = Ember.Route.extend
 
 App.FeesAddRoute = Ember.Route.extend
     setupController: (controller) ->
-        controller.set('fee', App.Fee.create())
+
+App.FeesEditRoute = Ember.Route.extend
+    setupController: (controller) ->
 
 App.FeesController = Ember.ObjectController.extend
     add : ->
-        newFee = App.Fee.save(this.fee)
-        this.get('controllers.fees').pushObject(newFee)
-        this.transitionToRoute('fees')
+        $.getJSON("fees/add").then (newFee) =>
+            this.get('controllers.fees').pushObject(newFee)
+            this.transitionToRoute('fees')
+    edit : ->
 
 App.Router.map ->
     this.resource 'families'
     this.resource 'fees', ->
-        this.route 'add'
+        this.route 'add',
+        this.route 'edit', { path:":Id" }
     this.resource 'payments'
     this.resource 'discounts'
     this.resource 'ledger'
