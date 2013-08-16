@@ -12,7 +12,7 @@ namespace SWPCCBilling.Modules
 
         public FeesModule(FeeStore feeStore)
         {
-            Get["/fees"] = _ => View["Index"];
+            Get["/fees"] = _ => View["Index", feeStore.LoadAll()];
         }
     }
 }

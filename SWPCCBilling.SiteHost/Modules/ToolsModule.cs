@@ -2,12 +2,13 @@
 using Nancy;
 using SWPCCBilling.Infrastructure;
 using SWPCCBilling.Properties;
+using log4net;
 
 namespace SWPCCBilling.Modules
 {
     public class ToolsModule : NancyModule
     {
-        public ToolsModule()
+        public ToolsModule(ILog log)
         {
             Get["/tools"] = _ => View["Index"]; 
 
@@ -28,7 +29,9 @@ namespace SWPCCBilling.Modules
                 Settings.Default.DatabasePath = dbPath;
                 Settings.Default.Save();
 
-                return Response.AsRedirect(Settings.Default.HostUrl);
+                log.InfoFormat("Started new school year file: {0}", dbPath);
+
+                return Response.AsRedirect("/");
             };
         }
     }
