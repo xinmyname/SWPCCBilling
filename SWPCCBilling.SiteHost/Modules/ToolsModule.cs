@@ -9,6 +9,8 @@ namespace SWPCCBilling.Modules
     {
         public ToolsModule()
         {
+            Get["/tools"] = _ => View["Index"]; 
+
             Post["/tools/new"] = _ =>
             {
                 string dbPath = DocumentPath.For(Request.Form.Name, "s3db");

@@ -13,7 +13,7 @@ namespace SWPCCBilling.Modules
             Get["/"] = _ =>
             {
                 _log.Info("Index!");
-                return View["index.html"];
+                return View["Index"];
             };
         }
     }

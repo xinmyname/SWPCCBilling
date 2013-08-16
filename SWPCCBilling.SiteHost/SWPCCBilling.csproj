@@ -75,6 +75,11 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Infrastructure\EmbeddedResourceContentConventionBuilder.cs" />
     <Compile Include="Infrastructure\FamilyStore.cs" />
+    <Compile Include="Modules\InvoicingModule.cs" />
+    <Compile Include="Modules\ReportsModule.cs" />
+    <Compile Include="Modules\LedgerModule.cs" />
+    <Compile Include="Modules\DiscountsModule.cs" />
+    <Compile Include="Modules\FamiliesModule.cs" />
     <Compile Include="Modules\FeesModule.cs" />
     <Compile Include="Infrastructure\FeeStore.cs" />
     <Compile Include="Models\Child.cs" />
@@ -207,13 +212,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Discounts\Index.html" />
+    <EmbeddedResource Include="Views\Families\Index.html" />
+    <EmbeddedResource Include="Views\Invoicing\Index.html" />
+    <EmbeddedResource Include="Views\Ledger\Index.html" />
+    <EmbeddedResource Include="Views\Reports\Index.html" />
+    <EmbeddedResource Include="Views\Fees\Index.html" />
+    <EmbeddedResource Include="Views\Home\Index.html" />
+    <EmbeddedResource Include="Views\Tools\Index.html" />
     <EmbeddedResource Include="css\app.css">
       <DependentUpon>app.less</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="css\app.min.css">
       <DependentUpon>app.less</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Index.html" />
+    <EmbeddedResource Include="Views\Master.html" />
     <EmbeddedResource Include="bower_components\normalize-css\normalize.css" />
     <Content Include="bower_components\bootstrap\.gitignore" />
     <Content Include="bower_components\bootstrap\docs\assets\css\bootstrap-responsive.css" />
