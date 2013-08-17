@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\SQLiteDateExtensions.cs" />
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
     <Compile Include="Infrastructure\DataReaderExtensions.cs" />
     <Compile Include="Infrastructure\DbCommandExtensions.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\ToolsModule.cs" />
+    <Compile Include="ViewModels\FamilyViewModel.cs" />
     <Compile Include="ViewModels\FeeEditorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +218,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Families\PartFamilyList.html" />
     <EmbeddedResource Include="Views\Fees\Edit.html" />
     <EmbeddedResource Include="Views\Fees\PartFeeList.html" />
     <EmbeddedResource Include="Views\Discounts\Index.html" />

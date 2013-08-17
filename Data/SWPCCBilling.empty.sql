@@ -6,8 +6,8 @@ CREATE TABLE [Family]
 	[City] TEXT  NOT NULL,
 	[State] TEXT  NOT NULL,
 	[ZIP] TEXT  NOT NULL,
-	[Joined] DATE  NOT NULL,
-	[Departed] DATE  NULL,
+	[Joined] TEXT  NOT NULL,
+	[Departed] TEXT  NULL,
 	[DueDay] INTEGER DEFAULT '1' NOT NULL,
 	[Notes] TEXT  NULL
 );
@@ -29,8 +29,8 @@ CREATE TABLE [Child]
 	[FirstName] TEXT NOT NULL,
 	[LastName] TEXT NOT NULL,
 	[Room] TEXT NOT NULL,
-	[Joined] DATE NOT NULL,
-	[Departed] DATE NULL
+	[Joined] TEXT NOT NULL,
+	[Departed] TEXT NULL
 );
 
 DROP TABLE IF EXISTS [Fee];
@@ -56,13 +56,13 @@ CREATE TABLE [FamilyChild]
 	[ChildId] INTEGER NOT NULL
 );
 
-DROP TABLE IF EXISTS [FamilyDiscount];
-CREATE TABLE [FamilyDiscount] 
+DROP TABLE IF EXISTS [Discount];
+CREATE TABLE [Discount] 
 (
 	[FamilyId] INTEGER NOT NULL,
 	[FeeId] INTEGER NOT NULL,
 	[Percent] REAL NOT NULL,
-	[EffectiveDate] DATE NOT NULL
+	[Effective] TEXT NOT NULL
 );
 
 DROP TABLE IF EXISTS [ChildDays];
@@ -74,7 +74,7 @@ CREATE TABLE [ChildDays]
 	[Wed] INTEGER DEFAULT '0' NOT NULL,
 	[Thu] INTEGER DEFAULT '0' NOT NULL,
 	[Fri] INTEGER DEFAULT '0' NOT NULL,
-	[EffectiveDate] DATE NOT NULL
+	[Effective] TEXT NOT NULL
 );
 
 DROP TABLE IF EXISTS [Payment];
@@ -84,8 +84,8 @@ CREATE TABLE [Payment]
 	[InvoiceId] INTEGER NULL,
 	[CheckNum] TEXT NULL,
 	[Amount] REAL NOT NULL,
-	[Received] DATE NOT NULL,
-	[Deposited] DATE NULL
+	[Received] TEXT NOT NULL,
+	[Deposited] TEXT NULL
 );
 
 DROP TABLE IF EXISTS [Ledger];
@@ -93,7 +93,7 @@ CREATE TABLE [Ledger]
 (
 	[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	[FamilyId] INTEGER NOT NULL,
-	[Date] DATE NOT NULL,
+	[Date] TEXT NOT NULL,
 	[FeeId] INTEGER NULL,
 	[PaymentId] INTEGER NULL,
 	[Amount] REAL NOT NULL,
@@ -105,7 +105,7 @@ CREATE TABLE [Invoice]
 (
 	[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	[FamilyId] INTEGER NOT NULL,
-	[Date] DATE NOT NULL,
+	[Date] TEXT NOT NULL,
 	[PastDue] REAL NOT NULL,
 	[NowDue] REAL NOT NULL
 );
@@ -128,3 +128,14 @@ INSERT INTO [SelectFeeType] VALUES ('F', 'Fixed');
 INSERT INTO [SelectFeeType] VALUES ('V', 'Varying');
 INSERT INTO [SelectFeeType] VALUES ('P', 'Per-Minute');
 
+DROP TABLE IF EXISTS [SelectRoom];
+CREATE TABLE [SelectRoom]
+(
+	[Room] TEXT NOT NULL,
+	[Description] TEST NOT NULL
+);
+
+INSERT INTO [SelectRoom] VALUES ('YT', 'Young Toddler');
+INSERT INTO [SelectRoom] VALUES ('TR', 'Toddler');
+INSERT INTO [SelectRoom] VALUES ('PS1', 'Preschool 1');
+INSERT INTO [SelectRoom] VALUES ('PS2', 'Preschool 2');

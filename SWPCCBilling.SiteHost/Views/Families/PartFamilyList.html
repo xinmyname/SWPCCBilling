@@ -1,0 +1,17 @@
+﻿<form class="span3" action="/families/add" method="GET" >
+    <button class="btn btn-primary" type="submit"><i class=" icon-plus-sign icon-white"></i> Add Family</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Children</th>
+            </tr>
+        </thead>
+        @Each
+        <tr>
+            <td><a href="/families/@Current.Id">@Current.FamilyName</a></td>
+            <td>$@Current.NumChildren</td>
+        </tr>
+        @EndEach
+    </table>
+</form>

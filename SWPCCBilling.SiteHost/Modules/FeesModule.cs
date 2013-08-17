@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Nancy;
 using Nancy.ModelBinding;
 using SWPCCBilling.Infrastructure;
