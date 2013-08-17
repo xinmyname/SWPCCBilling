@@ -11,9 +11,8 @@
         {
         }
 
-        public Fee(int id, string name, string type, double amount)
+        public Fee(string name, string type, double amount)
         {
-            Id = id;
             Name = name;
             Type = type;
             Amount = amount;

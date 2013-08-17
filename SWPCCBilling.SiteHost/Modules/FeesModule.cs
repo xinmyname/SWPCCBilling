@@ -13,6 +13,11 @@ namespace SWPCCBilling.Modules
         public FeesModule(FeeStore feeStore)
         {
             Get["/fees"] = _ => View["Index", feeStore.LoadAll()];
+            Get["/fees/add"] = _ =>
+            {
+                feeStore.Add(new Fee("New Fee", FeeTypeFixed, 0.0));
+                return Response.AsRedirect("/fees");
+            };
         }
     }
 }

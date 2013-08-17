@@ -71,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\DataReaderExtensions.cs" />
+    <Compile Include="Infrastructure\DbCommandExtensions.cs" />
+    <Compile Include="Infrastructure\DbConnectionExtensions.cs" />
     <Compile Include="Infrastructure\DocumentPath.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Infrastructure\EmbeddedResourceContentConventionBuilder.cs" />

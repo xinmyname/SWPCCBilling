@@ -25,19 +25,9 @@ namespace SWPCCBilling.Infrastructure
         public void Add(Fee fee)
         {
             IDbConnection con = _dbFactory.OpenDatabase();
-            IDbCommand cmd = con.CreateCommand();
-            cmd.CommandText = "INSERT INTO Fee (Name,Type,Amount) VALUES (?,?,?)";
 
-            var p1 = cmd.CreateParameter();
-            p1.Value = fee.Name;
-            var p2 = cmd.CreateParameter();
-            p2.Value = fee.Type;
-            var p3 = cmd.CreateParameter();
-            p3.Value = fee.Amount;
-
-            cmd.Parameters.Add(p1);
-            cmd.Parameters.Add(p2);
-            cmd.Parameters.Add(p3);
+            IDbCommand cmd = con.CreateCommand("INSERT INTO Fee (Name,Type,Amount) VALUES (?,?,?)")
+                .AddParameters(new {fee.Name, fee.Type, fee.Amount});
 
             fee.Id = cmd.ExecuteNonQuery();
 
