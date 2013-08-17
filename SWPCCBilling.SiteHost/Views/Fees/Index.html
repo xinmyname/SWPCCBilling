@@ -6,24 +6,8 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <form class="span3" action="/fees/add" method="GET" >
-            <button class="btn btn-primary" type="submit"><i class=" icon-plus-sign icon-white"></i> Add Fee</button>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Fee</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                @Each
-                <tr>
-                    <td><a href="/fees/@Current.Id">@Current.Name</a></td>
-                    <td>$@Current.Amount</td>
-                </tr>
-                @EndEach
-            </table>
-        </form>
+        @Partial['PartFeeList']
     </div>
 </div>
 
-@EndSections
+@EndSection

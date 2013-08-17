@@ -1,0 +1,41 @@
+﻿@Master['Master.html']
+
+@Section['Content']
+
+<h1>Fees</h1>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        @Partial['PartFeeList', Model.AllFees]
+        <form class="span9" action="/fees/@Model.Fee.Id" method="POST" >
+            <fieldset>
+                <label>Name</label>
+                <input class="span4" type="text" name="Name" value="@Model.Fee.Name" />
+                <label>Type</label>
+                <select id="feeType" class="span4" name="Type">
+                    <option value="F">Fixed</option>
+                    <option value="V">Varying</option>
+                    <option value="C">Per Child</option>
+                    <option value="D">Per Day</option>
+                    <option value="M">Per Minute</option>
+                </select>
+                <label>Amount</label>
+                <div class="input-prepend">
+                    <span class="add-on">$</span>
+                    <input class="span12" id="prependedInput" type="text" name="Amount" placeholder="0.00" value="@Model.Fee.AmountText">
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit"><i class="icon-ok-sign icon-white"></i> Save</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+@EndSection
+
+@Section['Scripts']
+<script type="text/javascript">
+    $("#feeType").val('@Model.Fee.Type');
+</script>
+@EndSection

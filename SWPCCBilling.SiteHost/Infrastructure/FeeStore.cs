@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using SWPCCBilling.Models;
 
@@ -22,12 +23,29 @@ namespace SWPCCBilling.Infrastructure
             return fees;
         }
 
-        public void Add(Fee fee)
+        public Fee Add(Fee fee)
         {
             IDbConnection con = _dbFactory.OpenDatabase();
 
             IDbCommand cmd = con.CreateCommand("INSERT INTO Fee (Name,Type,Amount) VALUES (?,?,?)")
                 .AddParameters(new {fee.Name, fee.Type, fee.Amount});
+
+            cmd.ExecuteNonQuery();
+
+            cmd = con.CreateCommand("SELECT MAX(Id) FROM Fee");
+            fee.Id = (long)cmd.ExecuteScalar();
+
+            con.Close();
+
+            return fee;
+        }
+
+        public void Save(Fee fee)
+        {
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            IDbCommand cmd = con.CreateCommand("UPDATE Fee SET Name=?, Type=?, Amount=? WHERE Id=?")
+                .AddParameters(new { fee.Name, fee.Type, fee.Amount, fee.Id });
 
             fee.Id = cmd.ExecuteNonQuery();
 
