@@ -10,12 +10,12 @@ namespace SWPCCBilling.Infrastructure
             if (date == null)
                 return null;
 
-            return DateTime.ParseExact(date, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(date, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
         }
 
         public static string ToSQLiteDateTime(this DateTime date)
         {
-            return date.ToString("yyyy-MM-dd hh:mm:ss");
+            return date.ToString("yyyy-MM-dd HH:mm:ss");
         }
     }
 }

@@ -6,6 +6,7 @@ namespace SWPCCBilling.Models
     public class Child
     {
         public long Id { get; set; }
+        public long FamilyId { get; set; }
         public string FirstName { get; set; } 
         public string LastName { get; set; }
         public string Room { get; set; }

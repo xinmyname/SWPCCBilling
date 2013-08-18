@@ -22,7 +22,8 @@ namespace SWPCCBilling.Modules
 
                 familyStore.Add(family);
 
-                return Response.AsRedirect("/families/" + family.Id);
+                return Response.AsRedirect("/families");
+                //return Response.AsRedirect("/families/" + family.Id);
             };
         }
     }

@@ -23,15 +23,6 @@ namespace SWPCCBilling.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8733/Design_Time_Addresses/SWPCCBilling/")]
-        public string HostUrl {
-            get {
-                return ((string)(this["HostUrl"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Users\\\\xinmy_000\\\\Documents\\\\SWPCCBilling\\\\FY2014.s3db")]
@@ -41,6 +32,15 @@ namespace SWPCCBilling.Properties {
             }
             set {
                 this["DatabasePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8081/")]
+        public string HostUrl {
+            get {
+                return ((string)(this["HostUrl"]));
             }
         }
     }

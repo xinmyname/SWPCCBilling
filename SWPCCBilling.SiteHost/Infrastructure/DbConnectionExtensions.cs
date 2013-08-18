@@ -1,4 +1,11 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Web.UI.WebControls;
 
 namespace SWPCCBilling.Infrastructure
 {
@@ -46,6 +53,52 @@ namespace SWPCCBilling.Infrastructure
             cmd.AddParameters(paramObj);
 
             return cmd;
+        }
+
+        public static IEnumerable<T> Query<T>(this IDbConnection con, string text, object paramObj = null)
+        {
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof (T));
+
+            IDbCommand cmd = CreateCommand(con, text, paramObj);
+            var dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                var result = (T)Activator.CreateInstance(typeof(T));
+
+                for (int i = 0; i < dr.FieldCount; i++)
+                {
+                    PropertyDescriptor property = properties
+                        .Cast<PropertyDescriptor>()
+                        .SingleOrDefault(p => p.Name == dr.GetName(i));
+
+                    if (property == null)
+                        continue;
+
+                    object sourceValue = dr.GetValue(i);
+                    object targetValue = null;
+
+                    if (sourceValue != null)
+                    {
+                        Type conversionType = property.PropertyType;
+
+                        if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                        {
+                            var converter = new NullableConverter(property.PropertyType);
+                            conversionType = converter.UnderlyingType;
+                        }
+
+                        targetValue = Convert.ChangeType(sourceValue, conversionType);
+                    }
+
+                    if (targetValue != null)
+                        property.SetValue(result, targetValue);
+                }
+
+                yield return result;
+            }
+
+            dr.Close();
         }
     }
 

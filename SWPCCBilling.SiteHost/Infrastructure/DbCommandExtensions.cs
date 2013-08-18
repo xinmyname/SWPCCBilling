@@ -20,8 +20,9 @@ namespace SWPCCBilling.Infrastructure
 
         public static IDbCommand AddParameters(this IDbCommand command, object paramObj)
         {
-            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(paramObj))
-                AddParameter(command, descriptor.Name, descriptor.GetValue(paramObj));
+            if (paramObj != null)
+                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(paramObj))
+                    AddParameter(command, descriptor.Name, descriptor.GetValue(paramObj));
 
             return command;
         }
