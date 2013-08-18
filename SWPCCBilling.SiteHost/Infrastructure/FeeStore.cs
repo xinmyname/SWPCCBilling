@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using SWPCCBilling.Models;
 
 namespace SWPCCBilling.Infrastructure
@@ -16,7 +17,7 @@ namespace SWPCCBilling.Infrastructure
         public IEnumerable<Fee> LoadAll()
         {
             IDbConnection con = _dbFactory.OpenDatabase();
-            var fees = con.Query<Fee>("SELECT * FROM Fee");
+            var fees = con.Query<Fee>("SELECT * FROM Fee").ToList();
             con.Close();
             return fees;
         }

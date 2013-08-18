@@ -1,0 +1,78 @@
+﻿@Master['Master.html']
+
+@Section['Content']
+
+<h1>Family</h1>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        @Partial['PartFamilyList', Model.AllFamilies]
+        <div class="span9">
+            <h2>@Model.Family.FamilyName</h2>
+            <fieldset>
+                <label>Street Address</label>
+                <input class="span6" type="text" name="StreetAddress" value="@Model.Family.StreetAddress" />
+                <label>City</label>
+                <input class="span6" type="text" name="City" value="@Model.Family.City" />
+                <label>State</label>
+                <input class="span2" type="text" name="State" value="@Model.Family.State" />
+                <label>ZIP</label>
+                <input class="span2" type="text" name="ZIP" value="@Model.Family.ZIP" />
+                <label>Joined</label>
+                <input class="span6" type="text" name="Joined" value="@Model.Family.JoinedDate" />
+                <label>Departed</label>
+                <input class="span6" type="text" name="Departed" value="@Model.Family.DepartedDate" />
+                <label>Due Day</label>
+                <input class="span2" type="text" name="DueDay" value="@Model.Family.DueDay" />
+                <label>Notes</label>
+                <textarea rows="4" name="Notes">@!Model.Family.Notes</textarea>
+            </fieldset>
+
+            <h3>Parents</h3>
+            <table class="table table-condensed">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                </tr>
+                @Each.Family.Parents
+                <tr>
+                    <td>@Current.FirstName</td>
+                    <td>@Current.LastName</td>
+                    <td>@Current.Email</td>
+                </tr>
+                @EndEach
+            </table>
+
+            <h3>Children</h3>
+            <table class="table table-condensed">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Room</th>
+                    <th>Joined</th>
+                    <th>Departed</th>
+                    <th>Days</th>
+                </tr>
+                @Each.Family.Children
+                <tr>
+                    <td>@Current.FirstName</td>
+                    <td>@Current.LastName</td>
+                    <td>@Current.Room</td>
+                    <td>@Current.Joined</td>
+                    <td>@Current.Departed</td>
+                    <td>
+                        @If.Current.Mon
+                            Mon
+                        @EndIf
+                    </td>
+                </tr>
+                @EndEach
+            </table>
+            
+
+        </div>
+    </div>
+</div>
+
+@EndSection

@@ -7,6 +7,5 @@ namespace SWPCCBilling.ViewModels
     {
         public IList<Fee> AllFees { get; set; }
         public Fee Fee { get; set; }
-        public string AmountText { get; set; }
     }
 }
