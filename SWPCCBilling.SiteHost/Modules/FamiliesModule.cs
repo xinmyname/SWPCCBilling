@@ -42,6 +42,20 @@ namespace SWPCCBilling.Modules
 
                 return View["Edit", familyEditor];
             };
+
+            Get["/families/{familyId}/parent/add"] = _ =>
+            {
+                long familyId = _.familyId;
+                familyStore.AddParent(new Parent(familyId, "New", "New"));
+                return Response.AsRedirect(String.Format("/families/{0}#parents", familyId));
+            };
+
+            Get["/families/{familyId}/child/add"] = _ =>
+            {
+                long familyId = _.familyId;
+                familyStore.AddChild(new Child(familyId, "New", "New", Child.ChildRoomPreschool1, DateTime.Today, DateTime.Now));
+                return Response.AsRedirect(String.Format("/families/{0}#children", familyId));
+            };
         }
     }
 }

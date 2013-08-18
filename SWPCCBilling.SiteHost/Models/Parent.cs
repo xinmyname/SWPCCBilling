@@ -17,5 +17,12 @@
             FirstName = firstName;
             LastName = lastName;
         }
+
+        public Parent(long familyId, string firstName, string lastName)
+        {
+            FamilyId = familyId;
+            FirstName = firstName;
+            LastName = lastName;
+        }
     }
 }

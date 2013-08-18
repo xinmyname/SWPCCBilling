@@ -55,6 +55,24 @@ namespace SWPCCBilling.Infrastructure
             return cmd;
         }
 
+        public static int Execute(this IDbConnection con, string text, object paramObj = null)
+        {
+            IDbCommand cmd = CreateCommand(con, text, paramObj);
+            return cmd.ExecuteNonQuery();
+        }
+
+        public static object ExecuteScalar(this IDbConnection con, string text, object paramObj = null)
+        {
+            IDbCommand cmd = CreateCommand(con, text, paramObj);
+            return cmd.ExecuteScalar();
+        }
+
+        public static T ExecuteScalar<T>(this IDbConnection con, string text, object paramObj = null)
+        {
+            IDbCommand cmd = CreateCommand(con, text, paramObj);
+            return (T)cmd.ExecuteScalar();
+        }
+
         public static IEnumerable<T> Query<T>(this IDbConnection con, string text, object paramObj = null)
         {
             PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof (T));

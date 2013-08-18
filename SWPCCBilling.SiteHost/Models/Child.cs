@@ -54,5 +54,15 @@ namespace SWPCCBilling.Models
             JoinedDate = joined;
             EffectiveDate = effectiveDate;
         }
+
+        public Child(long familyId, string firstName, string lastName, string room, DateTime joined, DateTime effectiveDate)
+        {
+            FamilyId = familyId;
+            FirstName = firstName;
+            LastName = lastName;
+            Room = room;
+            JoinedDate = joined;
+            EffectiveDate = effectiveDate;
+        }
     }
 }

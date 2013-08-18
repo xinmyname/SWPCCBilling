@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using SWPCCBilling.Models;
@@ -31,59 +32,85 @@ namespace SWPCCBilling.Infrastructure
             return families;
         }
 
-        public Family Add(Family family)
+        public Family Load(long familyId)
         {
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            IDbCommand cmd = con.CreateCommand("INSERT INTO Family (StreetAddress,City,State,ZIP,Joined,DueDay) VALUES (?,?,?,?,?,?)")
-                .AddParameters(new { family.StreetAddress, family.City, family.State, family.ZIP, family.Joined, family.DueDay });
+            var family = con.Query<Family>("SELECT * FROM Family WHERE Id=?", new {familyId}).Single();
 
-            cmd.ExecuteNonQuery();
-
-            cmd = con.CreateCommand("SELECT MAX(Id) FROM Family");
-
-            family.Id = (long)cmd.ExecuteScalar();
-
-            foreach (Parent parent in family.Parents)
-                AddParent(con, family.Id, parent);
-
-            foreach (Child child in family.Children)
-                AddChild(con, family.Id, child);
+            LoadParents(con, family);
+            LoadChildren(con, family);
 
             con.Close();
 
             return family;
         }
 
-        private void AddParent(IDbConnection con, long familyId, Parent parent)
+        public Family Add(Family family)
         {
-            IDbCommand cmd = con.CreateCommand("INSERT INTO Parent (FamilyId,FirstName,LastName,Email) VALUES (?,?,?,?)")
-                .AddParameters(new {familyId, parent.FirstName, parent.LastName, parent.Email});
+            IDbConnection con = _dbFactory.OpenDatabase();
 
-            cmd.ExecuteNonQuery();
+            con.Execute("INSERT INTO Family (StreetAddress,City,State,ZIP,Joined,DueDay) VALUES (?,?,?,?,?,?)",
+                new { family.StreetAddress, family.City, family.State, family.ZIP, family.Joined, family.DueDay });
 
-            cmd = con.CreateCommand("SELECT MAX(Id) FROM Parent");
+            family.Id = con.ExecuteScalar<long>("SELECT MAX(Id) FROM Family");
 
-            parent.Id = (long) cmd.ExecuteScalar();
+            foreach (Parent parent in family.Parents)
+            {
+                parent.FamilyId = family.Id;
+                AddParent(con, parent);
+            }
+
+            foreach (Child child in family.Children)
+            {
+                child.FamilyId = family.Id;
+                AddChild(con, child);
+            }
+
+            con.Close();
+
+            return family;
         }
 
-        private void AddChild(IDbConnection con, long familyId, Child child)
+        public Parent AddParent(Parent parent)
         {
-            IDbCommand cmd = con.CreateCommand("INSERT INTO Child(FamilyId,FirstName,LastName,Room,Joined) VALUES (?,?,?,?,?)")
-                .AddParameters(new {familyId, child.FirstName, child.LastName, child.Room, child.Joined});
+            IDbConnection con = _dbFactory.OpenDatabase();
 
-            cmd.ExecuteNonQuery();
+            AddParent(con, parent);
 
-            cmd = con.CreateCommand("SELECT MAX(Id) FROM Child");
+            con.Close();
 
-            child.Id = (long) cmd.ExecuteScalar();
+            return parent;
+        }
 
-            cmd = con.CreateCommand(
-                "INSERT INTO ChildDays (ChildId,Mon,Tue,Wed,Thu,Fri,Effective) VALUES (?,?,?,?,?,?,?)")
-                .AddParameters(
+        public Child AddChild(Child child)
+        {
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            AddChild(con, child);
+
+            con.Close();
+
+            return child;
+        }
+
+        private void AddParent(IDbConnection con, Parent parent)
+        {
+            con.Execute("INSERT INTO Parent (FamilyId,FirstName,LastName,Email) VALUES (?,?,?,?)",
+                new {parent.FamilyId, parent.FirstName, parent.LastName, parent.Email});
+
+            parent.Id = con.ExecuteScalar<long>("SELECT MAX(Id) FROM Parent");
+        }
+
+        private void AddChild(IDbConnection con, Child child)
+        {
+            con.Execute("INSERT INTO Child(FamilyId,FirstName,LastName,Room,Joined) VALUES (?,?,?,?,?)",
+                new {child.FamilyId, child.FirstName, child.LastName, child.Room, child.Joined});
+
+            child.Id = con.ExecuteScalar<long>("SELECT MAX(Id) FROM Child");
+
+            con.Execute("INSERT INTO ChildDays (ChildId,Mon,Tue,Wed,Thu,Fri,Effective) VALUES (?,?,?,?,?,?,?)",
                     new {child.Id, child.Mon, child.Tue, child.Wed, child.Thu, child.Fri, child.Effective});
-
-            cmd.ExecuteNonQuery();
         }
 
         private void LoadParents(IDbConnection con, Family family)
@@ -98,9 +125,9 @@ namespace SWPCCBilling.Infrastructure
         private void LoadChildren(IDbConnection con, Family family)
         {
             var children = con.Query<Child>("SELECT * FROM Child WHERE FamilyId=? ORDER BY Id",
-                new { family.Id });
+               new { family.Id });
 
-            const string weekQuery =
+            const string query =
                 "SELECT   Mon,Tue,Wed,Thu,Fri,MAX(Effective) AS Effective " +
                 "FROM     ChildDays " +
                 "WHERE    ChildId=? " +
@@ -108,7 +135,7 @@ namespace SWPCCBilling.Infrastructure
 
             foreach (Child child in children.ToList())
             {
-                var week = con.Query<Week>(weekQuery, new {child.Id}).Single();
+                var week = con.Query<Week>(query, new {child.Id}).Single();
 
                 child.Mon = week.Mon > 0;
                 child.Tue = week.Tue > 0;
@@ -119,6 +146,48 @@ namespace SWPCCBilling.Infrastructure
 
                 family.Children.Add(child);
             }
+        }
+
+        public void Save(Family family)
+        {
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            const string query =
+                "UPDATE Family " +
+                "SET StreetAddress=?, " +
+                "SET City=?, " +
+                "SET State=?, " +
+                "SET ZIP=?, " +
+                "SET Joined=?, " +
+                "SET Departed=?, " +
+                "SET DueDay=?, " +
+                "SET Notes=? " +
+                "WHERE Id=? ";
+
+            con.Execute(query, new
+            {
+                family.StreetAddress, family.City, family.State, family.ZIP,
+                family.Joined, family.Departed, family.DueDay, family.Notes,
+                family.Id
+            });
+
+            foreach (Parent parent in family.Parents)
+                SaveParent(con, parent);
+
+            foreach (Child child in family.Children)
+                SaveChild(con, child);
+
+            con.Close();
+        }
+
+        private void SaveParent(IDbConnection con, Parent parent)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SaveChild(IDbConnection con, Child child)
+        {
+            throw new NotImplementedException();
         }
     }
 }

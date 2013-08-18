@@ -27,50 +27,42 @@
                 <label>Notes</label>
                 <textarea rows="4" name="Notes">@!Model.Family.Notes</textarea>
             </fieldset>
-
-            <h3>Parents</h3>
-            <table class="table table-condensed">
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                </tr>
-                @Each.Family.Parents
-                <tr>
-                    <td>@Current.FirstName</td>
-                    <td>@Current.LastName</td>
-                    <td>@Current.Email</td>
-                </tr>
-                @EndEach
-            </table>
-
-            <h3>Children</h3>
-            <table class="table table-condensed">
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Room</th>
-                    <th>Joined</th>
-                    <th>Departed</th>
-                    <th>Days</th>
-                </tr>
-                @Each.Family.Children
-                <tr>
-                    <td>@Current.FirstName</td>
-                    <td>@Current.LastName</td>
-                    <td>@Current.Room</td>
-                    <td>@Current.Joined</td>
-                    <td>@Current.Departed</td>
-                    <td>
-                        @If.Current.Mon
-                            Mon
-                        @EndIf
-                    </td>
-                </tr>
-                @EndEach
-            </table>
             
+            <div class="span4">
+                <h3>Parents
+                    <a id="parents" class="btn btn-small" href="/families/@Model.Family.Id/parent/add"><i class=" icon-plus-sign"></i> Add Parent</a>
+                </h3>
+                <table class="table table-condensed">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                    @Each.Family.Parents
+                    <tr>
+                        <td><a href="/families/@Model.Family.Id/parent/@Current.Id">@Current.FirstName</a></td>
+                        <td>@Current.LastName</td>
+                    </tr>
+                    @EndEach
+                </table>
+            </div>
+            <div class="span5">
+                <h3>Children
+                    <a id="children" class="btn btn-small" href="/families/@Model.Family.Id/child/add"><i class=" icon-plus-sign"></i> Add Child</a>
+                </h3>
 
+                <table class="table table-condensed">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                    @Each.Family.Children
+                    <tr>
+                        <td><a href="/families/@Model.Family.Id/child/@Current.Id">@Current.FirstName</a></td>
+                        <td>@Current.LastName</td>
+                    </tr>
+                    @EndEach
+                </table>
+            </div>
         </div>
     </div>
 </div>
