@@ -155,13 +155,13 @@ namespace SWPCCBilling.Infrastructure
             const string query =
                 "UPDATE Family " +
                 "SET StreetAddress=?, " +
-                "SET City=?, " +
-                "SET State=?, " +
-                "SET ZIP=?, " +
-                "SET Joined=?, " +
-                "SET Departed=?, " +
-                "SET DueDay=?, " +
-                "SET Notes=? " +
+                "    City=?, " +
+                "    State=?, " +
+                "    ZIP=?, " +
+                "    Joined=?, " +
+                "    Departed=?, " +
+                "    DueDay=?, " +
+                "    Notes=? " +
                 "WHERE Id=? ";
 
             con.Execute(query, new
@@ -170,22 +170,27 @@ namespace SWPCCBilling.Infrastructure
                 family.Joined, family.Departed, family.DueDay, family.Notes,
                 family.Id
             });
+            
+            con.Close();
+        }
 
-            foreach (Parent parent in family.Parents)
-                SaveParent(con, parent);
+        public void SaveParent(Parent parent)
+        {
+            IDbConnection con = _dbFactory.OpenDatabase();
 
-            foreach (Child child in family.Children)
-                SaveChild(con, child);
+            const string query =
+                "UPDATE Parent " +
+                "SET FirstName=? " +
+                "SET LastName=? " +
+                "SET Email=? " +
+                "WHERE Id=? ";
+
+            con.Execute(query, new {parent.FirstName, parent.LastName, parent.Email, parent.Id});
 
             con.Close();
         }
 
-        private void SaveParent(IDbConnection con, Parent parent)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void SaveChild(IDbConnection con, Child child)
+        private void SaveChild(Child child)
         {
             throw new NotImplementedException();
         }

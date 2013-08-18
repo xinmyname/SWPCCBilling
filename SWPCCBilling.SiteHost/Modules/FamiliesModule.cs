@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Nancy;
+using Nancy.ModelBinding;
 using SWPCCBilling.Infrastructure;
 using SWPCCBilling.Models;
 using SWPCCBilling.ViewModels;
@@ -18,7 +19,7 @@ namespace SWPCCBilling.Modules
                 DateTime now = DateTime.Now;
                 DateTime today = DateTime.Today;
 
-                var family = new Family("", "", "", "", today, 1);
+                var family = new Family("", "Portland", "OR", "", today, 1);
                 var newParent = new Parent("New", "New");
                 var newChild = new Child("New", "New", Child.ChildRoomPreschool1, today, now);
                 newChild.Mon = newChild.Wed = true;
@@ -41,6 +42,13 @@ namespace SWPCCBilling.Modules
                 };
 
                 return View["Edit", familyEditor];
+            };
+
+            Post["/families/{id}"] = _ =>
+            {
+                Family family = this.Bind();
+                familyStore.Save(family);
+                return Response.AsRedirect("/families");
             };
 
             Get["/families/{familyId}/parent/add"] = _ =>

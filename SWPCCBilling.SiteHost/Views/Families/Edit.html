@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row-fluid">
         @Partial['PartFamilyList', Model.AllFamilies]
-        <div class="span9">
+        <form class="span9" action="/families/@Model.Family.Id" method="POST">
             <h2>@Model.Family.FamilyName</h2>
             <fieldset>
                 <label>Street Address</label>
@@ -19,13 +19,16 @@
                 <label>ZIP</label>
                 <input class="span2" type="text" name="ZIP" value="@Model.Family.ZIP" />
                 <label>Joined</label>
-                <input class="span6" type="text" name="Joined" value="@Model.Family.JoinedDate" />
+                <input class="span6" type="text" name="Joined" value="@Model.Family.Joined" />
                 <label>Departed</label>
-                <input class="span6" type="text" name="Departed" value="@Model.Family.DepartedDate" />
+                <input class="span6" type="text" name="Departed" value="@Model.Family.Departed" />
                 <label>Due Day</label>
                 <input class="span2" type="text" name="DueDay" value="@Model.Family.DueDay" />
                 <label>Notes</label>
                 <textarea rows="4" name="Notes">@!Model.Family.Notes</textarea>
+                <div>
+                    <button class="btn btn-primary" type="submit"><i class="icon-ok-sign icon-white"></i> Save</button>
+                </div>
             </fieldset>
             
             <div class="span4">
@@ -63,7 +66,7 @@
                     @EndEach
                 </table>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
