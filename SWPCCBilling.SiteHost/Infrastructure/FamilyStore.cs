@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using SWPCCBilling.Models;
@@ -19,7 +18,7 @@ namespace SWPCCBilling.Infrastructure
         {
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            var families = con.Query<Family>("SELECT * FROM Family").ToList();
+            var families = con.Query<Family>("SELECT * FROM Family").OrderBy(x => x.FamilyName).ToList();
 
             foreach (Family family in families)
             {

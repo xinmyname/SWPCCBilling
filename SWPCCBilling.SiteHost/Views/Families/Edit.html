@@ -9,63 +9,74 @@
         @Partial['PartFamilyList', Model.AllFamilies]
         <form class="span9" action="/families/@Model.Family.Id" method="POST">
             <h2>@Model.Family.FamilyName</h2>
-            <fieldset>
-                <label>Street Address</label>
-                <input class="span6" type="text" name="StreetAddress" value="@Model.Family.StreetAddress" />
-                <label>City</label>
-                <input class="span6" type="text" name="City" value="@Model.Family.City" />
-                <label>State</label>
-                <input class="span2" type="text" name="State" value="@Model.Family.State" />
-                <label>ZIP</label>
-                <input class="span2" type="text" name="ZIP" value="@Model.Family.ZIP" />
-                <label>Joined</label>
-                <input class="span6" type="text" name="Joined" value="@Model.Family.Joined" />
-                <label>Departed</label>
-                <input class="span6" type="text" name="Departed" value="@Model.Family.Departed" />
-                <label>Due Day</label>
-                <input class="span2" type="text" name="DueDay" value="@Model.Family.DueDay" />
-                <label>Notes</label>
-                <textarea rows="4" name="Notes">@!Model.Family.Notes</textarea>
-                <div>
-                    <button class="btn btn-primary" type="submit"><i class="icon-ok-sign icon-white"></i> Save</button>
-                </div>
-            </fieldset>
-            
-            <div class="span4">
-                <h3>Parents
-                    <a id="parents" class="btn btn-small" href="/families/@Model.Family.Id/parent/add"><i class=" icon-plus-sign"></i> Add Parent</a>
-                </h3>
-                <table class="table table-condensed">
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                    </tr>
-                    @Each.Family.Parents
-                    <tr>
-                        <td><a href="/families/@Model.Family.Id/parent/@Current.Id">@Current.FullName</a></td>
-                        <td>@Current.Email</td>
-                    </tr>
-                    @EndEach
-                </table>
-            </div>
-            <div class="span5">
-                <h3>Children
-                    <a id="children" class="btn btn-small" href="/families/@Model.Family.Id/child/add"><i class=" icon-plus-sign"></i> Add Child</a>
-                </h3>
 
-                <table class="table table-condensed">
-                    <tr>
-                        <th>Name</th>
-                        <th>Days</th>
-                    </tr>
-                    @Each.Family.Children
-                    <tr>
-                        <td><a href="/families/@Model.Family.Id/child/@Current.Id">@Current.FullName</a></td>
-                        <td>@Current.Days</td>
-                    </tr>
-                    @EndEach
-                </table>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <h3>Parents
+                            <a id="parents" class="btn btn-small" href="/families/@Model.Family.Id/parent/add"><i class=" icon-plus-sign"></i> Add Parent</a>
+                        </h3>
+                        <table class="table table-condensed">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                            </tr>
+                            @Each.Family.Parents
+                            <tr>
+                                <td><a href="/families/@Model.Family.Id/parent/@Current.Id">@Current.FullName</a></td>
+                                <td>@Current.Email</td>
+                            </tr>
+                            @EndEach
+                        </table>
+                    </div>
+                    <div class="span6">
+                        <h3>Children
+                            <a id="children" class="btn btn-small" href="/families/@Model.Family.Id/child/add"><i class=" icon-plus-sign"></i> Add Child</a>
+                        </h3>
+
+                        <table class="table table-condensed">
+                            <tr>
+                                <th>Name</th>
+                                <th>Days</th>
+                            </tr>
+                            @Each.Family.Children
+                            <tr>
+                                <td><a href="/families/@Model.Family.Id/child/@Current.Id">@Current.FullName</a></td>
+                                <td>@Current.Days</td>
+                            </tr>
+                            @EndEach
+                        </table>
+                    </div>
+                
+                </div>            
             </div>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <fieldset>
+                        <label>Street Address</label>
+                        <input class="span6" type="text" name="StreetAddress" value="@Model.Family.StreetAddress" />
+                        <label>City</label>
+                        <input class="span6" type="text" name="City" value="@Model.Family.City" />
+                        <label>State</label>
+                        <input class="span2" type="text" name="State" value="@Model.Family.State" />
+                        <label>ZIP</label>
+                        <input class="span2" type="text" name="ZIP" value="@Model.Family.ZIP" />
+                        <label>Joined</label>
+                        <input class="span6" type="text" name="Joined" value="@Model.Family.Joined" />
+                        <label>Departed</label>
+                        <input class="span6" type="text" name="Departed" value="@Model.Family.Departed" />
+                        <label>Due Day</label>
+                        <input class="span2" type="text" name="DueDay" value="@Model.Family.DueDay" />
+                        <label>Notes</label>
+                        <textarea rows="4" name="Notes">@!Model.Family.Notes</textarea>
+                        <div>
+                            <button class="btn btn-primary" type="submit"><i class="icon-ok-sign icon-white"></i> Save</button>
+                        </div>
+                    </fieldset>
+                </div>            
+            </div>
+            
         </form>
     </div>
 </div>

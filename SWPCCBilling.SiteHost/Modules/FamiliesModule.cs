@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using log4net.Util;
 using Nancy;
 using Nancy.ModelBinding;
 using SWPCCBilling.Infrastructure;
@@ -21,7 +22,7 @@ namespace SWPCCBilling.Modules
 
                 var family = new Family("", "Portland", "OR", "", today, 1);
                 var newParent = new Parent("", "New");
-                var newChild = new Child("", "New", Child.ChildRoomPreschool1, today, now);
+                var newChild = new Child("New", "", Child.ChildRoomPreschool1, today, now);
                 newChild.Mon = newChild.Wed = true;
                 family.Parents.Add(newParent);
                 family.Children.Add(newChild);
@@ -54,15 +55,15 @@ namespace SWPCCBilling.Modules
             Get["/families/{familyId}/parent/add"] = _ =>
             {
                 long familyId = _.familyId;
-                familyStore.AddParent(new Parent(familyId, "New", "New"));
-                return Response.AsRedirect(String.Format("/families/{0}#parents", familyId));
+                Parent parent = familyStore.AddParent(new Parent(familyId, "", "New"));
+                return Response.AsRedirect(String.Format("/families/{0}/parent/{1}", familyId, parent.Id));
             };
 
             Get["/families/{familyId}/child/add"] = _ =>
             {
                 long familyId = _.familyId;
-                familyStore.AddChild(new Child(familyId, "New", "New", Child.ChildRoomPreschool1, DateTime.Today, DateTime.Now));
-                return Response.AsRedirect(String.Format("/families/{0}#children", familyId));
+                Child child = familyStore.AddChild(new Child(familyId, "New", "", Child.ChildRoomPreschool1, DateTime.Today, DateTime.Now));
+                return Response.AsRedirect(String.Format("/families/{0}/child/{1}", familyId, child.Id));
             };
 
             Get["/families/{familyId}/parent/{parentId}"] = _ =>
