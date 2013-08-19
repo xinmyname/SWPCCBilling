@@ -55,7 +55,7 @@ namespace SWPCCBilling.Models
                 int numDays = days.Length/3;
 
                 for (int i = 0; i < numDays-1; i++)
-                    days.Insert(i*3+3, ',');
+                    days.Insert(i*4+3, ',');
 
                 return days.ToString();
             }

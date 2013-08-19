@@ -73,14 +73,14 @@ namespace SWPCCBilling.Modules
                 var allFamilies = familyStore.LoadAll().ToList();
                 var family = allFamilies.Single(f => f.Id == familyId);
                 var parent = family.Parents.Single(p => p.Id == parentId);
-                var familyEditor = new ParentEditorViewModel
+                var editor = new ParentEditorViewModel
                 {
                     AllFamilies = allFamilies,
                     Family = family,
                     Parent = parent
                 };
 
-                return View["ParentEdit", familyEditor];
+                return View["ParentEdit", editor];
             };
 
             Post["/families/{familyId}/parent/{id}"] = _ =>
@@ -91,6 +91,35 @@ namespace SWPCCBilling.Modules
                 familyStore.SaveParent(parent);
 
                 return Response.AsRedirect(String.Format("/families/{0}#parents", familyId));
+            };
+
+            Get["/families/{familyId}/child/{childId}"] = _ =>
+            {
+                long familyId = _.familyId;
+                long childId = _.childId;
+
+                var allFamilies = familyStore.LoadAll().ToList();
+                var family = allFamilies.Single(f => f.Id == familyId);
+                var child = family.Children.Single(p => p.Id == childId);
+                var editor = new ChildEditorViewModel
+                {
+                    AllFamilies = allFamilies,
+                    Family = family,
+                    Child = child
+                };
+
+                return View["ChildEdit", editor];
+            };
+
+            Post["/families/{familyId}/child/{id}"] = _ =>
+            {
+                long familyId = _.familyId;
+
+                Child child = this.Bind();
+                child.EffectiveDate = DateTime.Now;
+                familyStore.SaveChild(child);
+
+                return Response.AsRedirect(String.Format("/families/{0}#children", familyId));
             };
 
         }

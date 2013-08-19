@@ -131,7 +131,9 @@ namespace SWPCCBilling.Infrastructure
                 "SELECT   Mon,Tue,Wed,Thu,Fri,MAX(Effective) AS Effective " +
                 "FROM     ChildDays " +
                 "WHERE    ChildId=? " +
-                "GROUP BY Mon,Tue,Wed,Thu,Fri";
+                "GROUP BY Mon,Tue,Wed,Thu,Fri " +
+                "ORDER BY Effective DESC " +
+                "LIMIT 1";
 
             foreach (Child child in children.ToList())
             {
@@ -190,9 +192,31 @@ namespace SWPCCBilling.Infrastructure
             con.Close();
         }
 
-        private void SaveChild(Child child)
+        public void SaveChild(Child child)
         {
-            throw new NotImplementedException();
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            const string childUpdate =
+                "UPDATE Child " +
+                "SET FirstName=?, " +
+                "    LastName=?, " +
+                "    Room=?, " +
+                "    Joined=?, " +
+                "    Departed=? " +
+                "WHERE Id=?";
+
+            con.Execute(childUpdate, new { child.FirstName, child.LastName, child.Room, child.Joined, child.Departed, child.Id });
+
+            int mon = child.Mon ? 1 : 0;
+            int tue = child.Tue ? 1 : 0;
+            int wed = child.Wed ? 1 : 0;
+            int thu = child.Thu ? 1 : 0;
+            int fri = child.Fri ? 1 : 0;
+
+            con.Execute("INSERT INTO ChildDays VALUES (?,?,?,?,?,?,?)",
+                new { child.Id, mon, tue, wed, thu, fri, child.Effective });
+
+            con.Close();
         }
     }
 }

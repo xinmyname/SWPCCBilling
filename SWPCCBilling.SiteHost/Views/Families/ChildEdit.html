@@ -1,0 +1,86 @@
+﻿@Master['Master.html']
+
+@Section['Content']
+
+<h1>Families</h1>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        @Partial['PartFamilyList', Model.AllFamilies]
+        <form class="span9" action="/families/@Model.Family.Id/child/@Model.Child.Id" method="POST">
+            <h2>@Model.Child.FullName</h2>
+            <fieldset>
+                <label>First Name</label>
+                <input class="span6" type="text" id="firstName" name="FirstName" value="@Model.Child.FirstName" />
+
+                <label>Last Name</label>
+                <input class="span6" type="text" id="lastName" name="LastName" value="@Model.Child.LastName" />
+
+                <label>Room</label>
+                <select id="room" class="span4" name="Room">
+                    <option value="YT">Young Toddler</option>
+                    <option value="TR">Toddler</option>
+                    <option value="PS1">Preschool 1</option>
+                    <option value="PS2">Preschool 2</option>
+                </select>
+
+                <label>Joined</label>
+                <div class="input-append">
+                    <input type="text" name="Joined" value="@Model.Family.Joined" />
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
+
+                <label>Departed</label>
+                <div class="input-append">
+                    <input type="text" name="Departed" value="@Model.Family.Departed" />
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
+                
+                <label>Days</label>
+                <div class="well">
+                    <label class="checkbox inline">
+                      <input type="checkbox" id="mon" name="Mon" value="true"> Mon
+                    </label>
+                    <label class="checkbox inline">
+                      <input type="checkbox" id="tue" name="Tue" value="true"> Tue
+                    </label>
+                    <label class="checkbox inline">
+                      <input type="checkbox" id="wed" name="Wed" value="true"> Wed
+                    </label>
+                    <label class="checkbox inline">
+                      <input type="checkbox" id="thu" name="Thu" value="true"> Thu
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" id="fri" name="Fri" value="true"> Fri
+                    </label>
+                </div>
+
+                <div>
+                    <button class="btn btn-primary" type="submit"><i class="icon-ok-sign icon-white"></i> Save</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+@EndSection
+
+@Section['Scripts']
+<script type="text/javascript">
+    
+    $("#room").val('@Model.Child.Room');
+
+    var True = true;
+    var False = false;
+    
+    $('#mon').prop('checked', @Model.Child.Mon);
+    $('#tue').prop('checked', @Model.Child.Tue);
+    $('#wed').prop('checked', @Model.Child.Wed);
+    $('#thu').prop('checked', @Model.Child.Thu);
+    $('#fri').prop('checked', @Model.Child.Fri);
+
+    $("input").keyup(function () {
+        $("h2").html($("#firstName").val() + " " + $("#lastName").val());
+    });
+</script>
+@EndSection
