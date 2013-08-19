@@ -1,0 +1,35 @@
+﻿@Master['Master.html']
+
+@Section['Content']
+
+<h1>Families</h1>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        @Partial['PartFamilyList', Model.AllFamilies]
+        <form class="span9" action="/families/@Model.Family.Id/parent/@Model.Parent.Id" method="POST">
+            <h2>@Model.Parent.FullName</h2>
+            <fieldset>
+                <label>First Name</label>
+                <input class="span6" type="text" id="firstName" name="FirstName" value="@Model.Parent.FirstName" />
+                <label>Last Name</label>
+                <input class="span6" type="text" id="lastName" name="LastName" value="@Model.Parent.LastName" />
+                <label>Email</label>
+                <input class="span6" type="text" name="Email" value="@Model.Parent.Email" />
+                <div>
+                    <button class="btn btn-primary" type="submit"><i class="icon-ok-sign icon-white"></i> Save</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+@EndSection
+
+@Section['Scripts']
+<script type="text/javascript">
+    $("input").keyup(function () {
+        $("h2").html($("#firstName").val() + " " + $("#lastName").val());
+    });
+</script>
+@EndSection

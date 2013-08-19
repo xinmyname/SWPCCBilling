@@ -2,7 +2,7 @@
 
 @Section['Content']
 
-<h1>Family</h1>
+<h1>Families</h1>
 
 <div class="container-fluid">
     <div class="row-fluid">
@@ -37,13 +37,13 @@
                 </h3>
                 <table class="table table-condensed">
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Name</th>
+                        <th>Email</th>
                     </tr>
                     @Each.Family.Parents
                     <tr>
-                        <td><a href="/families/@Model.Family.Id/parent/@Current.Id">@Current.FirstName</a></td>
-                        <td>@Current.LastName</td>
+                        <td><a href="/families/@Model.Family.Id/parent/@Current.Id">@Current.FullName</a></td>
+                        <td>@Current.Email</td>
                     </tr>
                     @EndEach
                 </table>
@@ -55,13 +55,13 @@
 
                 <table class="table table-condensed">
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Name</th>
+                        <th>Days</th>
                     </tr>
                     @Each.Family.Children
                     <tr>
-                        <td><a href="/families/@Model.Family.Id/child/@Current.Id">@Current.FirstName</a></td>
-                        <td>@Current.LastName</td>
+                        <td><a href="/families/@Model.Family.Id/child/@Current.Id">@Current.FullName</a></td>
+                        <td>@Current.Days</td>
                     </tr>
                     @EndEach
                 </table>

@@ -1,20 +1,10 @@
-﻿using log4net;
-
-namespace SWPCCBilling.Modules
+﻿namespace SWPCCBilling.Modules
 {
     public class HomeModule : Nancy.NancyModule
     {
-        private readonly ILog _log;
-
-        public HomeModule(ILog log)
+        public HomeModule()
         {
-            _log = log;
-
-            Get["/"] = _ =>
-            {
-                _log.Info("Index!");
-                return View["Index"];
-            };
+            Get["/"] = _ => View["Index"];
         }
     }
 }

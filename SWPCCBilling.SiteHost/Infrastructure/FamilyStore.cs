@@ -180,9 +180,9 @@ namespace SWPCCBilling.Infrastructure
 
             const string query =
                 "UPDATE Parent " +
-                "SET FirstName=? " +
-                "SET LastName=? " +
-                "SET Email=? " +
+                "SET FirstName=?, " +
+                "    LastName=?, " +
+                "    Email=? " +
                 "WHERE Id=? ";
 
             con.Execute(query, new {parent.FirstName, parent.LastName, parent.Email, parent.Id});

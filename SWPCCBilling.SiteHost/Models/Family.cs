@@ -56,6 +56,8 @@ namespace SWPCCBilling.Models
                     return "Unknown Family";
                 if (Parents.Count == 1)
                     return Parents[0].LastName + " Family";
+                if (Parents[0].LastName == Parents[1].LastName)
+                    return Parents[0].LastName + " Family";
                 return String.Format("{0}/{1} Family",
                     Parents[0].LastName, Parents[1].LastName);
             }

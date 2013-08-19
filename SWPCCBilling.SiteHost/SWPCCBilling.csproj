@@ -100,6 +100,7 @@
     <Compile Include="Modules\ToolsModule.cs" />
     <Compile Include="ViewModels\FamilyEditorViewModel.cs" />
     <Compile Include="ViewModels\FeeEditorViewModel.cs" />
+    <Compile Include="ViewModels\ParentEditorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -217,6 +218,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Families\ParentEdit.html" />
     <EmbeddedResource Include="Views\Families\Edit.html" />
     <EmbeddedResource Include="Views\Families\PartFamilyList.html" />
     <EmbeddedResource Include="Views\Fees\Edit.html" />
