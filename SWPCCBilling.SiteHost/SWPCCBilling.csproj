@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\DiscountStore.cs" />
     <Compile Include="Infrastructure\SQLiteDateExtensions.cs" />
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
     <Compile Include="Infrastructure\DataReaderExtensions.cs" />
@@ -99,6 +100,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\ToolsModule.cs" />
     <Compile Include="ViewModels\ChildEditorViewModel.cs" />
+    <Compile Include="ViewModels\DiscountViewEditorModel.cs" />
+    <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\FamilyEditorViewModel.cs" />
     <Compile Include="ViewModels\FeeEditorViewModel.cs" />
     <Compile Include="ViewModels\ParentEditorViewModel.cs" />
@@ -219,6 +222,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Discounts\PartDiscountList.html" />
     <EmbeddedResource Include="Views\Families\ChildEdit.html" />
     <EmbeddedResource Include="Views\Families\ParentEdit.html" />
     <EmbeddedResource Include="Views\Families\Edit.html" />

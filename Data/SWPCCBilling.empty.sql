@@ -47,10 +47,10 @@ CREATE TABLE [Fee]
 DROP TABLE IF EXISTS [Discount];
 CREATE TABLE [Discount] 
 (
+	[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	[FamilyId] INTEGER NOT NULL,
 	[FeeId] INTEGER NOT NULL,
-	[Percent] REAL NOT NULL,
-	[Effective] TEXT NOT NULL
+	[Percent] REAL NOT NULL
 );
 
 DROP TABLE IF EXISTS [ChildDays];
@@ -69,7 +69,6 @@ DROP TABLE IF EXISTS [Payment];
 CREATE TABLE [Payment]
 (
 	[FamilyId] INTEGER NOT NULL,
-	[InvoiceId] INTEGER NULL,
 	[CheckNum] TEXT NULL,
 	[Amount] REAL NOT NULL,
 	[Received] TEXT NOT NULL,
@@ -86,23 +85,6 @@ CREATE TABLE [Ledger]
 	[PaymentId] INTEGER NULL,
 	[Amount] REAL NOT NULL,
 	[Notes] TEXT NULL
-);
-
-DROP TABLE IF EXISTS [Invoice];
-CREATE TABLE [Invoice]
-(
-	[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	[FamilyId] INTEGER NOT NULL,
-	[Date] TEXT NOT NULL,
-	[PastDue] REAL NOT NULL,
-	[NowDue] REAL NOT NULL
-);
-
-DROP TABLE IF EXISTS [InvoiceLine];
-CREATE TABLE [InvoiceLine]
-(
-	[InvoiceId] INTEGER NOT NULL,
-	[LedgerId] INTEGER NOT NULL
 );
 
 DROP TABLE IF EXISTS [SelectFeeType];

@@ -1,0 +1,17 @@
+﻿<form class="span6" action="/discounts/add" method="GET" >
+    <button class="btn btn-primary" type="submit"><i class=" icon-plus-sign icon-white"></i> Add Discount</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Family</th>
+                <th>Fee</th>
+            </tr>
+        </thead>
+        @Each
+        <tr>
+            <td><a href="/discounts/@Current.Discount.Id">@Current.FamilyName</a></td>
+            <td>@Current.FeeName</td>
+        </tr>
+        @EndEach
+    </table>
+</form>

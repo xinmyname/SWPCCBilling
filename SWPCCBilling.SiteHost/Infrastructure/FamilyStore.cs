@@ -31,6 +31,17 @@ namespace SWPCCBilling.Infrastructure
             return families;
         }
 
+        public IEnumerable<Family> LoadAllShallow()
+        {
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            var families = con.Query<Family>("SELECT * FROM Family").OrderBy(x => x.FamilyName).ToList();
+
+            con.Close();
+
+            return families;
+        }
+
         public Family Load(long familyId)
         {
             IDbConnection con = _dbFactory.OpenDatabase();

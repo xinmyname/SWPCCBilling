@@ -5,6 +5,7 @@ using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Ninject;
 using Nancy.Conventions;
+using Nancy.Diagnostics;
 using Nancy.Hosting.Self;
 using Nancy.ViewEngines;
 using Ninject;
