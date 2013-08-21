@@ -38,14 +38,40 @@ namespace SWPCCBilling.Infrastructure
             return discount;
         }
 
-        public IEnumerable<DiscountViewModel> LoadAllLinks(FamilyStore familyStore, FeeStore feeStore)
+        public IEnumerable<DiscountViewModel> LoadAllLinks(IList<Family> families, IList<Fee> fees)
         {
-            throw new System.NotImplementedException();
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            var links = con
+                .Query<Discount>("SELECT * FROM Discount ORDER BY Id")
+                .Select(discount => new DiscountViewModel
+                {
+                    Discount = discount, 
+                    FamilyName = families.Single(f => f.Id == discount.FamilyId).FamilyName, 
+                    FeeName = fees.Single(f => f.Id == discount.FeeId).Name
+                }).ToList();
+
+            con.Close();
+
+            return links;
         }
 
         public void Save(Discount discount)
         {
-            throw new System.NotImplementedException();
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            if (discount.Id < 0)
+            {
+                con.Execute("INSERT INTO Discount (FamilyId,FeeId,Percent) VALUES (?,?,?)",
+                    new {discount.FamilyId, discount.FeeId, discount.Percent});
+            }
+            else
+            {
+                con.Execute("UPDATE Discount SET FamilyId=?, FeeId=?, Percent=? WHERE Id=?",
+                    new { discount.FamilyId, discount.FeeId, discount.Percent, discount.Id });
+            }
+
+            con.Close();
         }
     }
 }

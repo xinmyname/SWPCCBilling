@@ -1,0 +1,52 @@
+﻿@Master['Master.html']
+
+@Section['Content']
+
+<h1>Discounts</h1>
+<div class="container-fluid">
+    <div class="row-fluid">
+        @Partial['PartDiscountList', Model.AllDiscounts]
+        <form class="span9" action="/discounts/@Model.Discount.Id" method="POST" >
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <fieldset>
+                
+                        <label>Family</label>
+                        <select id="families" class="span4" name="FamilyId">
+                            @Each.Families
+                            <option value="@Current.Id">@Current.FamilyName</option>
+                            @EndEach
+                        </select>
+
+                        <label>Fee</label>
+                        <select id="fees" class="span4" name="FeeId">
+                            @Each.Fees
+                            <option value="@Current.Id">@Current.Name</option>
+                            @EndEach
+                        </select>
+
+                        <label>Amount</label>
+                        <div class="input-append">
+                            <input class="span3" type="text" name="Percent" value="@Model.Discount.Percent">
+                            <span class="add-on">%</span>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-primary" type="submit"><i class="icon-ok-sign icon-white"></i> Save</button>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@EndSection
+
+@Section['Scripts']
+<script type="text/javascript">
+    $("#families").val(@Model.Discount.FamilyId);
+    $("#fees").val(@Model.Discount.FeeId);
+</script>
+@EndSection

@@ -222,6 +222,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Discounts\Edit.html" />
     <EmbeddedResource Include="Views\Discounts\PartDiscountList.html" />
     <EmbeddedResource Include="Views\Families\ChildEdit.html" />
     <EmbeddedResource Include="Views\Families\ParentEdit.html" />
