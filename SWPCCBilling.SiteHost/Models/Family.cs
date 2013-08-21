@@ -31,23 +31,6 @@ namespace SWPCCBilling.Models
             set { Departed = value.HasValue ? value.Value.ToSQLiteDateTime() : null; }
         }
 
-        public Family()
-        {
-            Parents = new List<Parent>();
-            Children = new List<Child>();
-        }
-
-        public Family(string streetAddress, string city, string state, string zip, DateTime joined, long dueDay)
-            : this()
-        {
-            StreetAddress = streetAddress;
-            City = city;
-            State = state;
-            ZIP = zip;
-            JoinedDate = joined;
-            DueDay = dueDay;
-        }
-
         public string FamilyName
         {
             get
@@ -67,5 +50,42 @@ namespace SWPCCBilling.Models
         {
             get { return Children.Count; }
         }
+
+        public int ChildDays
+        {
+            get
+            {
+                int childDays = -1;
+
+                foreach (Child child in Children)
+                {
+                    childDays += child.Mon ? 1 : 0;
+                    childDays += child.Tue ? 1 : 0;
+                    childDays += child.Wed ? 1 : 0;
+                    childDays += child.Thu ? 1 : 0;
+                    childDays += child.Fri ? 1 : 0;
+                }
+
+                return childDays;
+            }
+        }
+
+        public Family()
+        {
+            Parents = new List<Parent>();
+            Children = new List<Child>();
+        }
+
+        public Family(string streetAddress, string city, string state, string zip, DateTime joined, long dueDay)
+            : this()
+        {
+            StreetAddress = streetAddress;
+            City = city;
+            State = state;
+            ZIP = zip;
+            JoinedDate = joined;
+            DueDay = dueDay;
+        }
+
     }
 }
