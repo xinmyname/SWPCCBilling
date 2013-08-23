@@ -120,7 +120,15 @@
     }
     
     function buildFamilyList() {
-        return "0";
+        var familyList = '';
+        
+        $("#familyList label input:checked").each(function () {
+            if (familyList.length > 0)
+                familyList += ",";
+            familyList += $(this).val();
+        });
+
+        return familyList;
     }
 
     $("#allFamilies").change(function () {
@@ -140,7 +148,7 @@
             data: {
                 familyList: buildFamilyList(),
                 chargeDate: $("#chargeDate").val(),
-                fee: $("#fee").val(),
+                feeId: $("#fee").val(),
                 chargeAmount: $("#chargeAmount").val(),
                 chargeMinutes: $("#chargeMinutes").val(),
                 chargeNotes: $("#chargeNotes").val(),

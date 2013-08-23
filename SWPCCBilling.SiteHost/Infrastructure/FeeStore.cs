@@ -50,5 +50,13 @@ namespace SWPCCBilling.Infrastructure
 
             con.Close();
         }
+
+        public Fee Load(long feeId)
+        {
+            IDbConnection con = _dbFactory.OpenDatabase();
+            var fee = con.Query<Fee>("SELECT * FROM Fee WHERE Id=?", new{ feeId }).Single();
+            con.Close();
+            return fee;
+        }
     }
 }

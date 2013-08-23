@@ -2,14 +2,16 @@
 using System.IO;
 using System.Linq;
 using Nancy;
+using Nancy.ModelBinding;
 using SWPCCBilling.Infrastructure;
+using SWPCCBilling.Models;
 using SWPCCBilling.ViewModels;
 
 namespace SWPCCBilling.Modules
 {
     public class HomeModule : NancyModule
     {
-        public HomeModule(FamilyStore familyStore, FeeStore feeStore)
+        public HomeModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore)
         {
             Get["/"] = _ =>
             {
@@ -25,15 +27,22 @@ namespace SWPCCBilling.Modules
 
             Post["/home/charge"] = _ =>
             {
-                var reader = new StreamReader(Request.Body);
-                string body = reader.ReadToEnd();
-                var chargeReceipt = new
-                {
-                    numFamilies = 2,
-                    amount = 26.0m
-                };
+                var chargeRequest = this.Bind<ChargeRequest>();
+                var receipt = new ChargeReceipt();
+                Fee fee = feeStore.Load(chargeRequest.FeeId);
 
-                return Response.AsJson(chargeReceipt);
+                foreach (long familyId in chargeRequest.GetFamilyIds())
+                {
+                    Family family = familyStore.Load(familyId);
+                    LedgerLine line = CalculateCharge(chargeRequest, fee, family);
+
+                    ledgerStore.Add(line);
+
+                    receipt.NumFamilies++;
+                    receipt.Amount += (decimal) line.Amount;
+                }
+
+                return Response.AsJson(receipt);
             };
 
             Post["/home/payment"] = _ =>
@@ -46,6 +55,11 @@ namespace SWPCCBilling.Modules
 
                 return Response.AsJson(paymentReceipt);
             };
+        }
+
+        private LedgerLine CalculateCharge(ChargeRequest chargeRequest, Fee fee, Family family)
+        {
+            throw new NotImplementedException();
         }
     }
 }
