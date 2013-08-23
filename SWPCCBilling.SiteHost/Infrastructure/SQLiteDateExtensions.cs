@@ -13,9 +13,23 @@ namespace SWPCCBilling.Infrastructure
             return DateTime.ParseExact(date, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
         }
 
+        public static DateTime? ToSQLiteDate(this string date)
+        {
+            if (date == null)
+                return null;
+
+            return DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        }
+
         public static string ToSQLiteDateTime(this DateTime date)
         {
             return date.ToString("yyyy-MM-dd HH:mm:ss");
         }
+
+        public static string ToSQLiteDate(this DateTime date)
+        {
+            return date.ToString("yyyy-MM-dd");
+        }
+
     }
 }

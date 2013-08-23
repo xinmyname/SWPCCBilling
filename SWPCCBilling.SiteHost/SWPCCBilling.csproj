@@ -104,10 +104,19 @@
     <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\FamilyEditorViewModel.cs" />
     <Compile Include="ViewModels\FeeEditorViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ParentEditorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="bower_components\accounting\.bower.json" />
+    <EmbeddedResource Include="bower_components\accounting\accounting.min.js.map">
+      <DependentUpon>accounting.js</DependentUpon>
+    </EmbeddedResource>
+    <None Include="bower_components\accounting\license" />
+    <None Include="bower_components\accounting\package.json" />
+    <None Include="bower_components\accounting\readme.md" />
+    <None Include="bower_components\accounting\tests\jasmine\lib\jasmine\MIT.LICENSE" />
     <None Include="bower_components\bootstrap\.bower.json" />
     <None Include="bower_components\bootstrap\.travis.yml" />
     <None Include="bower_components\bootstrap\bower.json" />
@@ -248,6 +257,26 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Master.html" />
     <EmbeddedResource Include="bower_components\normalize-css\normalize.css" />
+    <EmbeddedResource Include="bower_components\accounting\accounting.js" />
+    <EmbeddedResource Include="bower_components\accounting\accounting.min.js" />
+    <Content Include="bower_components\accounting\demo-resources\js\libs\jquery.min.js" />
+    <Content Include="bower_components\accounting\demo-resources\js\prettify.js" />
+    <Content Include="bower_components\accounting\demo-resources\style.css" />
+    <Content Include="bower_components\accounting\index.html" />
+    <Content Include="bower_components\accounting\tests\jasmine\core\formatMoneySpec.js" />
+    <Content Include="bower_components\accounting\tests\jasmine\core\formatNumberSpec.js" />
+    <Content Include="bower_components\accounting\tests\jasmine\core\unformatSpec.js" />
+    <Content Include="bower_components\accounting\tests\jasmine\lib\jasmine\jasmine-html.js" />
+    <Content Include="bower_components\accounting\tests\jasmine\lib\jasmine\jasmine.css" />
+    <Content Include="bower_components\accounting\tests\jasmine\lib\jasmine\jasmine.js" />
+    <Content Include="bower_components\accounting\tests\jasmine\runner.html" />
+    <Content Include="bower_components\accounting\tests\qunit\methods.js" />
+    <Content Include="bower_components\accounting\tests\qunit\speed.js" />
+    <Content Include="bower_components\accounting\tests\qunit\test.html" />
+    <Content Include="bower_components\accounting\tests\qunit\vendor\jquery.js" />
+    <Content Include="bower_components\accounting\tests\qunit\vendor\jslitmus.js" />
+    <Content Include="bower_components\accounting\tests\qunit\vendor\qunit.css" />
+    <Content Include="bower_components\accounting\tests\qunit\vendor\qunit.js" />
     <Content Include="bower_components\bootstrap\.gitignore" />
     <Content Include="bower_components\bootstrap\docs\assets\css\bootstrap-responsive.css" />
     <EmbeddedResource Include="bower_components\bootstrap\docs\assets\css\bootstrap.css" />

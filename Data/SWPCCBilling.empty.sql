@@ -96,7 +96,9 @@ CREATE TABLE [SelectFeeType]
 
 INSERT INTO [SelectFeeType] VALUES ('F', 'Fixed');
 INSERT INTO [SelectFeeType] VALUES ('V', 'Varying');
-INSERT INTO [SelectFeeType] VALUES ('P', 'Per-Minute');
+INSERT INTO [SelectFeeType] VALUES ('C', 'Per-Child');
+INSERT INTO [SelectFeeType] VALUES ('D', 'Per-ChildDay');
+INSERT INTO [SelectFeeType] VALUES ('M', 'Per-Minute');
 
 DROP TABLE IF EXISTS [SelectRoom];
 CREATE TABLE [SelectRoom]

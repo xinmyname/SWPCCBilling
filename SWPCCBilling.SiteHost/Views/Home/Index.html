@@ -1,7 +1,189 @@
 ﻿@Master['Master.html']
 
+@Section['Header']
+<style type="text/css">
+    #familyList {
+        margin-top: 0.5em;
+    }
+    .feeEditor {
+        display: none;
+    }
+    .receipts {
+        margin-top: 1em;
+    }
+</style>
+@EndSection
+
 @Section['Content']
 
-<h1>Dashboard</h1>
+<div class="row-fluid">
+    <div class="span2">
+        <h2>Family</h2>
+        <div>
+            <label class="checkbox"><input id="allFamilies" type="checkbox"> All Families</label>        
+        </div>
+        <div id="familyList">
+            @Each.Families
+                <label class="checkbox"><input type="checkbox" value="@Current.Id"> @Current.FamilyName</label>        
+            @EndEach
+        </div>
+    </div>
+    <div class="span5">
+        <h2>Charge Fee</h2>
+        <fieldset>
+            <label>Date</label>
+            <div class="input-append">
+                <input id="chargeDate" type="text" name="ChargeDate" value="@Model.Today">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+            </div>
+            
+            <label>Fee</label>
+            <select id="fee">
+                @Each.Fees
+                <option value="@Current.Id" data-fee-type="@Current.Type">@Current.Name</option>
+                @EndEach
+            </select>
+        
+            <div id="feeEditorVarying" class="feeEditor">
+                <label>Amount</label>
+                <div class="input-prepend">
+                    <span class="add-on">$</span>
+                    <input id="chargeAmount" class="span12" type="text" name="Amount" placeholder="0.00">
+                </div>
+            </div>
 
+            <div id="feeEditorPerMinute" class="feeEditor">
+                <label>Time</label>
+                <div class="input-append">
+                    <input id="chargeMinutes" class="span12" type="text" name="Amount" placeholder="0">
+                    <span class="add-on">minutes</span>
+                </div>
+            </div>
+            
+            <label>Notes</label>
+            <textarea id="chargeNotes" class="input-block-level"></textarea>
+        
+            <button id="charge" class="btn btn-danger"><i class="icon-plus icon-white"></i> Charge</button>
+        </fieldset>
+        
+        <div id="chargeAlerts" class="receipts">
+        </div>
+    </div>
+    <div class="span5">
+        <h2>Apply Payment</h2>
+        <fieldset>
+            <label>Received</label>
+            <div class="input-append">
+                <input id="paymentDate" type="text" name="Received" value="@Model.Today">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+            </div>
+
+            <label>Check Number</label>
+            <input id="checkNum" type="text"/>
+
+            <label>Amount Paid</label>
+            <div class="input-prepend">
+                <span class="add-on">$</span>
+                <input id="paymentAmount" type="text" placeholder="0.00">
+            </div>
+
+            <label>Notes</label>
+            <textarea id="paymentNotes" class="input-block-level"></textarea>
+
+            <button id="paid" class="btn btn-inverse"><i class="icon-minus icon-white"></i> Paid</button>
+        </fieldset>
+
+        <div id="paymentAlerts" class="receipts">
+        </div>
+    </div>
+</div>
+@EndSection
+
+@Section['Scripts']
+<script src="/lib/accounting/accounting.min.js"></script>
+<script type="text/javascript">
+    function checkFeeEditor() {
+        $(".feeEditor").hide();
+        var feeType = $("#fee option:selected").attr('data-fee-type');
+        switch (feeType) {
+            case "V":
+                $("#feeEditorVarying").show();
+                break;
+            case "M":
+                $("#feeEditorPerMinute").show();
+                break;
+        }
+    }
+    
+    function createAlert(text,type) {
+        return "<div class='alert alert-" + type + "'><button type='button' class='close' data-dismiss='alert'>&times;</button>" + text + "</div>";
+    }
+    
+    function buildFamilyList() {
+        return "0";
+    }
+
+    $("#allFamilies").change(function () {
+        if ($(this).is(":checked")) {
+            $("#familyList label input").prop('checked', true);
+        } else {
+            $("#familyList label input").prop('checked', false);
+        }
+    });
+
+    $("#fee").change(checkFeeEditor);
+
+    $("#charge").click(function () {
+        $.ajax({
+            url: "/home/charge",
+            type: "POST",
+            data: {
+                familyList: buildFamilyList(),
+                chargeDate: $("#chargeDate").val(),
+                fee: $("#fee").val(),
+                chargeAmount: $("#chargeAmount").val(),
+                chargeMinutes: $("#chargeMinutes").val(),
+                chargeNotes: $("#chargeNotes").val(),
+            },
+            success: function (res) {
+                var numFamilies = res.numFamilies;
+                var moniker = numFamilies === 1 ? "family" : "families";
+                var amount = res.amount;
+                
+                $("#chargeAlerts").append(
+                    createAlert("Charged " + numFamilies + " " + moniker + " " + accounting.formatMoney(amount) + ".", "success"));
+            },
+            error:function() {
+                $("#chargeAlerts").append(
+                    createAlert("An error occurred.", "error"));
+            }
+        });
+    });
+
+    $("#paid").click(function () {
+        $.ajax({
+            url: "/home/payment",
+            type: "POST",
+            contentType: "application/json",
+            data: {
+                familyList: buildFamilyList(),
+                paymentDate: $("#paymentDate").val(),
+                checkNum: $("#checkNum").val(),
+                paymentAmount: $("#paymentAmount").val(),
+                paymentNotes: $("#paymentNotes").val(),
+            },
+            success: function (res) {
+                $("#paymentAlerts").append(
+                    createAlert("Received " + accounting.formatMoney(res.amount) + " from " + res.family + ".", "success"));
+            },
+            error: function () {
+                $("#paymentAlerts").append(
+                    createAlert("An error occurred.", "error"));
+            }
+        });
+    });
+
+    $(document).ready(checkFeeEditor);
+
+</script>
 @EndSection

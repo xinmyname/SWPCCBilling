@@ -12,7 +12,7 @@ namespace SWPCCBilling.Models
         public const string FeeTypeFixed = "F";
         public const string FeeTypeVarying = "V";
         public const string FeeTypePerChild = "C";
-        public const string FeeTypePerDay = "D";
+        public const string FeeTypePerChildDay = "D";
         public const string FeeTypePerMinute = "M";
 
         public Fee()
