@@ -10,7 +10,7 @@ namespace SWPCCBilling.Infrastructure
             if (date == null)
                 return null;
 
-            return DateTime.ParseExact(date, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            return DateTime.Parse(date, CultureInfo.InvariantCulture);
         }
 
         public static DateTime? ToSQLiteDate(this string date)
@@ -18,7 +18,7 @@ namespace SWPCCBilling.Infrastructure
             if (date == null)
                 return null;
 
-            return DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return DateTime.Parse(date, CultureInfo.InvariantCulture);
         }
 
         public static string ToSQLiteDateTime(this DateTime date)

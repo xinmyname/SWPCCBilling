@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using SWPCCBilling.Models;
 
 namespace SWPCCBilling.Infrastructure
@@ -10,6 +12,14 @@ namespace SWPCCBilling.Infrastructure
         public LedgerStore(DatabaseFactory dbFactory)
         {
             _dbFactory = dbFactory;
+        }
+
+        public IEnumerable<LedgerLine> LoadAll()
+        {
+            IDbConnection con = _dbFactory.OpenDatabase();
+            var lines = con.Query<LedgerLine>("SELECT * FROM Ledger").ToList();
+            con.Close();
+            return lines;
         }
 
         public LedgerLine Add(LedgerLine line)

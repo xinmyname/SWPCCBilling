@@ -154,9 +154,9 @@
                 chargeNotes: $("#chargeNotes").val(),
             },
             success: function (res) {
-                var numFamilies = res.numFamilies;
+                var numFamilies = res.NumFamilies;
                 var moniker = numFamilies === 1 ? "family" : "families";
-                var amount = res.amount;
+                var amount = res.Amount;
                 
                 $("#chargeAlerts").append(
                     createAlert("Charged " + numFamilies + " " + moniker + " " + accounting.formatMoney(amount) + ".", "success"));

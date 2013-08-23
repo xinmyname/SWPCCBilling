@@ -235,6 +235,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Reports\Ledger.html" />
+    <EmbeddedResource Include="Views\Reports\Families.html" />
     <EmbeddedResource Include="Views\Reports\ChildDays.html" />
     <EmbeddedResource Include="Views\ReportMaster.html" />
     <EmbeddedResource Include="Views\Discounts\Edit.html" />

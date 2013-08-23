@@ -1,0 +1,23 @@
+﻿@Master['ReportMaster.html']
+
+@Section['Content']
+
+<h1>Families</h1>
+
+<table>
+    <tr>
+        <th>Family</th>
+        <th>Joined</th>
+    </tr>
+    <tbody>
+        @Each
+        <tr>
+            <td>@Current.FamilyName</td>
+            <td>@Current.Joined</td>
+        </tr>
+        @EndEach
+    </tbody>
+
+</table>
+
+@EndSection
