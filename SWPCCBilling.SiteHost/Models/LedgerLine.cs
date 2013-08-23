@@ -1,7 +1,4 @@
-﻿using System;
-using SWPCCBilling.Infrastructure;
-
-namespace SWPCCBilling.Models
+﻿namespace SWPCCBilling.Models
 {
     public class LedgerLine
     {
@@ -12,29 +9,5 @@ namespace SWPCCBilling.Models
         public long? PaymentId { get; set; }
         public double Amount { get; set; }
         public string Notes { get; set; }
-
-        public static LedgerLine CreateCharge(long familyId, long feeId, DateTime date, decimal amount, string notes)
-        {
-            return new LedgerLine
-            {
-                FamilyId = familyId,
-                Date = date.ToSQLiteDateTime(),
-                FeeId = feeId,
-                Amount = (double)amount,
-                Notes = notes
-            };
-        }
-
-        public static LedgerLine CreatePayment(long familyId, long paymentId, DateTime date, decimal amount, string notes)
-        {
-            return new LedgerLine
-            {
-                FamilyId = familyId,
-                Date = date.ToSQLiteDateTime(),
-                PaymentId = paymentId,
-                Amount = (double)amount,
-                Notes = notes
-            };
-        }
     }
 }

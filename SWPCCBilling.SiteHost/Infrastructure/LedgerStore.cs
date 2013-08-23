@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Data;
 using SWPCCBilling.Models;
 
 namespace SWPCCBilling.Infrastructure
@@ -17,7 +14,14 @@ namespace SWPCCBilling.Infrastructure
 
         public LedgerLine Add(LedgerLine line)
         {
-            throw new NotImplementedException();
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            con.Execute("INSERT INTO Ledger (FamilyId,Date,FeeId,PaymentId,Amount,Notes) VALUES (?,?,?,?,?,?)",
+                new { line.FamilyId, line.Date, line.FeeId, line.PaymentId, line.Amount, line.Notes });
+
+            con.Close();
+
+            return line;
         }
     }
 }

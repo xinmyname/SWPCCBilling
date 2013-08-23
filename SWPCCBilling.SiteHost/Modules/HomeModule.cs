@@ -11,7 +11,7 @@ namespace SWPCCBilling.Modules
 {
     public class HomeModule : NancyModule
     {
-        public HomeModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore)
+        public HomeModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore, LedgerLineFactory lineFactory)
         {
             Get["/"] = _ =>
             {
@@ -34,7 +34,7 @@ namespace SWPCCBilling.Modules
                 foreach (long familyId in chargeRequest.GetFamilyIds())
                 {
                     Family family = familyStore.Load(familyId);
-                    LedgerLine line = CalculateCharge(chargeRequest, fee, family);
+                    LedgerLine line = lineFactory.CalculateCharge(chargeRequest, fee, family);
 
                     ledgerStore.Add(line);
 
@@ -57,9 +57,5 @@ namespace SWPCCBilling.Modules
             };
         }
 
-        private LedgerLine CalculateCharge(ChargeRequest chargeRequest, Fee fee, Family family)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

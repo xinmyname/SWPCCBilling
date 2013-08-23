@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\DiscountStore.cs" />
+    <Compile Include="Infrastructure\LedgerLineFactory.cs" />
     <Compile Include="Infrastructure\LedgerStore.cs" />
     <Compile Include="Infrastructure\SQLiteDateExtensions.cs" />
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
