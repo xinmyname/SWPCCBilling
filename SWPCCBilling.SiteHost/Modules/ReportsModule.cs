@@ -18,6 +18,9 @@ namespace SWPCCBilling.Modules
             Get["/reports/returningfamilies"] = _ => View["Families", 
                 familyStore.LoadAll().Where(f => f.JoinedDate.Value.Year < DateTime.Today.Year )];
 
+            Get["/reports/newfamilies"] = _ => View["Families",
+                familyStore.LoadAll().Where(f => f.JoinedDate.Value.Year == DateTime.Today.Year)];
+
             Get["/reports/ledger"] = _ =>
             {
                 var families = familyStore.LoadAll().ToList();
