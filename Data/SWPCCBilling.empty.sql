@@ -83,6 +83,8 @@ CREATE TABLE [Ledger]
 	[Date] TEXT NOT NULL,
 	[FeeId] INTEGER NULL,
 	[PaymentId] INTEGER NULL,
+	[UnitPrice] REAL NOT NULL,
+	[Quantity] INTEGER NOT NULL,
 	[Amount] REAL NOT NULL,
 	[Notes] TEXT NULL
 );
@@ -97,7 +99,7 @@ CREATE TABLE [SelectFeeType]
 INSERT INTO [SelectFeeType] VALUES ('F', 'Fixed');
 INSERT INTO [SelectFeeType] VALUES ('V', 'Varying');
 INSERT INTO [SelectFeeType] VALUES ('C', 'Per-Child');
-INSERT INTO [SelectFeeType] VALUES ('D', 'Per-ChildDay');
+INSERT INTO [SelectFeeType] VALUES ('D', 'Per-Billable Day');
 INSERT INTO [SelectFeeType] VALUES ('M', 'Per-Minute');
 
 DROP TABLE IF EXISTS [SelectRoom];

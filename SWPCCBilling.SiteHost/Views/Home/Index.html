@@ -45,10 +45,17 @@
             </select>
         
             <div id="feeEditorVarying" class="feeEditor">
+                <label>Unit Price</label>
+                <div class="input-prepend"> 
+                    <span class="add-on">$</span>
+                    <input id="unitPrice" class="span12" type="text" name="Amount" placeholder="0.00">
+                </div>
+                <label>Quantity</label>
+                <input id="quantity" class="span6" type="number" value="1"/>
                 <label>Amount</label>
                 <div class="input-prepend">
                     <span class="add-on">$</span>
-                    <input id="chargeAmount" class="span12" type="text" name="Amount" placeholder="0.00">
+                    <input id="chargeAmount" class="span12" type="text" name="Amount" readonly="readonly" placeholder="0.00">
                 </div>
             </div>
 
@@ -149,7 +156,8 @@
                 familyList: buildFamilyList(),
                 chargeDate: $("#chargeDate").val(),
                 feeId: $("#fee").val(),
-                chargeAmount: $("#chargeAmount").val(),
+                unitPrice: $("#unitPrice").val(),
+                quantity: $("#quantity").val(),
                 chargeMinutes: $("#chargeMinutes").val(),
                 chargeNotes: $("#chargeNotes").val(),
             },

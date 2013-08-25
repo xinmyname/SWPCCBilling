@@ -9,6 +9,8 @@ namespace SWPCCBilling.Models
         public string Date { get; set; }
         public long? FeeId { get; set; }
         public long? PaymentId { get; set; }
+        public double UnitPrice { get; set; }
+        public long Quantity { get; set; }
         public double Amount { get; set; }
         public string Notes { get; set; }
     }

@@ -47,13 +47,14 @@ namespace SWPCCBilling.Modules
 
             Post["/home/payment"] = _ =>
             {
-                var paymentReceipt = new
-                {
-                    amount = 14.0m,
-                    family = "Test Family"
-                };
+                throw new NotImplementedException();
+                //var paymentReceipt = new
+                //{
+                //    amount = 14.0m,
+                //    family = "Test Family"
+                //};
 
-                return Response.AsJson(paymentReceipt);
+                //return Response.AsJson(paymentReceipt);
             };
         }
 

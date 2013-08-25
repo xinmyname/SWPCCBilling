@@ -7,7 +7,8 @@ namespace SWPCCBilling.Infrastructure
     {
         public LedgerLine CalculateCharge(ChargeRequest chargeRequest, Fee fee, Family family)
         {
-            decimal amount = 0.0m;
+            decimal unitPrice = 0.0m;
+            long quantity = 0;
 
             switch (fee.Type)
             {
@@ -15,46 +16,54 @@ namespace SWPCCBilling.Infrastructure
                     if (fee.Amount == null)
                         throw new ArgumentException("Fixed fee must have an amount!");
 
-                    amount = (decimal)fee.Amount.Value;
+                    unitPrice = (decimal)fee.Amount.Value;
+                    quantity = 1;
                     break;
 
                 case Fee.FeeTypeVarying:
-                    amount = chargeRequest.ChargeAmount;
+                    unitPrice = chargeRequest.UnitPrice;
+                    quantity = chargeRequest.Quantity;
                     break;
 
                 case Fee.FeeTypePerChild:
                     if (fee.Amount == null)
                         throw new ArgumentException("Fixed fee must have an amount!");
 
-                    amount = ((decimal)fee.Amount.Value) * family.NumChildren;
+                    unitPrice = (decimal) fee.Amount.Value;
+                    quantity = family.NumChildren;
+                    
                     break;
 
                 case Fee.FeeTypePerChildDay:
                     if (fee.Amount == null)
                         throw new ArgumentException("Fixed fee must have an amount!");
 
-                    amount = ((decimal)fee.Amount.Value) * family.ChildDays;
+                    unitPrice = (decimal) fee.Amount.Value;
+                    quantity = family.ChildDays;
                     break;
 
                 case Fee.FeeTypePerMinute:
                     if (fee.Amount == null)
                         throw new ArgumentException("Fixed fee must have an amount!");
 
-                    amount = ((decimal)fee.Amount.Value) * chargeRequest.ChargeMinutes;
+                    unitPrice = (decimal) fee.Amount.Value;
+                    quantity = chargeRequest.ChargeMinutes;
                     break;
             }
 
-            return CreateCharge(family.Id, fee.Id, chargeRequest.ChargeDate, amount, chargeRequest.ChargeNotes);
+            return CreateCharge(family.Id, fee.Id, chargeRequest.ChargeDate, unitPrice, quantity, chargeRequest.ChargeNotes);
         }
 
-        public LedgerLine CreateCharge(long familyId, long feeId, DateTime date, decimal amount, string notes)
+        public LedgerLine CreateCharge(long familyId, long feeId, DateTime date, decimal unitPrice, long quantity, string notes)
         {
             return new LedgerLine
             {
                 FamilyId = familyId,
                 Date = date.ToSQLiteDateTime(),
                 FeeId = feeId,
-                Amount = (double)amount,
+                UnitPrice = (double)unitPrice,
+                Quantity = quantity,
+                Amount = (double)(unitPrice * quantity),
                 Notes = notes
             };
         }
@@ -66,7 +75,9 @@ namespace SWPCCBilling.Infrastructure
                 FamilyId = familyId,
                 Date = date.ToSQLiteDateTime(),
                 PaymentId = paymentId,
-                Amount = (double)amount,
+                UnitPrice = 0,
+                Quantity = 0,
+                Amount = (double)(amount * -1.0m),
                 Notes = notes
             };
         }

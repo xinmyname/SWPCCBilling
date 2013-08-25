@@ -9,7 +9,8 @@ namespace SWPCCBilling.Models
         public string FamilyList { get; set; }
         public DateTime ChargeDate { get; set; }
         public long FeeId { get; set; }
-        public decimal ChargeAmount { get; set; }
+        public decimal UnitPrice { get; set; }
+        public long Quantity { get; set; }
         public int ChargeMinutes { get; set; }
         public string ChargeNotes { get; set; }
 
