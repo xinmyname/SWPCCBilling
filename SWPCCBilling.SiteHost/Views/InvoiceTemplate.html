@@ -20,6 +20,9 @@
             #invoiceInfo {
                 text-align: right;
             }
+            #items {
+                width: 100%;
+            }
         </style>
     </head>
     <body>
@@ -50,10 +53,42 @@
             </tr>
         </table>
         
-        <table>
-            <tr>
-                <td ></td>
-            </tr>
+        <table id="items">
+            <thead>
+                <tr>
+                    <td colspan="4">Due June 10, 2013</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tuition</td>
+                    <td>$103.00</td>
+                    <td>2</td>
+                    <td>$206.00</td>
+                </tr>
+                <tr>
+                    <td>2/3 Insurance</td>
+                    <td>$85.00</td>
+                    <td>1</td>
+                    <td>$56.10</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Total Due June 10, 2013</td>
+                    <td>$262.10</td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <table id="#donation">
+            
         </table>
     </body>
 </html>
