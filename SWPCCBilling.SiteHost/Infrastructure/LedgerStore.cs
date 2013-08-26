@@ -26,8 +26,8 @@ namespace SWPCCBilling.Infrastructure
         {
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            con.Execute("INSERT INTO Ledger (FamilyId,Date,FeeId,PaymentId,Amount,Notes) VALUES (?,?,?,?,?,?)",
-                new { line.FamilyId, line.Date, line.FeeId, line.PaymentId, line.Amount, line.Notes });
+            con.Execute("INSERT INTO Ledger (FamilyId,Date,FeeId,PaymentId,UnitPrice,Quantity,Amount,Notes) VALUES (?,?,?,?,?,?,?,?)",
+                new { line.FamilyId, line.Date, line.FeeId, line.PaymentId, line.UnitPrice, line.Quantity, line.Amount, line.Notes });
 
             con.Close();
 

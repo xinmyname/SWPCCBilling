@@ -32,7 +32,9 @@ namespace SWPCCBilling.Modules
                                      Date = l.Date.ToSQLiteDate().Value.ToShortDateString(),
                                      FamilyName = families.Single(f => f.Id == l.FamilyId).FamilyName,
                                      Description = GetDescription(l, fees),
-                                     Amount = (decimal)l.Amount,
+                                     UnitPrice = l.UnitPrice.ToString("C"),
+                                     Quantity = l.Quantity,
+                                     Amount = l.Amount.ToString("C"),
                                      Notes = l.Notes
                                  });
                 return View["Ledger", lines];

@@ -9,7 +9,10 @@
         <th>Date</th>
         <th>Family</th>
         <th>Description</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
         <th>Amount</th>
+        <th>Notes</th>
     </tr>
     <tbody>
         @Each
@@ -17,13 +20,11 @@
             <td>@Current.Date</td>
             <td>@Current.FamilyName</td>
             <td>@Current.Description</td>
+            <td class="text-right">@Current.UnitPrice</td>
+            <td class="text-right">@Current.Quantity</td>
             <td class="text-right">@Current.Amount</td>
+            <td>@Current.Notes</td>
         </tr>
-        @If.HasHotes
-        <tr>
-            <td colspan="4">@Current.Notes</td>
-        </tr>
-        @EndIf
         @EndEach
     </tbody>
 

@@ -20,12 +20,9 @@ namespace SWPCCBilling.Models
         public string Date { get; set; }
         public string FamilyName { get; set; }
         public string Description { get; set; }
-        public decimal Amount { get; set; }
+        public string UnitPrice { get; set; }
+        public long Quantity { get; set; }
+        public string Amount { get; set; }
         public string Notes { get; set; }
-
-        public bool HasNotes
-        {
-            get { return !String.IsNullOrEmpty(Notes); }
-        }
     }
 }
