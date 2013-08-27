@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Nancy;
@@ -11,7 +13,7 @@ namespace SWPCCBilling.Modules
 {
     public class HomeModule : NancyModule
     {
-        public HomeModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore, LedgerLineFactory lineFactory)
+        public HomeModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore, LedgerLineFactoryFactory lineFactoryFactory)
         {
             Get["/"] = _ =>
             {
@@ -30,6 +32,7 @@ namespace SWPCCBilling.Modules
                 var chargeRequest = this.Bind<ChargeRequest>();
                 var receipt = new ChargeReceipt();
                 Fee fee = feeStore.Load(chargeRequest.FeeId);
+                LedgerLineFactory lineFactory = lineFactoryFactory.Create();
 
                 foreach (long familyId in chargeRequest.GetFamilyIds())
                 {

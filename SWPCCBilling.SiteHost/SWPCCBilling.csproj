@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\LedgerLineFactoryFactory.cs" />
     <Compile Include="Infrastructure\DiscountStore.cs" />
     <Compile Include="Infrastructure\LedgerLineFactory.cs" />
     <Compile Include="Infrastructure\LedgerStore.cs" />

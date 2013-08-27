@@ -1,10 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using SWPCCBilling.Models;
 
 namespace SWPCCBilling.Infrastructure
 {
     public class LedgerLineFactory
     {
+        private readonly IList<Discount> _discounts;
+
+        public LedgerLineFactory(IEnumerable<Discount> discounts)
+        {
+            _discounts = new List<Discount>(discounts);
+        }
+
         public LedgerLine CalculateCharge(ChargeRequest chargeRequest, Fee fee, Family family)
         {
             decimal unitPrice = 0.0m;
@@ -56,6 +65,11 @@ namespace SWPCCBilling.Infrastructure
 
         public LedgerLine CreateCharge(long familyId, long feeId, DateTime date, decimal unitPrice, long quantity, string notes)
         {
+            var discount = _discounts.SingleOrDefault(d => d.FamilyId == familyId && d.FeeId == feeId);
+
+            if (discount != null)
+                unitPrice -= unitPrice*((decimal)discount.Percent)/100m;
+
             return new LedgerLine
             {
                 FamilyId = familyId,
