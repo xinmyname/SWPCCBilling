@@ -1,0 +1,25 @@
+Invoice - @Model.InvoiceDate
+
+Southwest Parent Child Collective
+6053 SW 55th Drive
+Portland, OR 97221
+Tax ID: 93-0748219
+
+Billed to:
+@Model.Family.FamilyName
+@Model.Family.StreetAddress
+@Model.Family.City @Model.Family.State @Model.Family.ZIP
+@Each.Model.ParentEmails
+@Current @EndEach
+@Each.Model.Lines
+@Current.Description * @Current.Quantity = @Current.AmountText @EndEach
+
+Total Due @Model.DueDate = @Model.AmountDueText
+
+Please consider adding a tax-deductible donation for the Tuition Assistance Fund to your amount due. Write the amount of your donation and the word "Donation" in the note on your check. Thank you!
+
+Remit payment to:
+SWPCC
+c/o Andy Sherwood
+5316 SW Boundary St
+Portland, OR 97221

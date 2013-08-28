@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Nancy;
 using Nancy.ViewEngines;
 using SWPCCBilling.Infrastructure;
@@ -18,10 +20,10 @@ namespace SWPCCBilling.Modules
             Get["/invoicing/test"] = _ =>
             {
                 var invoiceDate = new DateTime(2013, 9, 1);
-                var family = familyStore.Load(35);
+                var family = familyStore.Load(4);
                 var dueDate = invoiceDate.AddDays(family.DueDay - 1);
                 var lines = lineFactory.Generate(invoiceDate, family.Id).ToList();
-                decimal amountDue = lines.Select(l => l.Amount).Aggregate((x, y) => x + y);
+                decimal amountDue = lines.Select(l => l.Amount).Aggregate(0m, (x, y) => x + y);
 
                 var model = new
                 {
@@ -32,7 +34,13 @@ namespace SWPCCBilling.Modules
                     Lines = lines,
                     AmountDueText = amountDue.ToString("C")
                 };
-                Response response = viewRenderer.RenderView(Context, "InvoiceTemplate", model);
+/*
+                Response response = viewRenderer.RenderView(Context, "InvoiceTemplate_txt", model);
+                var data = new MemoryStream();
+                response.Contents(data);
+                return Response.AsText(Encoding.UTF8.GetString(data.ToArray()));
+*/
+//                Response response = viewRenderer.RenderView(Context, "InvoiceTemplate", model);
                 return View["InvoiceTemplate", model];
             };
         }
