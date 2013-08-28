@@ -1,20 +1,69 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
+using System.Net.Mail;
+using log4net;
 using Nancy;
+using Nancy.ModelBinding;
 using Nancy.ViewEngines;
 using SWPCCBilling.Infrastructure;
+using SWPCCBilling.Models;
+using SWPCCBilling.ViewModels;
 
 namespace SWPCCBilling.Modules
 {
     public class InvoicingModule : NancyModule
     {
-        public InvoicingModule(DefaultViewRenderer viewRenderer, FamilyStore familyStore, InvoiceLineFactory lineFactory)
+        public InvoicingModule(ILog log, DefaultViewRenderer viewRenderer, FamilyStore familyStore, InvoiceLineFactory lineFactory, InvoiceStore invoiceStore)
         {
             Get["/invoicing"] = _ =>
             {
-                return View["Index"];
+                var families = familyStore.LoadAll();
+                var nextMonth = DateTime.Now.AddMonths(1);
+
+                var model = new
+                {
+                    Families = families,
+                    Months = GetMonths(),
+                    NextMonth = nextMonth.ToString("yyyy-MM"),
+                    InvoiceLocation = invoiceStore.GetPathToAllInvoices(),
+                    InvoiceUrl = new Uri(invoiceStore.GetPathToAllInvoices()).AbsoluteUri
+                };
+
+                return View["Index", model];
+            };
+
+            Post["/invoicing/prepare"] = _ =>
+            {
+                var request = this.Bind<PrepareInvoiceRequest>();
+                var invoiceDate = DateTime.ParseExact(request.Month, "yyyy-MM", CultureInfo.InvariantCulture);
+                var factory = new InvoiceFactory(log, viewRenderer, Context, lineFactory);
+
+                if (request.FamilyId == 0)
+                {
+                    foreach (Family family in familyStore.LoadAll())
+                    {
+                        Invoice invoice = factory.PrepareInvoice(invoiceDate, family);
+                        invoiceStore.Save(invoice);
+                    }
+                }
+                else
+                {
+                    Family family = familyStore.Load(request.FamilyId);
+                    Invoice invoice = factory.PrepareInvoice(invoiceDate, family);
+                    invoiceStore.Save(invoice);
+                }
+               
+                return Response.AsJson(new {Success = false});
+            };
+
+            Post["/invoicing/send"] = _ =>
+            {
+                var request = this.Bind<SendInvoiceRequest>();
+
+
+                return Response.AsJson(new { Success = false });
             };
 
             Get["/invoicing/test"] = _ =>
@@ -44,5 +93,15 @@ namespace SWPCCBilling.Modules
                 return View["InvoiceTemplate", model];
             };
         }
+
+        private IEnumerable<MonthViewModel> GetMonths()
+        {
+            DateTime now = DateTime.Now;
+            var startDate = new DateTime(now.AddMonths(-6).Year, 1, 1);
+
+            for (int m = 0; m < 24; m++)
+                yield return new MonthViewModel(startDate.AddMonths(m));
+        }
     }
+
 }

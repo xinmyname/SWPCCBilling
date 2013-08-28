@@ -4,7 +4,6 @@ using Nancy;
 using Nancy.ModelBinding;
 using SWPCCBilling.Infrastructure;
 using SWPCCBilling.Models;
-using SWPCCBilling.ViewModels;
 
 namespace SWPCCBilling.Modules
 {
@@ -14,11 +13,15 @@ namespace SWPCCBilling.Modules
         {
             Get["/"] = _ =>
             {
-                var model = new HomeViewModel
+                var nextMonth = DateTime.Now.AddMonths(1);
+                nextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
+
+                var model = new
                 {
                     Families = familyStore.LoadAll().ToList(),
                     Fees = feeStore.LoadAll().ToList(),
-                    Today = DateTime.Today.ToShortDateString()
+                    NextMonth = nextMonth.ToShortDateString(),
+                    Today = DateTime.Now.ToShortDateString()
                 };
 
                 return View["Index", model];

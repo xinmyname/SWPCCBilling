@@ -35,7 +35,7 @@
         <fieldset>
             <label>Date</label>
             <div class="input-append">
-                <input id="chargeDate" type="text" name="ChargeDate" value="@Model.Today">
+                <input id="chargeDate" type="text" name="ChargeDate" value="@Model.NextMonth">
                 <span class="add-on"><i class="icon-calendar"></i></span>
             </div>
             
@@ -198,7 +198,6 @@
         $.ajax({
             url: "/home/payment",
             type: "POST",
-            contentType: "application/json",
             data: {
                 familyList: buildFamilyList(),
                 paymentDate: $("#paymentDate").val(),
