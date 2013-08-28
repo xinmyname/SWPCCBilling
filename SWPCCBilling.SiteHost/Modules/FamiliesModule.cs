@@ -20,7 +20,7 @@ namespace SWPCCBilling.Modules
                 DateTime now = DateTime.Now;
                 DateTime today = DateTime.Today;
 
-                var family = new Family("", "Portland", "OR", "", today, 1);
+                var family = new Family("", "Portland", "OR", "", today, 10);
                 var newParent = new Parent("", "New");
                 var newChild = new Child("New", "", Child.ChildRoomPreschool1, today, now);
                 newChild.Mon = newChild.Wed = true;

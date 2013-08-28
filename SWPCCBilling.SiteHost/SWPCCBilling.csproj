@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\PaymentStore.cs" />
+    <Compile Include="Infrastructure\InvoiceLineFactory.cs" />
     <Compile Include="Infrastructure\LedgerLineFactoryFactory.cs" />
     <Compile Include="Infrastructure\DiscountStore.cs" />
     <Compile Include="Infrastructure\LedgerLineFactory.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Infrastructure\EmbeddedResourceContentConventionBuilder.cs" />
     <Compile Include="Infrastructure\FamilyStore.cs" />
     <Compile Include="Models\ChargeRequest.cs" />
+    <Compile Include="Models\InvoiceLine.cs" />
     <Compile Include="Models\LedgerLine.cs" />
     <Compile Include="Models\Week.cs" />
     <Compile Include="Modules\InvoicingModule.cs" />
@@ -236,7 +239,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\InvoiceTemplate.html" />
+    <EmbeddedResource Include="..\..\..\Dropbox\InvoiceTemplate.html">
+      <Link>Views\InvoiceTemplate.html</Link>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\Ledger.html" />
     <EmbeddedResource Include="Views\Reports\Families.html" />
     <EmbeddedResource Include="Views\Reports\ChildDays.html" />

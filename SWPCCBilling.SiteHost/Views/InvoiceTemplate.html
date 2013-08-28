@@ -1,9 +1,13 @@
 ﻿<html>
     <head>
         <style>
-            #header {
-                width: 100%;
+            body,td {
+                font-family: 'Calibri Light', 'Helvetica Neue Light', 'Arial', sans-serif;
+                font-size: 14pt;
             }
+             #header {
+                 width: 100%;
+             }
             #header td {
                 vertical-align: top;
             }
@@ -22,6 +26,13 @@
             }
             #items {
                 width: 100%;
+                border-collapse: collapse;
+            }
+            #items th, #items td {
+                border: solid 1px #000;
+            }
+            #remit p {
+                margin: 0;
             }
         </style>
     </head>
@@ -87,8 +98,15 @@
             </tfoot>
         </table>
         
-        <table id="#donation">
-            
-        </table>
+        <p>Please consider adding a tax-deductible donation for the Tuition Assistance Fund to your amount due. Write the amount of your donation and the word "Donation" in the note on your check. Thank you!
+        </p>
+
+        <div id="remit">
+            <p>Remit payment to:</p>
+            <p>SWPCC</p>
+            <p>c/o Andy Sherwood</p>
+            <p>5316 SW Boundary St</p>
+            <p>Portland, OR 97221</p>
+        </div>
     </body>
 </html>
