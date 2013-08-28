@@ -31,6 +31,17 @@ namespace SWPCCBilling.Models
             set { Departed = value.HasValue ? value.Value.ToSQLiteDateTime() : null; }
         }
 
+        public bool IsReturning
+        {
+            get
+            {
+                if ((DateTime.Today - JoinedDate.Value).TotalDays > 200)
+                    return true;
+
+                return false;
+            }
+        }
+
         public string FamilyName
         {
             get

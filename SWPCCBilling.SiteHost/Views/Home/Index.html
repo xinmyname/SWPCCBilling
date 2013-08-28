@@ -21,10 +21,12 @@
         <h2>Family</h2>
         <div>
             <label class="checkbox"><input id="allFamilies" type="checkbox"> All Families</label>        
+            <label class="checkbox"><input id="returningFamilies" type="checkbox"> Returning Families</label>        
+            <label class="checkbox"><input id="newFamilies" type="checkbox"> New Families</label>        
         </div>
         <div id="familyList">
             @Each.Families
-                <label class="checkbox"><input type="checkbox" value="@Current.Id"> @Current.FamilyName</label>        
+                <label class="checkbox"><input type="checkbox" value="@Current.Id" data-returning="@Current.IsReturning"> @Current.FamilyName</label>        
             @EndEach
         </div>
     </div>
@@ -143,6 +145,22 @@
             $("#familyList label input").prop('checked', true);
         } else {
             $("#familyList label input").prop('checked', false);
+        }
+    });
+
+    $("#returningFamilies").change(function () {
+        if ($(this).is(":checked")) {
+            $("#familyList label input[data-returning='True']").prop('checked', true);
+        } else {
+            $("#familyList label input[data-returning='True']").prop('checked', false);
+        }
+    });
+
+    $("#newFamilies").change(function () {
+        if ($(this).is(":checked")) {
+            $("#familyList label input[data-returning='False']").prop('checked', true);
+        } else {
+            $("#familyList label input[data-returning='False']").prop('checked', false);
         }
     });
 
