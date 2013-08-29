@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\InvoiceFactory.cs" />
+    <Compile Include="Infrastructure\InvoiceMailer.cs" />
     <Compile Include="Infrastructure\InvoiceStore.cs" />
     <Compile Include="Infrastructure\PaymentStore.cs" />
     <Compile Include="Infrastructure\InvoiceLineFactory.cs" />

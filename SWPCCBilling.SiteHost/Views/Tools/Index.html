@@ -13,4 +13,35 @@
     </fieldset>
 </form>
 
+<form class="well" action="/tools/email" method="POST">
+    <fieldset>
+        <legend>Email Setup</legend>
+        
+        <label>Server</label>
+        <input type="text" name="Server" placeholder="smtp.gmail.com" value="@Model.EmailServer" />
+        <label>Port</label>
+        <input type="text" name="Port" placeholder="587" value="@Model.EmailPort" />
+        <label class="checkbox">
+            <input id="useSSL" name="UseSSL" type="checkbox" > Use secure connection
+        </label>
+        <label>From</label>
+        <input type="text" name="From" placeholder="someone@gmail.com" value="@Model.EmailFrom" />
+        
+        <div>
+            <button type="submit" class="btn"><i class="icon-ok-sign"></i> Save</button>
+        </div>
+    </fieldset>
+    
+</form>
+
+@EndSection
+
+@Section['Scripts']
+<script type="text/javascript">
+    
+    var True = true;
+    var False = false;
+    
+    $('#useSSL').prop('checked', @Model.EmailSSL);
+</script>
 @EndSection

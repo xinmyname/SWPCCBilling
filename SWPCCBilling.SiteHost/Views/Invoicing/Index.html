@@ -5,6 +5,10 @@
     .receipts {
         margin-top: 1em;
     }
+    #passwordConfirmation {
+        display: none;
+        margin-top: 1em;
+    }
 </style>
 @EndSection
 
@@ -13,6 +17,11 @@
 <h1>Invoicing</h1>
 
 <div class="container-fluid">
+    <div class="row-fluid">
+        <div class="well well-small">
+            Invoices are stored at <a href="@Model.InvoiceUrl">@Model.InvoiceLocation</a>
+        </div>
+    </div>
     <div class="row-fluid">
         <div class="span6">
             <h2>Prepare Invoices</h2>    
@@ -58,16 +67,17 @@
                     @EndEach
                 </select>
                 <div>
-                    <div class="btn-group">
-                        <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class=" icon-envelope icon-white"></i> Send
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a id="sendNow" href="#">Yes, send them now</a></li>
-                        </ul>
-                    </div>                        
+                    <button id="send" class="btn btn-primary"><i class="icon-envelope icon-white"></i> Send</button>
                 </div>
+                <div id="passwordConfirmation">
+                    <label>Email Password</label>
+                    <input id="password" class="span6" type="password"/>
+                    <div>
+                        <button id="confirmSend" class="btn btn-danger"><i class="icon-ok icon-white"></i> Confirm</button>
+                    </div>
+                </div>
+                    
+
             </fieldset>
 
             <div id="sendAlerts" class="receipts">
@@ -77,11 +87,6 @@
         
     </div>
 
-    <div class="row-fluid">
-        <div class="well">
-            Invoices are stored at <a href="@Model.InvoiceUrl">@Model.InvoiceLocation</a>
-        </div>
-    </div>
 </div>
 
 @EndSection
@@ -113,14 +118,32 @@
                     createAlert("Could not prepare invoices.", "error"));
             }
         });
-
-        $("#prepareAlerts").append(
-            createAlert("Prepared invoices.", "success"));
     });
 
-    $("#sendNow").click(function () {
-        $("#sendAlerts").append(
-            createAlert("Sent messages.", "success"));
+    $("#send").click(function () {
+        $("#passwordConfirmation").show();
+    });
+
+    $("#confirmSend").click(function () {
+        $.ajax({
+            url: "/invoicing/send",
+            type: "POST",
+            data: {
+                familyId: $("#sendFamilyId").val(),
+                month: $("#sendMonth").val(),
+                password: $("#password").val()
+            },
+            success: function (res) {
+                $("#sendAlerts").append(
+                    createAlert("Emails sent.", "success"));
+            },
+            error: function () {
+                $("#sendAlerts").append(
+                    createAlert("Could not send email.", "error"));
+            }
+        });
+
+        $("#passwordConfirmation").fadeOut();
     });
 
 </script>
