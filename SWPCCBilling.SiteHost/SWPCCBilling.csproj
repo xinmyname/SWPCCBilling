@@ -90,6 +90,7 @@
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\InvoiceLine.cs" />
     <Compile Include="Models\LedgerLine.cs" />
+    <Compile Include="Models\PaymentRequest.cs" />
     <Compile Include="Models\PrepareInvoiceRequest.cs" />
     <Compile Include="Models\SendInvoiceRequest.cs" />
     <Compile Include="Models\Week.cs" />

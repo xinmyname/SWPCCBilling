@@ -96,6 +96,12 @@
                 <input id="paymentAmount" type="text" placeholder="0.00">
             </div>
 
+            <label>Donation</label>
+            <div class="input-prepend">
+                <span class="add-on">$</span>
+                <input id="paymentDonation" type="text" placeholder="0.00">
+            </div>
+
             <label>Notes</label>
             <textarea id="paymentNotes" class="input-block-level"></textarea>
 
@@ -199,15 +205,16 @@
             url: "/home/payment",
             type: "POST",
             data: {
-                familyList: buildFamilyList(),
-                paymentDate: $("#paymentDate").val(),
+                familyId: $("#familyList label input:checked").first().val(),
+                date: $("#paymentDate").val(),
                 checkNum: $("#checkNum").val(),
-                paymentAmount: $("#paymentAmount").val(),
-                paymentNotes: $("#paymentNotes").val(),
+                amount: $("#paymentAmount").val(),
+                donation: $("#paymentDonation").val(),
+                notes: $("#paymentNotes").val(),
             },
             success: function (res) {
                 $("#paymentAlerts").append(
-                    createAlert("Received " + accounting.formatMoney(res.amount) + " from " + res.family + ".", "success"));
+                    createAlert("Received " + accounting.formatMoney(res.Amount) + " from " + res.FamilyName + ".", "success"));
             },
             error: function () {
                 $("#paymentAlerts").append(
