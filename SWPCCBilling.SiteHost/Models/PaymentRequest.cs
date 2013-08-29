@@ -8,7 +8,6 @@ namespace SWPCCBilling.Models
         public DateTime Date { get; set; }
         public string CheckNum { get; set; }
         public decimal Amount { get; set; } 
-        public decimal Donation { get; set; }
         public string Notes { get; set; }
     }
 

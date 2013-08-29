@@ -9,7 +9,12 @@ namespace SWPCCBilling.Modules
 {
     public class HomeModule : NancyModule
     {
-        public HomeModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore, LedgerLineFactoryFactory lineFactoryFactory)
+        public HomeModule(
+            FamilyStore familyStore, 
+            FeeStore feeStore, 
+            LedgerStore ledgerStore, 
+            LedgerLineFactoryFactory lineFactoryFactory, 
+            PaymentStore paymentStore)
         {
             Get["/"] = _ =>
             {
@@ -50,14 +55,31 @@ namespace SWPCCBilling.Modules
 
             Post["/home/payment"] = _ =>
             {
-                throw new NotImplementedException();
-                //var paymentReceipt = new
-                //{
-                //    amount = 14.0m,
-                //    family = "Test Family"
-                //};
+                var paymentRequest = this.Bind<PaymentRequest>();
+                var receipt = new PaymentReceipt();
+                Family family = familyStore.Load(paymentRequest.FamilyId);
 
-                //return Response.AsJson(paymentReceipt);
+                var payment = new Payment
+                {
+                    FamilyId = family.Id,
+                    CheckNum = paymentRequest.CheckNum,
+                    Amount = (double) paymentRequest.Amount,
+                    Received = paymentRequest.Date.ToSQLiteDate()
+                };
+
+                paymentStore.Add(payment);
+
+                LedgerLineFactory lineFactory = lineFactoryFactory.Create();
+
+                LedgerLine line = lineFactory.CreatePayment(family.Id, payment.Id, DateTime.Now, paymentRequest.Amount,
+                    paymentRequest.Notes);
+
+                ledgerStore.Add(line);
+
+                receipt.FamilyName = family.FamilyName;
+                receipt.Amount = paymentRequest.Amount;
+
+                return Response.AsJson(receipt);
             };
         }
 
