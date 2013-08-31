@@ -71,7 +71,7 @@ namespace SWPCCBilling.Modules
 
                 LedgerLineFactory lineFactory = lineFactoryFactory.Create();
 
-                LedgerLine line = lineFactory.CreatePayment(family.Id, payment.Id, DateTime.Now, paymentRequest.Amount,
+                LedgerLine line = lineFactory.CreatePayment(family.Id, payment.Id, paymentRequest.Date, paymentRequest.Amount,
                     paymentRequest.Notes);
 
                 ledgerStore.Add(line);

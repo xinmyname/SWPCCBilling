@@ -32,7 +32,7 @@ namespace SWPCCBilling.Infrastructure
 
             var dueDate = invoiceDate.AddDays(family.DueDay - 1);
             var lines = _lineFactory.Generate(invoiceDate, family.Id).ToList();
-            decimal amountDue = lines.Select(l => l.Amount).Aggregate(0m, (x, y) => x + y);
+            decimal amountDue = lines.Select(l => l.Amount).Sum();
 
             var model = new
             {
