@@ -247,6 +247,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Reports\Emails.html" />
     <EmbeddedResource Include="Views\InvoiceTemplate_txt.html" />
     <EmbeddedResource Include="..\..\..\Dropbox\InvoiceTemplate.html">
       <Link>Views\InvoiceTemplate.html</Link>

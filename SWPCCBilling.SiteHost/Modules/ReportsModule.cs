@@ -21,6 +21,9 @@ namespace SWPCCBilling.Modules
             Get["/reports/newfamilies"] = _ => View["Families",
                 familyStore.LoadAll().Where(f => f.JoinedDate.Value.Year == DateTime.Today.Year)];
 
+            Get["/reports/emails"] = _ => View["Emails",
+                familyStore.LoadAll().SelectMany(f => f.Parents).Where(p => !String.IsNullOrEmpty(p.Email)).Select(p => p.Email)];
+
             Get["/reports/ledger"] = _ =>
             {
                 var families = familyStore.LoadAll().ToList();
