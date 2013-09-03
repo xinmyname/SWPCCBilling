@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.IO;
 using log4net;
 using SWPCCBilling.Models;
@@ -8,18 +9,32 @@ namespace SWPCCBilling.Infrastructure
     public class InvoiceStore
     {
         private readonly ILog _log;
+        private readonly DatabaseFactory _dbFactory;
 
-        public InvoiceStore(ILog log)
+        public InvoiceStore(ILog log, DatabaseFactory dbFactory)
         {
             _log = log;
+            _dbFactory = dbFactory;
         }
 
-        public Invoice Load(DateTime date, string familyName)
+        public Invoice Load(DateTime date, long familyId, string familyName)
         {
+            string month = date.ToSQLiteDate();
+
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            var amountDue = con.ExecuteScalar<double>("SELECT AmountDue FROM Invoice WHERE FamilyId=? AND Date=?",
+                                               new { familyId, month });
+
+            con.Close();
+
             string path = GetPathToInvoice(date, familyName, InvoiceBodyType.HTML);
 
-            return new Invoice(date, familyName) 
-                { HTMLBody = File.ReadAllText(path) };
+            return new Invoice(date, familyId, familyName) 
+            { 
+                HTMLBody = File.ReadAllText(path),
+                AmountDue = (decimal)amountDue
+            };
         }
 
         public void Save(Invoice invoice)
@@ -31,6 +46,13 @@ namespace SWPCCBilling.Infrastructure
             Directory.CreateDirectory(Path.GetDirectoryName(path));
 
             File.WriteAllText(path, invoice.HTMLBody);
+
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            con.Execute("INSERT INTO Invoice (FamilyId,Date,Amount) VALUES (?,?,?)",
+                new {invoice.FamilyId, invoice.Date, invoice.AmountDue});
+
+            con.Close();
         }
 
         public string GetPathToInvoice(DateTime date, string familyName, InvoiceBodyType bodyType)

@@ -247,11 +247,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\InvoiceTemplate.html" />
     <EmbeddedResource Include="Views\Reports\Emails.html" />
     <EmbeddedResource Include="Views\InvoiceTemplate_txt.html" />
-    <EmbeddedResource Include="..\..\..\Dropbox\InvoiceTemplate.html">
-      <Link>Views\InvoiceTemplate.html</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\Ledger.html" />
     <EmbeddedResource Include="Views\Reports\Families.html" />
     <EmbeddedResource Include="Views\Reports\ChildDays.html" />

@@ -64,7 +64,7 @@ namespace SWPCCBilling.Modules
                     FamilyId = family.Id,
                     CheckNum = paymentRequest.CheckNum,
                     Amount = (double) paymentRequest.Amount,
-                    Received = paymentRequest.Date.ToSQLiteDate()
+                    Received = paymentRequest.Date.ToSQLiteDate()   
                 };
 
                 paymentStore.Add(payment);

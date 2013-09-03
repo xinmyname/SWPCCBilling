@@ -28,11 +28,11 @@ namespace SWPCCBilling.Infrastructure
         {
             _log.InfoFormat("Preparing {0:MMMM yyyy} invoice for {1} ", invoiceDate, family.FamilyName);
 
-            var invoice = new Invoice(invoiceDate, family.FamilyName);
+            var invoice = new Invoice(invoiceDate, family.Id, family.FamilyName);
 
             var dueDate = invoiceDate.AddDays(family.DueDay - 1);
             var lines = _lineFactory.Generate(invoiceDate, family.Id).ToList();
-            decimal amountDue = lines.Select(l => l.Amount).Sum();
+            invoice.AmountDue = lines.Select(l => l.Amount).Sum();
 
             var model = new
             {
@@ -41,7 +41,7 @@ namespace SWPCCBilling.Infrastructure
                 ParentEmails = family.Parents.Where(p => p.Email != null).Select(p => p.Email).ToList(),
                 DueDate = dueDate.ToString("MMMM d, yyyy"),
                 Lines = lines,
-                AmountDueText = amountDue.ToString("C")
+                AmountDueText = invoice.AmountDue.ToString("C")
             };
 
             var data = new MemoryStream();

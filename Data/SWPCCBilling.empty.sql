@@ -72,8 +72,16 @@ CREATE TABLE [Payment]
 	[FamilyId] INTEGER NOT NULL,
 	[CheckNum] TEXT NULL,
 	[Amount] REAL NOT NULL,
-	[Received] TEXT NOT NULL,
+	[Received] TEXT NOT NULL, 
 	[Deposited] TEXT NULL
+);
+
+DROP TABLE IF EXISTS [Invoice];
+CREATE TABLE [Invoice]
+(
+	[FamilyId] INTEGER NOT NULL,
+	[Date] TEXT NOT NULL,
+	[Amount] REAL NOT NULL
 );
 
 DROP TABLE IF EXISTS [Ledger];

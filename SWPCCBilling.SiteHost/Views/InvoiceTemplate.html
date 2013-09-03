@@ -1,99 +1,65 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <style>
-            body,td {
-                font-family: 'Calibri Light', 'Helvetica Neue Light', 'Arial', sans-serif;
-                font-size: 14pt;
-            }
-             #header {
-                 width: 100%;
-             }
-            #header td {
-                vertical-align: top;
-            }
-            #header p {
-                margin: 0;
-            }
-            #taxId {
-                padding-top: 1em;
-                padding-bottom: 1em;
-            }
-            #emails {
-                padding-top: 1em;
-            }
-            #invoiceInfo {
-                text-align: right;
-            }
-            #items {
-                width: 100%;
-                border-collapse: collapse;
-            }
-            #items th, #items td {
-                border: solid 1px #000;
-            }
-            #remit p {
-                margin: 0;
-            }
-        </style>
+        <title>SWPCC @Model.InvoiceDate Invoice</title>
     </head>
-    <body>
-        <h1>Invoice</h1>
-        <table id="header">
+    <body style="font-family: 'Calibri', 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; font-size: 14pt;">
+        <table width="100%">
             <tr>
-                <td>
-                    <div id="preschoolAddress">
-                        <p>Southwest Parent Child Collective</p>
-                        <p>6053 SW 55th Drive</p>
-                        <p>Portland, OR 97221</p>
-                    </div>
-                    <p id="taxId">Tax ID: 93-0748219</p>
-                    <div id="billedTo">
-                        <p>Billed to:</p>
-                        <p>The Cochran Family</p>
-                        <p>9016 SW 14th Ave</p>
-                        <p>Portland, OR 97219</p>
-                    </div>
-                    <div id="emails">
-                        <p>vcochran77@gmail.com</p>
-                    </div>
+                <td valign="bottom">
+                    <h2>Invoice</h2>
                 </td>
-                <td id="invoiceInfo">
-                    <p>June 1, 2013</p>
-                    <p>Invoice# 2013-09</p>
+                <td valign="bottom" style="text-align:right">
+                    <h2>@Model.InvoiceDate</h2>
                 </td>
             </tr>
         </table>
+        <p>
+            Southwest Parent Child Collective<br />
+            6053 SW 55th Drive<br />
+            Portland, OR 97221<br />
+        </p>
+        <p>
+            Tax ID: 93-0748219
+        </p>
+        <p>
+            Billed to:<br />
+            @Model.Family.FamilyName<br />
+            @Model.Family.StreetAddress<br />
+            @Model.Family.City @Model.Family.State @Model.Family.ZIP<br />
+        </p>
+        <p>
+            @Each.Model.ParentEmails
+            @Current<br />
+            @EndEach
+        </p>
         
-        <table id="items">
+        <table width="100%" style="border-collapse:collapse;border:solid 1px #000">
             <thead>
                 <tr>
-                    <td colspan="4">Due June 10, 2013</td>
+                    <td colspan="4" style="text-align:center;font-weight:bold;background-color:#cee;padding:0.2em">Due @Model.DueDate</td>
                 </tr>
                 <tr>
-                    <th>Description</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
+                    <th width="50%" style="border:solid 1px #000;text-align:left;padding:0.2em">Description</th>
+                    <th style="border:solid 1px #000;text-align:right;padding:0.2em">Rate</th>
+                    <th style="border:solid 1px #000;text-align:center;padding:0.2em">Quantity</th>
+                    <th style="border:solid 1px #000;text-align:right;padding:0.2em">Amount</th>
                 </tr>
             </thead>
             <tbody>
+                @Each.Model.Lines
                 <tr>
-                    <td>Tuition</td>
-                    <td>$103.00</td>
-                    <td>2</td>
-                    <td>$206.00</td>
+                    <td width="50%" valign="top" style="border:solid 1px #000;padding:0.2em">@Current.Description</td>
+                    <td valign="top" style="border:solid 1px #000;text-align:right;padding:0.2em">@Current.UnitPriceText</td>
+                    <td valign="top" style="border:solid 1px #000;text-align:center;padding:0.2em">@Current.Quantity</td>
+                    <td valign="top" style="border:solid 1px #000;text-align:right;padding:0.2em">@Current.AmountText</td>
                 </tr>
-                <tr>
-                    <td>2/3 Insurance</td>
-                    <td>$85.00</td>
-                    <td>1</td>
-                    <td>$56.10</td>
-                </tr>
+                @EndEach
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">Total Due June 10, 2013</td>
-                    <td>$262.10</td>
+                    <td colspan="3" style="border:solid 1px #000;font-weight:bold;padding:0.2em">Total Due @Model.DueDate</td>
+                    <td style="border:solid 1px #000;font-weight:bold;text-align:right;padding:0.2em">@Model.AmountDueText</td>
                 </tr>
             </tfoot>
         </table>
@@ -101,12 +67,12 @@
         <p>Please consider adding a tax-deductible donation for the Tuition Assistance Fund to your amount due. Write the amount of your donation and the word "Donation" in the note on your check. Thank you!
         </p>
 
-        <div id="remit">
-            <p>Remit payment to:</p>
-            <p>SWPCC</p>
-            <p>c/o Andy Sherwood</p>
-            <p>5316 SW Boundary St</p>
-            <p>Portland, OR 97221</p>
-        </div>
+        <p>
+            Remit payment to:<br />
+            SWPCC<br />
+            c/o Andy Sherwood<br />
+            5316 SW Boundary St<br />
+            Portland, OR 97221<br />
+        </p>
     </body>
 </html>

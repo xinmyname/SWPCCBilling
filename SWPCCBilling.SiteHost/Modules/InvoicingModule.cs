@@ -79,7 +79,7 @@ namespace SWPCCBilling.Modules
                 {
                     try
                     {
-                        Invoice invoice = invoiceStore.Load(invoiceDate, family.FamilyName);
+                        Invoice invoice = invoiceStore.Load(invoiceDate, family.Id, family.FamilyName);
                         invoiceMailer.Send(invoice, request.Password, family.Parents.Where(p => p.Email != null).Select(p => p.Email).ToList());
                     }
                     catch (Exception ex)
