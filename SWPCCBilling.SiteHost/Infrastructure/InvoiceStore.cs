@@ -49,7 +49,7 @@ namespace SWPCCBilling.Infrastructure
 
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            con.Execute("INSERT INTO Invoice (FamilyId,Date,Amount) VALUES (?,?,?)",
+            con.Execute("INSERT OR REPLACE INTO Invoice (FamilyId,Date,Amount) VALUES (?,?,?)",
                 new {invoice.FamilyId, invoice.Date, invoice.AmountDue});
 
             con.Close();

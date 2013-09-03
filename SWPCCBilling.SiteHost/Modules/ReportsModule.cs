@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nancy;
+using Nancy.ModelBinding;
 using SWPCCBilling.Infrastructure;
 using SWPCCBilling.Models;
 
@@ -41,6 +42,31 @@ namespace SWPCCBilling.Modules
                                      Notes = l.Notes
                                  });
                 return View["Ledger", lines];
+            };
+
+            Post["/reports/monthly"] = _ =>
+            {
+                var month = DateTime.Parse(Request.Form["month"]);
+                var statements = new List<Statement>();
+                decimal totalAmountDue = 0m;
+                decimal totalAmoutPaid = 0m;
+
+
+                foreach (var family in familyStore.LoadAll())
+                {
+                    var statement = new Statement(family.FamilyName);
+
+                    statements.Add(statement);
+                }
+
+
+                var model = new
+                {
+                    Statements = statements,
+                    TotalAmountDue = totalAmountDue.ToString("F2"),
+                    TotalAmountPaid = totalAmoutPaid.ToString("F2")    
+                };
+                return View["Monthly", model];
             };
         }
 

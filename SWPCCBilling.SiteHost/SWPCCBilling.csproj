@@ -94,6 +94,7 @@
     <Compile Include="Models\PaymentRequest.cs" />
     <Compile Include="Models\PrepareInvoiceRequest.cs" />
     <Compile Include="Models\SendInvoiceRequest.cs" />
+    <Compile Include="Models\Statement.cs" />
     <Compile Include="Models\Week.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Modules\InvoicingModule.cs" />
@@ -247,6 +248,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Reports\Monthly.html" />
     <EmbeddedResource Include="Views\InvoiceTemplate.html" />
     <EmbeddedResource Include="Views\Reports\Emails.html" />
     <EmbeddedResource Include="Views\InvoiceTemplate_txt.html" />

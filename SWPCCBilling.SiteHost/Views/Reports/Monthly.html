@@ -1,0 +1,41 @@
+﻿@Master['ReportMaster.html']
+
+@Section['Content']
+
+<table>
+    <thead>
+        <tr>
+            <th>Family</th>
+            <th>Amount Due</th>
+            <th>Amount Paid</th>
+            <th>Check #</th>
+            <th>Deposit Date</th>
+            <th>Over/Under</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Each.Model.Statements
+        <tr>
+            <td>@Current.FamilyName</td>
+            <td>@Current.AmountDue</td>
+            <td>@Current.AmountPaid</td>
+            <td>@Current.CheckNum</td>
+            <td>@Current.DepositDate</td>
+            <td>@Current.OverUnder</td>
+        </tr>
+        @EndEach
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Total</td>
+            <td>@Model.TotalAmountDue</td>
+            <td>@Model.TotalAmountPaid</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+
+</table>
+
+@EndSection
