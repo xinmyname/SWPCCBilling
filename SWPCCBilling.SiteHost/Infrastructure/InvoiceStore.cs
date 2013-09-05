@@ -23,7 +23,7 @@ namespace SWPCCBilling.Infrastructure
 
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            var amountDue = con.ExecuteScalar<double>("SELECT AmountDue FROM Invoice WHERE FamilyId=? AND Date=?",
+            var amountDue = con.ExecuteScalar<double>("SELECT Amount FROM Invoice WHERE FamilyId=? AND Date=?",
                                                new { familyId, month });
 
             con.Close();
@@ -49,8 +49,16 @@ namespace SWPCCBilling.Infrastructure
 
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            con.Execute("INSERT OR REPLACE INTO Invoice (FamilyId,Date,Amount) VALUES (?,?,?)",
-                new {invoice.FamilyId, invoice.Date, invoice.AmountDue});
+            string invoiceDate = invoice.Date.ToSQLiteDate();
+
+            int rows = con.Execute("UPDATE Invoice SET Amount=? WHERE FamilyId=? AND Date=?",
+                new {invoice.AmountDue, invoice.FamilyId, invoiceDate});
+
+            if (rows == 0)
+            {
+                con.Execute("INSERT INTO Invoice (FamilyId,Date,Amount) VALUES (?,?,?)",
+                    new {invoice.FamilyId, invoice.Date, invoice.AmountDue});
+            }
 
             con.Close();
         }

@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using SWPCCBilling.Models;
 
 namespace SWPCCBilling.Infrastructure
@@ -16,17 +18,31 @@ namespace SWPCCBilling.Infrastructure
         {
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            IDbCommand cmd = con.CreateCommand("INSERT INTO Payment (FamilyId,CheckNum,Amount,Received) VALUES (?,?,?,?)",
+            con.Execute("INSERT INTO Payment (FamilyId,CheckNum,Amount,Received) VALUES (?,?,?,?)",
                 new {payment.FamilyId, payment.CheckNum, payment.Amount, payment.Received});
 
-            cmd.ExecuteNonQuery();
-
-            cmd = con.CreateCommand("SELECT MAX(Id) FROM Payment");
-            payment.Id = (long)cmd.ExecuteScalar();
+            payment.Id = con.ExecuteScalar<long>("SELECT MAX(Id) FROM Payment");
 
             con.Close();
 
             return payment;
+        }
+
+        public IList<Payment> Load(DateTime month, long familyId)
+        {
+            string monthStart = month.ToSQLiteDate();
+            string monthEnd = month.AddMonths(1).AddDays(-1).ToSQLiteDate();
+
+            var payments = new List<Payment>();
+
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            payments.AddRange(con.Query<Payment>("SELECT * FROM Payment WHERE Received BETWEEN ? AND ? AND FamilyId=? ",
+                new{ monthStart, monthEnd, familyId }));
+
+            con.Close();
+
+            return payments;
         }
     }
 }

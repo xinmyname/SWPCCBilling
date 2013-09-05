@@ -10,7 +10,7 @@ namespace SWPCCBilling.Modules
 {
     public class ReportsModule : NancyModule
     {
-        public ReportsModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore)
+        public ReportsModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore, InvoiceStore invoiceStore, PaymentStore paymentStore)
         {
             Get["/reports"] = _ => View["Index"];
 
@@ -46,25 +46,33 @@ namespace SWPCCBilling.Modules
 
             Post["/reports/monthly"] = _ =>
             {
-                var month = DateTime.Parse(Request.Form["month"]);
+                DateTime month = DateTime.Parse(Request.Form["month"]);
                 var statements = new List<Statement>();
                 decimal totalAmountDue = 0m;
                 decimal totalAmoutPaid = 0m;
 
-
                 foreach (var family in familyStore.LoadAll())
                 {
-                    var statement = new Statement(family.FamilyName);
+                    Invoice invoice = invoiceStore.Load(month, family.Id, family.FamilyName);
+                    totalAmountDue += invoice.AmountDue;
+
+                    var statement = new Statement(family.FamilyName, invoice.AmountDue);
+
+                    foreach (Payment payment in paymentStore.Load(month, family.Id))
+                    {
+                        statement.AddPayment(payment.CheckNum, (decimal) payment.Amount);
+                        totalAmoutPaid += (decimal)payment.Amount;
+                    }
 
                     statements.Add(statement);
                 }
 
-
                 var model = new
                 {
+                    Month = month.ToString("MMMM yyyy"),
                     Statements = statements,
-                    TotalAmountDue = totalAmountDue.ToString("F2"),
-                    TotalAmountPaid = totalAmoutPaid.ToString("F2")    
+                    TotalAmountDue = totalAmountDue.ToString("C"),
+                    TotalAmountPaid = totalAmoutPaid.ToString("C")    
                 };
                 return View["Monthly", model];
             };

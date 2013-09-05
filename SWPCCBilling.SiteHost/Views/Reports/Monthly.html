@@ -1,41 +1,61 @@
 ﻿@Master['ReportMaster.html']
 
+@Section['Header']
+<style>
+    thead {
+        border-bottom: solid 1px #000;
+    }
+    tbody tr:nth-child(odd) {
+        background: #f0f0f0
+    }
+    tfoot {
+        border-top: solid 1px #000;
+    }
+    tfoot td {
+        padding-top: 0.5em;
+    }
+    h4 {
+        margin: 0.5em 0;
+    }
+</style>
+@EndSection
+
 @Section['Content']
 
+<h4>@Model.Month</h4>
 <table>
     <thead>
         <tr>
             <th>Family</th>
-            <th>Amount Due</th>
-            <th>Amount Paid</th>
+            <th class="text-right">Due</th>
+            <th class="text-right">Paid</th>
             <th>Check #</th>
-            <th>Deposit Date</th>
-            <th>Over/Under</th>
+            <th>Deposited</th>
+            <th class="text-right">Balance</th>
         </tr>
     </thead>
     <tbody>
         @Each.Model.Statements
         <tr>
             <td>@Current.FamilyName</td>
-            <td>@Current.AmountDue</td>
-            <td>@Current.AmountPaid</td>
+            <td class="text-right">@Current.AmountDueText</td>
+            <td class="text-right">@Current.AmountPaidText</td>
             <td>@Current.CheckNum</td>
-            <td>@Current.DepositDate</td>
-            <td>@Current.OverUnder</td>
+            <td>@Current.DepositDateText</td>
+            <td class="text-right">@Current.OverUnderHtml</td>
         </tr>
         @EndEach
     </tbody>
     <tfoot>
         <tr>
             <td>Total</td>
-            <td>@Model.TotalAmountDue</td>
-            <td>@Model.TotalAmountPaid</td>
+            <td class="text-right">@Model.TotalAmountDue</td>
+            <td class="text-right">@Model.TotalAmountPaid</td>
             <td></td>
             <td></td>
             <td></td>
         </tr>
     </tfoot>
-
 </table>
 
 @EndSection
