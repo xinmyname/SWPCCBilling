@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Nancy;
@@ -10,8 +11,20 @@ namespace SWPCCBilling.Modules
 {
     public class ReportsModule : NancyModule
     {
+        private readonly FamilyStore _familyStore;
+        private readonly FeeStore _feeStore;
+        private readonly LedgerStore _ledgerStore;
+        private readonly InvoiceStore _invoiceStore;
+        private readonly PaymentStore _paymentStore;
+
         public ReportsModule(FamilyStore familyStore, FeeStore feeStore, LedgerStore ledgerStore, InvoiceStore invoiceStore, PaymentStore paymentStore)
         {
+            _familyStore = familyStore;
+            _feeStore = feeStore;
+            _ledgerStore = ledgerStore;
+            _invoiceStore = invoiceStore;
+            _paymentStore = paymentStore;
+
             Get["/reports"] = _ => View["Index"];
 
             Get["/reports/childdays"] = _ => View["ChildDays", familyStore.LoadAll()];
@@ -44,44 +57,36 @@ namespace SWPCCBilling.Modules
                 return View["Ledger", lines];
             };
 
+            Post["/reports/unpaid"] = _ =>
+            {
+                DateTime month = DateTime.Parse(Request.Form["month"]);
+
+                var model = GetStatements(month)
+                    .Where(s => s.Balance < 0m)
+                    .Select(s => familyStore.Load(s.FamilyId))
+                    .SelectMany(f => f.Parents)
+                    .Where(p => !String.IsNullOrEmpty(p.Email))
+                    .Select(p => p.Email);
+
+                return View["Emails", model];
+            };
+
             Post["/reports/monthly"] = _ =>
             {
                 DateTime month = DateTime.Parse(Request.Form["month"]);
-                var statements = new List<Statement>();
                 decimal totalAmountDue = 0m;
                 decimal totalAmoutPaid = 0m;
                 decimal totalDonated = 0m;
                 decimal totalBalance = 0m;
 
-                Fee donationFee = feeStore.LoadDonation();
+                IList<Statement> statements = GetStatements(month).ToList();
 
-                foreach (var family in familyStore.LoadAll())
+                foreach (var statement in statements)
                 {
-                    Invoice invoice = invoiceStore.Load(month, family.Id, family.FamilyName);
-                    totalAmountDue += invoice.AmountDue;
-
-                    var statement = new Statement(family.FamilyName, invoice.AmountDue);
-
-                    foreach (Payment payment in paymentStore.Load(month, family.Id))
-                    {
-                        var amount = (decimal) payment.Amount;
-                        statement.AddPayment(payment.CheckNum, amount);
-                        totalAmoutPaid += amount;
-                    }
-
+                    totalAmountDue += statement.AmountDue;
+                    totalAmoutPaid += statement.AmountPaid;
+                    totalDonated += statement.Donated;
                     totalBalance += statement.Balance;
-
-                    if (donationFee != null)
-                    {
-                        foreach (var line in ledgerStore.Load(month, family.Id, donationFee.Id))
-                        {
-                            var amount = (decimal) line.Amount;
-                            statement.AddDonation(amount);
-                            totalDonated += amount;
-                        }
-                    }
-
-                    statements.Add(statement);
                 }
 
                 var model = new
@@ -108,6 +113,39 @@ namespace SWPCCBilling.Modules
             }
 
             return description;
+        }
+
+        private IEnumerable<Statement> GetStatements(DateTime month)
+        {
+            Fee donationFee = _feeStore.LoadDonation();
+
+            var statements = new List<Statement>();
+
+            foreach (var family in _familyStore.LoadAll())
+            {
+                Invoice invoice = _invoiceStore.Load(month, family.Id, family.FamilyName);
+
+                var statement = new Statement(family.Id, family.FamilyName, invoice.AmountDue);
+
+                foreach (Payment payment in _paymentStore.Load(month, family.Id))
+                {
+                    var amount = (decimal)payment.Amount;
+                    statement.AddPayment(payment.CheckNum, amount);
+                }
+
+                if (donationFee != null)
+                {
+                    foreach (var line in _ledgerStore.Load(month, family.Id, donationFee.Id))
+                    {
+                        var amount = (decimal)line.Amount;
+                        statement.AddDonation(amount);
+                    }
+                }
+
+                statements.Add(statement);
+            }
+
+            return statements;
         }
     }
 }

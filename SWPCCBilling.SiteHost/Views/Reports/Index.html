@@ -11,7 +11,7 @@
     <li><a href="/reports/emails">Parent Email Addresses</a></li>
     <li><a href="/reports/ledger">Ledger</a></li>
     <li>
-        <h2>Monthly Report</h2>
+        <h3>Monthly Report</h3>
         <form class="form-inline" action="/reports/monthly" method="POST">
             <div class="input-append">
                 <input class="span2" id="month" type="text" name="month" >
@@ -20,6 +20,17 @@
             <button type="submit" class="btn"><i class="icon-cog"></i> Generate</button>
         </form>
     </li>
+    <li>
+        <h3>Unpaid Parent Emails</h3>
+        <form class="form-inline" action="/reports/unpaid" method="POST">
+            <div class="input-append">
+                <input class="span2" id="month2" type="text" name="month" >
+                <span class="add-on"><i class="icon-calendar"></i></span>
+            </div>
+            <button type="submit" class="btn"><i class="icon-cog"></i> Generate</button>
+        </form>
+    </li>
+
 </ul>
 
 @EndSection
@@ -30,6 +41,7 @@
         var now = new Date();
         var month = now.getMonth() + 1 + "/1/" + now.getFullYear();
         $("#month").val(month);
+        $("#month2").val(month);
     });
 </script>
 

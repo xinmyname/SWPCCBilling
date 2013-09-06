@@ -4,6 +4,7 @@ namespace SWPCCBilling.Models
 {
     class Statement
     {
+        public long FamilyId { get; set; }
         public string FamilyName { get; set; }
         public decimal AmountDue { get; set; }
         public decimal AmountPaid { get; set; }
@@ -15,8 +16,9 @@ namespace SWPCCBilling.Models
         {
         }
 
-        public Statement(string familyName, decimal amountDue)
+        public Statement(long familyId, string familyName, decimal amountDue)
         {
+            FamilyId = familyId;
             FamilyName = familyName;
             AmountDue = amountDue;
         }
