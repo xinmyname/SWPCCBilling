@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using SWPCCBilling.Models;
 
 namespace SWPCCBilling.Infrastructure
@@ -33,12 +34,11 @@ namespace SWPCCBilling.Infrastructure
             string monthStart = month.ToSQLiteDate();
             string monthEnd = month.AddMonths(1).AddDays(-1).ToSQLiteDate();
 
-            var payments = new List<Payment>();
-
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            payments.AddRange(con.Query<Payment>("SELECT * FROM Payment WHERE Received BETWEEN ? AND ? AND FamilyId=? ",
-                new{ monthStart, monthEnd, familyId }));
+            var payments = con.Query<Payment>(
+                "SELECT * FROM Payment WHERE Received BETWEEN ? AND ? AND FamilyId=? ",
+                new{ monthStart, monthEnd, familyId }).ToList();
 
             con.Close();
 

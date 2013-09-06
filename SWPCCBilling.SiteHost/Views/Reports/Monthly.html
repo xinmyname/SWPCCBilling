@@ -29,6 +29,7 @@
             <th>Family</th>
             <th class="text-right">Due</th>
             <th class="text-right">Paid</th>
+            <th class="text-right">Donated</th>
             <th>Check #</th>
             <th>Deposited</th>
             <th class="text-right">Balance</th>
@@ -40,9 +41,10 @@
             <td>@Current.FamilyName</td>
             <td class="text-right">@Current.AmountDueText</td>
             <td class="text-right">@Current.AmountPaidText</td>
+            <td class="text-right">@Current.DonatedText</td>
             <td>@Current.CheckNum</td>
             <td>@Current.DepositDateText</td>
-            <td class="text-right">@Current.OverUnderHtml</td>
+            <td class="text-right">@Current.BalanceHtml</td>
         </tr>
         @EndEach
     </tbody>
@@ -51,9 +53,10 @@
             <td>Total</td>
             <td class="text-right">@Model.TotalAmountDue</td>
             <td class="text-right">@Model.TotalAmountPaid</td>
+            <td class="text-right">@Model.TotalDonated</td>
             <td></td>
             <td></td>
-            <td></td>
+            <td class="text-right">@Model.TotalBalance</td>
         </tr>
     </tfoot>
 </table>

@@ -20,7 +20,7 @@ namespace SWPCCBilling.Infrastructure
 
         public IEnumerable<InvoiceLine> Generate(DateTime month, long familyId)
         {
-            IList<LedgerLine> ledgerLines = _ledgerStore.LoadForFamily(familyId).ToList();
+            IList<LedgerLine> ledgerLines = _ledgerStore.Load(familyId).ToList();
             decimal pastDue = ledgerLines.Where(l => l.Date.ToSQLiteDate().Value < month).Sum(ledgerLine => (decimal) ledgerLine.Amount);
 
             if (pastDue > 0m)

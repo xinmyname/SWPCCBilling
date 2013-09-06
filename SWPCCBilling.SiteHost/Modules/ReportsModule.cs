@@ -50,6 +50,10 @@ namespace SWPCCBilling.Modules
                 var statements = new List<Statement>();
                 decimal totalAmountDue = 0m;
                 decimal totalAmoutPaid = 0m;
+                decimal totalDonated = 0m;
+                decimal totalBalance = 0m;
+
+                Fee donationFee = feeStore.LoadDonation();
 
                 foreach (var family in familyStore.LoadAll())
                 {
@@ -60,8 +64,21 @@ namespace SWPCCBilling.Modules
 
                     foreach (Payment payment in paymentStore.Load(month, family.Id))
                     {
-                        statement.AddPayment(payment.CheckNum, (decimal) payment.Amount);
-                        totalAmoutPaid += (decimal)payment.Amount;
+                        var amount = (decimal) payment.Amount;
+                        statement.AddPayment(payment.CheckNum, amount);
+                        totalAmoutPaid += amount;
+                    }
+
+                    totalBalance += statement.Balance;
+
+                    if (donationFee != null)
+                    {
+                        foreach (var line in ledgerStore.Load(month, family.Id, donationFee.Id))
+                        {
+                            var amount = (decimal) line.Amount;
+                            statement.AddDonation(amount);
+                            totalDonated += amount;
+                        }
                     }
 
                     statements.Add(statement);
@@ -72,7 +89,9 @@ namespace SWPCCBilling.Modules
                     Month = month.ToString("MMMM yyyy"),
                     Statements = statements,
                     TotalAmountDue = totalAmountDue.ToString("C"),
-                    TotalAmountPaid = totalAmoutPaid.ToString("C")    
+                    TotalAmountPaid = totalAmoutPaid.ToString("C"),
+                    TotalDonated = totalDonated.ToString("C"),
+                    TotalBalance = totalBalance.ToString("C")
                 };
                 return View["Monthly", model];
             };

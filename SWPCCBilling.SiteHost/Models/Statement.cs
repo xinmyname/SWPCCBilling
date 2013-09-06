@@ -7,6 +7,7 @@ namespace SWPCCBilling.Models
         public string FamilyName { get; set; }
         public decimal AmountDue { get; set; }
         public decimal AmountPaid { get; set; }
+        public decimal Donated { get; set; }
         public string CheckNum { get; set; }
         public DateTime? DepositDate { get; set; }
 
@@ -30,6 +31,11 @@ namespace SWPCCBilling.Models
             AmountPaid += amount;
         }
 
+        public void AddDonation(decimal amount)
+        {
+            Donated += amount;
+        }
+
         public string AmountDueText 
         {
             get { return AmountDue.ToString("C"); }
@@ -39,6 +45,12 @@ namespace SWPCCBilling.Models
         {
             get { return AmountPaid.ToString("C"); }
         }
+
+        public string DonatedText
+        {
+            get { return Donated.ToString("C"); }
+        }
+
 
         public string DepositDateText
         {
@@ -50,21 +62,21 @@ namespace SWPCCBilling.Models
             }
         }
 
-        public decimal OverUnder
+        public decimal Balance
         {
-            get { return AmountPaid - AmountDue; }
+            get { return AmountPaid - AmountDue - Donated; }
         }
 
-        public string OverUnderText
+        public string BalanceText
         {
-            get { return OverUnder.ToString("C"); }
+            get { return Balance.ToString("C"); }
         }
 
-        public string OverUnderHtml
+        public string BalanceHtml
         {
             get
             {
-                decimal overUnder = OverUnder;
+                decimal overUnder = Balance;
                 return overUnder < 0
                     ? String.Format("<span style='color:#f00'>{0:C}</span>", overUnder)
                     : overUnder.ToString("C"); 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using SWPCCBilling.Models;
@@ -22,7 +23,7 @@ namespace SWPCCBilling.Infrastructure
             return lines;
         }
 
-        public IEnumerable<LedgerLine> LoadForFamily(long familyId)
+        public IEnumerable<LedgerLine> Load(long familyId)
         {
             IDbConnection con = _dbFactory.OpenDatabase();
             var lines = con.Query<LedgerLine>("SELECT * FROM Ledger WHERE FamilyId=?", 
@@ -31,6 +32,21 @@ namespace SWPCCBilling.Infrastructure
             return lines;
         }
 
+        public IEnumerable<LedgerLine> Load(DateTime month, long familyId, long feeId)
+        {
+            string monthStart = month.ToSQLiteDate();
+            string monthEnd = month.AddMonths(1).AddDays(-1).ToSQLiteDate();
+
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            var lines = con.Query<LedgerLine>(
+                "SELECT * FROM Ledger WHERE Date BETWEEN ? AND ? AND FamilyId=? AND FeeId=?",
+                new {monthStart, monthEnd, familyId, feeId}).ToList();
+
+            con.Close();
+
+            return lines;
+        }
 
         public LedgerLine Add(LedgerLine line)
         {

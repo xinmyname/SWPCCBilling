@@ -58,5 +58,13 @@ namespace SWPCCBilling.Infrastructure
             con.Close();
             return fee;
         }
+
+        public Fee LoadDonation()
+        {
+            IDbConnection con = _dbFactory.OpenDatabase();
+            var fee = con.Query<Fee>("SELECT * FROM Fee WHERE Name='Donation'").SingleOrDefault();
+            con.Close();
+            return fee;
+        }
     }
 }
