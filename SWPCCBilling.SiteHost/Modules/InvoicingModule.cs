@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Mail;
 using log4net;
 using Nancy;
 using Nancy.ModelBinding;

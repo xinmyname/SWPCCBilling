@@ -1,0 +1,30 @@
+﻿@Master['Master.html']
+
+@Section['Header']
+<style type="text/css">
+</style>
+@EndSection
+
+@Section['Content']
+
+<h1>Payments</h1>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <form class="span6" action="/payments/deposit" method="POST">
+            <h2>Undeposited</h2>    
+            <fieldset>
+                <div>
+                    <button id="deposit" type="submit" class="btn btn-primary"><i class="icon-upload icon-white"></i> Deposit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+@EndSection
+
+@Section['Scripts']
+<script type="text/javascript">
+</script>
+@EndSection

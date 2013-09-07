@@ -23,7 +23,7 @@ namespace SWPCCBilling.Modules
 
                 var model = new
                 {
-                    Families = familyStore.LoadAll().ToList(),
+                    Families = familyStore.LoadAll().OrderBy(f => f.FamilyName).ToList(),
                     Fees = feeStore.LoadAll().ToList(),
                     NextMonth = nextMonth.ToShortDateString(),
                     Today = DateTime.Now.ToShortDateString()

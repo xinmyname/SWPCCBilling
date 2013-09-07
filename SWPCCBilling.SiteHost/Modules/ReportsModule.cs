@@ -121,7 +121,7 @@ namespace SWPCCBilling.Modules
 
             var statements = new List<Statement>();
 
-            foreach (var family in _familyStore.LoadAll())
+            foreach (var family in _familyStore.LoadAll().OrderBy(f => f.FamilyName))
             {
                 Invoice invoice = _invoiceStore.Load(month, family.Id, family.FamilyName);
 
