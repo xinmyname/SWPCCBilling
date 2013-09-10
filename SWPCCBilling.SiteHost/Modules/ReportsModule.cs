@@ -128,10 +128,7 @@ namespace SWPCCBilling.Modules
                 var statement = new Statement(family.Id, family.FamilyName, invoice.AmountDue);
 
                 foreach (Payment payment in _paymentStore.Load(month, family.Id))
-                {
-                    var amount = (decimal)payment.Amount;
-                    statement.AddPayment(payment.CheckNum, amount);
-                }
+                    statement.AddPayment(payment.CheckNum, (decimal)payment.Amount, payment.Deposited.ToSQLiteDateTime());
 
                 if (donationFee != null)
                 {

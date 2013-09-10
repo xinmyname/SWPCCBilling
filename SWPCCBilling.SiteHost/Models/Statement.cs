@@ -23,7 +23,7 @@ namespace SWPCCBilling.Models
             AmountDue = amountDue;
         }
 
-        public void AddPayment(string checkNum, decimal amount)
+        public void AddPayment(string checkNum, decimal amount, DateTime? depositDate)
         {
             if (!String.IsNullOrEmpty(CheckNum))
                 CheckNum += String.Format(", {0}", checkNum);
@@ -31,6 +31,7 @@ namespace SWPCCBilling.Models
                 CheckNum = checkNum;
 
             AmountPaid += amount;
+            DepositDate = depositDate;
         }
 
         public void AddDonation(decimal amount)

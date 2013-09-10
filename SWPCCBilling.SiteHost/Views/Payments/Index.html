@@ -2,6 +2,22 @@
 
 @Section['Header']
 <style type="text/css">
+    .familyName {
+        width: 25%;
+        display: inline-block;
+    }
+    .checkNum,.received,.amount {
+        width: 12.5%;
+        display: inline-block;
+    }
+    .amount {
+        text-align: right;
+    }
+
+    #deposited {
+        margin-top: 1em;
+    }
+     
 </style>
 @EndSection
 
@@ -9,22 +25,31 @@
 
 <h1>Payments</h1>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <form class="span6" action="/payments/deposit" method="POST">
-            <h2>Undeposited</h2>    
-            <fieldset>
-                <div>
-                    <button id="deposit" type="submit" class="btn btn-primary"><i class="icon-upload icon-white"></i> Deposit</button>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-</div>
+<h2>Undeposited</h2>
+<label class="checkbox"><input id="allPayments" type="checkbox"> All Payments</label>        
+<form id="paymentList" action="/payments/deposit" method="POST">
+    @Each
+    <label class="checkbox"><input type="checkbox" value="@Current.PaymentId" name="PaymentIds"/>
+        <span class="familyName">@Current.FamilyName</span>
+        <span class="checkNum">@Current.CheckNum</span>
+        <span class="received">@Current.ReceivedText</span>
+        <span class="amount">@Current.AmountText</span>
+    </label>
+    @EndEach
+
+    <button id="deposited" class="btn btn-danger" type="submit"><i class="icon-circle-arrow-up icon-white"></i> Deposited</button>
+</form>
 
 @EndSection
 
 @Section['Scripts']
 <script type="text/javascript">
+    $("#allPayments").change(function () {
+        if ($(this).is(":checked")) {
+            $("#paymentList label input").prop('checked', true);
+        } else {
+            $("#paymentList label input").prop('checked', false);
+        }
+    });
 </script>
 @EndSection

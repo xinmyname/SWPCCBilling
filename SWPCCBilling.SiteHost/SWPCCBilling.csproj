@@ -124,6 +124,7 @@
     <Compile Include="ViewModels\FeeEditorViewModel.cs" />
     <Compile Include="ViewModels\MonthViewModel.cs" />
     <Compile Include="ViewModels\ParentEditorViewModel.cs" />
+    <Compile Include="ViewModels\PaymentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
