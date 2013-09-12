@@ -47,6 +47,22 @@ namespace SWPCCBilling.Infrastructure
             return payments;
         }
 
+        public IList<Payment> Load(DateTime month)
+        {
+            string monthStart = month.ToSQLiteDate();
+            string monthEnd = month.AddMonths(1).AddDays(-1).ToSQLiteDate();
+
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            var payments = con.Query<Payment>(
+                "SELECT * FROM Payment WHERE Received BETWEEN ? AND ? ORDER BY Received",
+                new { monthStart, monthEnd }).ToList();
+
+            con.Close();
+
+            return payments;
+        }
+
         public IList<Payment> LoadUndeposited()
         {
             IDbConnection con = _dbFactory.OpenDatabase();

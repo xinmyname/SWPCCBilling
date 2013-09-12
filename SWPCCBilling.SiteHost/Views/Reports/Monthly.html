@@ -2,9 +2,12 @@
 
 @Section['Header']
 <style>
-    thead {
-        border-bottom: solid 1px #000;
+    table {
+        width: 100%;
     }
+     thead {
+         border-bottom: solid 1px #000;
+     }
     tbody tr:nth-child(odd) {
         background: #f0f0f0
     }
@@ -17,48 +20,75 @@
     h4 {
         margin: 0.5em 0;
     }
+    .page {
+        page-break-after: always;
+    }
 </style>
 @EndSection
 
 @Section['Content']
 
-<h4>@Model.Month</h4>
-<table>
-    <thead>
-        <tr>
-            <th>Family</th>
-            <th class="text-right">Due</th>
-            <th class="text-right">Paid</th>
-            <th class="text-right">Donated</th>
-            <th>Check #</th>
-            <th>Deposited</th>
-            <th class="text-right">Balance</th>
-        </tr>
-    </thead>
-    <tbody>
-        @Each.Model.Statements
-        <tr>
-            <td>@Current.FamilyName</td>
-            <td class="text-right">@Current.AmountDueText</td>
-            <td class="text-right">@Current.AmountPaidText</td>
-            <td class="text-right">@Current.DonatedText</td>
-            <td>@Current.CheckNum</td>
-            <td>@Current.DepositDateText</td>
-            <td class="text-right">@Current.BalanceHtml</td>
-        </tr>
-        @EndEach
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>Total</td>
-            <td class="text-right">@Model.TotalAmountDue</td>
-            <td class="text-right">@Model.TotalAmountPaid</td>
-            <td class="text-right">@Model.TotalDonated</td>
-            <td></td>
-            <td></td>
-            <td class="text-right">@Model.TotalBalance</td>
-        </tr>
-    </tfoot>
-</table>
+<div class="page">
+    <h4>@Model.Month Summary</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Family</th>
+                <th class="text-right">Due</th>
+                <th class="text-right">Paid</th>
+                <th class="text-right">Donated</th>
+                <th>Check #</th>
+                <th>Deposited</th>
+                <th class="text-right">Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @Each.Model.Statements
+            <tr>
+                <td>@Current.FamilyName</td>
+                <td class="text-right">@Current.AmountDueText</td>
+                <td class="text-right">@Current.AmountPaidText</td>
+                <td class="text-right">@Current.DonatedText</td>
+                <td>@Current.CheckNum</td>
+                <td>@Current.DepositDateText</td>
+                <td class="text-right">@Current.BalanceHtml</td>
+            </tr>
+            @EndEach
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total</td>
+                <td class="text-right">@Model.TotalAmountDue</td>
+                <td class="text-right">@Model.TotalAmountPaid</td>
+                <td class="text-right">@Model.TotalDonated</td>
+                <td></td>
+                <td></td>
+                <td class="text-right">@Model.TotalBalance</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="page">
+    <h4>@Model.Month Deposits</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Date</th>
+                <th class="text-right">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @Each.Model.Deposits
+            <tr>
+                <td>@Current.Number</td>
+                <td>@Current.WhenText</td>
+                <td class="text-right">@Current.AmountText</td>
+            </tr>
+            @EndEach
+        </tbody>
+    </table>
+</div>
 
 @EndSection

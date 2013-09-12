@@ -6,6 +6,7 @@ using Nancy;
 using Nancy.ModelBinding;
 using SWPCCBilling.Infrastructure;
 using SWPCCBilling.Models;
+using SWPCCBilling.ViewModels;
 
 namespace SWPCCBilling.Modules
 {
@@ -79,7 +80,10 @@ namespace SWPCCBilling.Modules
                 decimal totalDonated = 0m;
                 decimal totalBalance = 0m;
 
-                IList<Statement> statements = GetStatements(month).ToList();
+                IList<Statement> statements = GetStatements(month)
+                    .OrderBy(s => s.DepositDate)
+                    .ThenBy(s => s.FamilyName)
+                    .ToList();
 
                 foreach (var statement in statements)
                 {
@@ -89,6 +93,8 @@ namespace SWPCCBilling.Modules
                     totalBalance += statement.Balance;
                 }
 
+                IList<DepositViewModel> deposits = GetDeposits(month).ToList();
+
                 var model = new
                 {
                     Month = month.ToString("MMMM yyyy"),
@@ -96,7 +102,8 @@ namespace SWPCCBilling.Modules
                     TotalAmountDue = totalAmountDue.ToString("C"),
                     TotalAmountPaid = totalAmoutPaid.ToString("C"),
                     TotalDonated = totalDonated.ToString("C"),
-                    TotalBalance = totalBalance.ToString("C")
+                    TotalBalance = totalBalance.ToString("C"),
+                    Deposits = deposits
                 };
                 return View["Monthly", model];
             };
@@ -143,6 +150,16 @@ namespace SWPCCBilling.Modules
             }
 
             return statements;
+        }
+
+        private IEnumerable<DepositViewModel> GetDeposits(DateTime month)
+        {
+            int n = 0;
+            return
+                from p in _paymentStore.Load(month)
+                group (decimal) p.Amount by p.Deposited.ToSQLiteDateTime()
+                into gr
+                select new DepositViewModel(++n, gr.Key, gr.Sum());
         }
     }
 }
