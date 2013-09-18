@@ -1,25 +1,20 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWPCCBilling", "SWPCCBilling.SiteHost\SWPCCBilling.csproj", "{1AE58D1E-7014-4ADF-AA43-BCCF9DE2414F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3ED1B2E-872D-4D9E-BF8A-2E781A5981F4}"
-	ProjectSection(SolutionItems) = preProject
-		Data\SWPCCBilling.empty.sql = Data\SWPCCBilling.empty.sql
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWPCCBilling", "SWPCCBilling.csproj", "{39CC35D2-805A-4DE5-ACE4-AD1AC89A8CC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1AE58D1E-7014-4ADF-AA43-BCCF9DE2414F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AE58D1E-7014-4ADF-AA43-BCCF9DE2414F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AE58D1E-7014-4ADF-AA43-BCCF9DE2414F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AE58D1E-7014-4ADF-AA43-BCCF9DE2414F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CC35D2-805A-4DE5-ACE4-AD1AC89A8CC8}.Debug|x86.ActiveCfg = Debug|x86
+		{39CC35D2-805A-4DE5-ACE4-AD1AC89A8CC8}.Debug|x86.Build.0 = Debug|x86
+		{39CC35D2-805A-4DE5-ACE4-AD1AC89A8CC8}.Release|x86.ActiveCfg = Release|x86
+		{39CC35D2-805A-4DE5-ACE4-AD1AC89A8CC8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = SWPCCBilling.csproj
 	EndGlobalSection
 EndGlobal

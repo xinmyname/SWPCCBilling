@@ -1,0 +1,39 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Infrastructure/InvoiceStore.cs">
+    <Files>
+      <File FileName="Infrastructure/InvoiceStore.cs" Line="17" Column="24" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="SWPCCBilling" expanded="True">
+            <Node name="References" expanded="True" />
+            <Node name="Infrastructure" expanded="True">
+              <Node name="InvoiceStore.cs" selected="True" />
+            </Node>
+            <Node name="Models" expanded="True" />
+            <Node name="Modules" expanded="True" />
+            <Node name="Views" expanded="True">
+              <Node name="Home" expanded="True" />
+              <Node name="Tools" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>_sqliteAssembly</Value>
+          <Value>exportedTypes</Value>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/andy/work/SWPCCBilling/Bootstrapper.cs" line="142" column="17" />
+      <Catchpoint exceptionName="System.InvalidCastException" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
