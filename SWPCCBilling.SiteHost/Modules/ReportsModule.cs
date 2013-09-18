@@ -157,6 +157,7 @@ namespace SWPCCBilling.Modules
             int n = 0;
             return
                 from p in _paymentStore.Load(month)
+                where p.Deposited != null
                 group (decimal) p.Amount by p.Deposited.ToSQLiteDateTime()
                 into gr
                 select new DepositViewModel(++n, gr.Key, gr.Sum());

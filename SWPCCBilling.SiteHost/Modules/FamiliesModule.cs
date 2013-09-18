@@ -13,7 +13,7 @@ namespace SWPCCBilling.Modules
     {
         public FamiliesModule(FamilyStore familyStore)
         {
-            Get["/families"] = _ => View["Index", familyStore.LoadAll()];
+            Get["/families"] = _ => View["Index", familyStore.LoadAll().OrderBy(f => f.FamilyName)];
 
             Get["/families/add"] = _ =>
             {
