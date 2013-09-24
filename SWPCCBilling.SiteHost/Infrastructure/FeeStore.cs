@@ -26,8 +26,8 @@ namespace SWPCCBilling.Infrastructure
         {
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            IDbCommand cmd = con.CreateCommand("INSERT INTO Fee (Name,Type,Amount) VALUES (?,?,?)")
-                .AddParameters(new {fee.Name, fee.Type, fee.Amount});
+            IDbCommand cmd = con.CreateCommand("INSERT INTO Fee (Name,Type,Amount,Category) VALUES (?,?,?,?)")
+                .AddParameters(new {fee.Name, fee.Type, fee.Amount, fee.Category});
 
             cmd.ExecuteNonQuery();
 
@@ -43,8 +43,8 @@ namespace SWPCCBilling.Infrastructure
         {
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            IDbCommand cmd = con.CreateCommand("UPDATE Fee SET Name=?, Type=?, Amount=? WHERE Id=?")
-                .AddParameters(new { fee.Name, fee.Type, fee.Amount, fee.Id });
+            IDbCommand cmd = con.CreateCommand("UPDATE Fee SET Name=?, Type=?, Amount=?, Category=? WHERE Id=?")
+                .AddParameters(new { fee.Name, fee.Type, fee.Amount, fee.Category, fee.Id });
 
             fee.Id = cmd.ExecuteNonQuery();
 
@@ -62,7 +62,7 @@ namespace SWPCCBilling.Infrastructure
         public Fee LoadDonation()
         {
             IDbConnection con = _dbFactory.OpenDatabase();
-            var fee = con.Query<Fee>("SELECT * FROM Fee WHERE Name='Donation'").SingleOrDefault();
+            var fee = con.Query<Fee>("SELECT * FROM Fee WHERE Category='Donations'").SingleOrDefault();
             con.Close();
             return fee;
         }

@@ -8,6 +8,7 @@ namespace SWPCCBilling.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public double? Amount { get; set; }
+        public string Category { get; set; }
 
         public const string FeeTypeFixed = "F";
         public const string FeeTypeVarying = "V";
@@ -19,11 +20,12 @@ namespace SWPCCBilling.Models
         {
         }
 
-        public Fee(string name, string type, double amount)
+        public Fee(string name, string type, double amount, string category)
         {
             Name = name;
             Type = type;
             Amount = amount;
+            Category = category;
         }
 
         public string AmountText

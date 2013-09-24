@@ -15,7 +15,7 @@ namespace SWPCCBilling.Modules
 
             Get["/fees/add"] = _ =>
             {
-                Fee fee = feeStore.Add(new Fee("New Fee", Fee.FeeTypeFixed, 0.0));
+                Fee fee = feeStore.Add(new Fee("New Fee", Fee.FeeTypeFixed, 0.0, "None"));
                 return Response.AsRedirect("/fees/" + fee.Id);
             };
 

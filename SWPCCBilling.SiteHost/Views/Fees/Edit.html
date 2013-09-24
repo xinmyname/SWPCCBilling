@@ -18,6 +18,15 @@
                     <option value="D">Per Child-Day</option>
                     <option value="M">Per Minute</option>
                 </select>
+                <label>Category</label>
+                <select id="feeCategory" class="span4" name="Category">
+                    <option value="Tuition">Tuition</option>
+                    <option value="Fees">Fees</option>
+                    <option value="Financial Aid">Financial Aid</option>
+                    <option value="Insurance">Insurance</option>
+                    <option value="Donations">Donations</option>
+                    <option value="Credits">Credits</option>
+                </select>
                 <label>Amount</label>
                 <div class="input-prepend">
                     <span class="add-on">$</span>
@@ -36,5 +45,6 @@
 @Section['Scripts']
 <script type="text/javascript">
     $("#feeType").val('@Model.Fee.Type');
+    $("#feeCategory").val('@Model.Fee.Category');
 </script>
 @EndSection
