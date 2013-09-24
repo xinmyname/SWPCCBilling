@@ -41,7 +41,8 @@ CREATE TABLE [Fee]
 	[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	[Name] TEXT NOT NULL,
 	[Type] TEXT NOT NULL,
-	[Amount] REAL NULL
+	[Amount] REAL NULL,
+	[Category] TEXT NOT NULL DEFAULT 'None'
 );
 
 DROP TABLE IF EXISTS [Discount];
@@ -50,7 +51,8 @@ CREATE TABLE [Discount]
 	[Id] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	[FamilyId] INTEGER NOT NULL,
 	[FeeId] INTEGER NOT NULL,
-	[Percent] REAL NOT NULL
+	[Percent] REAL NOT NULL,
+	[IsFinancialAid] INTEGER NOT NULL DEFAULT 0
 );
 
 DROP TABLE IF EXISTS [ChildDays];
@@ -102,7 +104,7 @@ DROP TABLE IF EXISTS [SelectFeeType];
 CREATE TABLE [SelectFeeType]
 (
 	[Type] TEXT NOT NULL,
-	[Description] TEST NOT NULL
+	[Description] TEXT NOT NULL
 );
 
 INSERT INTO [SelectFeeType] VALUES ('F', 'Fixed');
@@ -115,10 +117,27 @@ DROP TABLE IF EXISTS [SelectRoom];
 CREATE TABLE [SelectRoom]
 (
 	[Room] TEXT NOT NULL,
-	[Description] TEST NOT NULL
+	[Description] TEXT NOT NULL
 );
 
 INSERT INTO [SelectRoom] VALUES ('YT', 'Young Toddler');
 INSERT INTO [SelectRoom] VALUES ('TR', 'Toddler');
 INSERT INTO [SelectRoom] VALUES ('PS1', 'Preschool 1');
 INSERT INTO [SelectRoom] VALUES ('PS2', 'Preschool 2');
+
+DROP TABLE IF EXISTS [SelectFeeCategory];
+CREATE TABLE [SelectFeeCategory]
+(
+	[Category] TEXT NOT NULL,
+	[Description] TEXT NOT NULL
+);
+
+INSERT INTO [SelectFeeCategory] VALUES ('Tuition', 'Tuition');
+INSERT INTO [SelectFeeCategory] VALUES ('Fees', 'Fees');
+INSERT INTO [SelectFeeCategory] VALUES ('Financial Aid', 'Financial Aid');
+INSERT INTO [SelectFeeCategory] VALUES ('Insurance', 'Insurance');
+INSERT INTO [SelectFeeCategory] VALUES ('Donations', 'Donations');
+INSERT INTO [SelectFeeCategory] VALUES ('Credits', 'Credits');
+
+
+

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
 
 namespace SWPCCBilling.Models
 {
@@ -79,10 +80,15 @@ namespace SWPCCBilling.Models
         {
             get
             {
-                decimal overUnder = Balance;
-                return overUnder < 0
-                    ? String.Format("<span style='color:#f00'>{0:C}</span>", overUnder)
-                    : overUnder.ToString("C"); 
+                decimal balance = Balance;
+
+                if (balance < 0)
+                    return String.Format("<span style='color:#f00'>{0:C}</span>", balance);
+
+                if (balance > 0)
+                    return String.Format("<strong>{0:C}</strong>", balance);
+
+                return balance.ToString("C"); 
             }
         }
 
