@@ -42,12 +42,14 @@ namespace SWPCCBilling.Modules
                 foreach (long familyId in chargeRequest.GetFamilyIds())
                 {
                     Family family = familyStore.Load(familyId);
-                    LedgerLine line = lineFactory.CalculateCharge(chargeRequest, fee, family);
 
-                    ledgerStore.Add(line);
+                    foreach (LedgerLine line in lineFactory.CalculateCharges(chargeRequest, fee, family))
+                    {
+                        ledgerStore.Add(line);
+                        receipt.Amount += (decimal) line.Amount;
+                    }
 
                     receipt.NumFamilies++;
-                    receipt.Amount += (decimal) line.Amount;
                 }
 
                 return Response.AsJson(receipt);

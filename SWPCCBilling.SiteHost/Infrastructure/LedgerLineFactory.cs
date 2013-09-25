@@ -8,13 +8,15 @@ namespace SWPCCBilling.Infrastructure
     public class LedgerLineFactory
     {
         private readonly IList<Discount> _discounts;
+        private readonly long _financialAidFeeId;
 
-        public LedgerLineFactory(IEnumerable<Discount> discounts)
+        public LedgerLineFactory(IEnumerable<Discount> discounts, IEnumerable<Fee> fees)
         {
             _discounts = new List<Discount>(discounts);
+            _financialAidFeeId = fees.Single(f => f.Name == "Financial Aid").Id;
         }
 
-        public LedgerLine CalculateCharge(ChargeRequest chargeRequest, Fee fee, Family family)
+        public IEnumerable<LedgerLine> CalculateCharges(ChargeRequest chargeRequest, Fee fee, Family family)
         {
             decimal unitPrice = 0.0m;
             long quantity = 0;
@@ -60,17 +62,17 @@ namespace SWPCCBilling.Infrastructure
                     break;
             }
 
-            return CreateCharge(family.Id, fee.Id, chargeRequest.ChargeDate, unitPrice, quantity, chargeRequest.ChargeNotes);
+            return CreateCharges(family.Id, fee.Id, chargeRequest.ChargeDate, unitPrice, quantity, chargeRequest.ChargeNotes);
         }
 
-        public LedgerLine CreateCharge(long familyId, long feeId, DateTime date, decimal unitPrice, long quantity, string notes)
+        public IEnumerable<LedgerLine> CreateCharges(long familyId, long feeId, DateTime date, decimal unitPrice, long quantity, string notes)
         {
             var discount = _discounts.SingleOrDefault(d => d.FamilyId == familyId && d.FeeId == feeId);
 
-            if (discount != null)
-                unitPrice -= unitPrice*((decimal)discount.Percent)/100m;
+            if (discount != null && !discount.IsFinancialAid)
+                unitPrice -= unitPrice * ((decimal)discount.Percent) / 100m;
 
-            return new LedgerLine
+            yield return new LedgerLine
             {
                 FamilyId = familyId,
                 Date = date.ToSQLiteDateTime(),
@@ -80,6 +82,23 @@ namespace SWPCCBilling.Infrastructure
                 Amount = (double)(unitPrice * quantity),
                 Notes = notes
             };
+
+            if (discount != null && discount.IsFinancialAid)
+            {
+                decimal financialAidAmount = unitPrice*((decimal) discount.Percent)/-100m;
+
+                // Credit back discounted amount
+                yield return new LedgerLine
+                {
+                    FamilyId = familyId,
+                    Date = date.ToSQLiteDateTime(),
+                    FeeId = _financialAidFeeId,
+                    UnitPrice = (double)financialAidAmount,
+                    Quantity = quantity,
+                    Amount = (double)(financialAidAmount * quantity),
+                    Notes = notes
+                };
+            }
         }
 
         public LedgerLine CreatePayment(long familyId, long paymentId, DateTime date, decimal amount, string notes)
