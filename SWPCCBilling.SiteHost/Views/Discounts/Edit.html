@@ -30,7 +30,9 @@
                             <input class="span3" type="text" name="Percent" value="@Model.Discount.Percent">
                             <span class="add-on">%</span>
                         </div>
-
+                        <label class="checkbox">
+                            <input type="checkbox" id="financialAid" name="IsFinancialAid"> Financial Aid
+                        </label>
                         <div>
                             <button class="btn btn-primary" type="submit"><i class="icon-ok-sign icon-white"></i> Save</button>
                         </div>
@@ -48,5 +50,10 @@
 <script type="text/javascript">
     $("#families").val(@Model.Discount.FamilyId);
     $("#fees").val(@Model.Discount.FeeId);
+    
+    var True = true;
+    var False = false;
+    
+    $('#financialAid').prop('checked', @Model.Discount.IsFinancialAid);
 </script>
 @EndSection

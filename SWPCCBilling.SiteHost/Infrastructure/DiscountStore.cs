@@ -62,13 +62,13 @@ namespace SWPCCBilling.Infrastructure
 
             if (discount.Id < 0)
             {
-                con.Execute("INSERT INTO Discount (FamilyId,FeeId,Percent) VALUES (?,?,?)",
-                    new {discount.FamilyId, discount.FeeId, discount.Percent});
+                con.Execute("INSERT INTO Discount (FamilyId,FeeId,Percent,IsFinancialAid) VALUES (?,?,?,?)",
+                    new {discount.FamilyId, discount.FeeId, discount.Percent, discount.IsFinancialAid});
             }
             else
             {
-                con.Execute("UPDATE Discount SET FamilyId=?, FeeId=?, Percent=? WHERE Id=?",
-                    new { discount.FamilyId, discount.FeeId, discount.Percent, discount.Id });
+                con.Execute("UPDATE Discount SET FamilyId=?, FeeId=?, Percent=?, IsFinancialAid=? WHERE Id=?",
+                    new { discount.FamilyId, discount.FeeId, discount.Percent, discount.IsFinancialAid, discount.Id });
             }
 
             con.Close();
