@@ -16,14 +16,15 @@ namespace SWPCCBilling.Modules
         {
             Get["/payments"] = _ =>
             {
-                var model = new List<PaymentViewModel>();
+                var undepositedPayments = new List<PaymentViewModel>();
+                var undepositedTotal = 0.0m;
 
                 foreach (Payment payment in paymentStore.LoadUndeposited())
                 {
                     Family family = familyStore.Load(payment.FamilyId);
                     DateTime? received = payment.Received.ToSQLiteDateTime();
 
-                    model.Add(new PaymentViewModel
+                    undepositedPayments.Add(new PaymentViewModel
                     {
                         PaymentId = payment.Id,
                         FamilyName = family.FamilyName,
@@ -31,9 +32,15 @@ namespace SWPCCBilling.Modules
                         AmountText = payment.Amount.ToString("C"),
                         ReceivedText = received.Value.ToShortDateString()
                     });
+
+                    undepositedTotal += (decimal) payment.Amount;
                 }
 
-                return View["Index", model.OrderBy(p => p.FamilyName)];
+                return View["Index", new
+                {
+                    UndepositedPayments = undepositedPayments.OrderBy(p => p.FamilyName),
+                    UndepositedTotalText = undepositedTotal.ToString("C")
+                }];
             };
 
             Post["/payments/deposit"] = _ =>

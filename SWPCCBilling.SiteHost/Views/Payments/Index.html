@@ -28,7 +28,7 @@
 <h2>Undeposited</h2>
 <label class="checkbox"><input id="allPayments" type="checkbox"> All Payments</label>        
 <form id="paymentList" action="/payments/deposit" method="POST">
-    @Each
+    @Each.Model.UndepositedPayments
     <label class="checkbox"><input type="checkbox" value="@Current.PaymentId" name="PaymentIds"/>
         <span class="familyName">@Current.FamilyName</span>
         <span class="checkNum">@Current.CheckNum</span>
@@ -36,7 +36,7 @@
         <span class="amount">@Current.AmountText</span>
     </label>
     @EndEach
-
+    <h3>Total = @Model.UndepositedTotalText</h3>
     <button id="deposited" class="btn btn-danger" type="submit"><i class="icon-circle-arrow-up icon-white"></i> Deposited</button>
 </form>
 
