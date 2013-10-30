@@ -28,7 +28,7 @@ namespace SWPCCBilling.Infrastructure
             else if (pastDue < 0m)
                 yield return new InvoiceLine("Credit", pastDue);
 
-            foreach (LedgerLine ledgerLine in ledgerLines
+            foreach (LedgerLine ledgerLine in ledgerLines 
                 .Where(l => l.Date.ToSQLiteDate().Value >= month)
                 .Where(l => l.Date.ToSQLiteDate().Value < month.AddMonths(1)))
             {
