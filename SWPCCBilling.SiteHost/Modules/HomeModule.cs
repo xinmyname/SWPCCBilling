@@ -18,7 +18,7 @@ namespace SWPCCBilling.Modules
         {
             Get["/"] = _ =>
             {
-                var nextMonth = DateTime.Now.AddMonths(1);
+                var nextMonth = DateTime.Now.AddDays(-1).AddMonths(1);
                 nextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
 
                 var model = new
