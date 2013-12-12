@@ -31,6 +31,25 @@ namespace SWPCCBilling.Infrastructure
             return payment;
         }
 
+        public IList<string> LoadDepositDates()
+        {
+            var depositDates = new List<string>();
+
+            IDbConnection con = _dbFactory.OpenDatabase();
+
+            IDbCommand cmd = con.CreateCommand("SELECT DISTINCT Deposited FROM Payment ORDER BY Deposited DESC");
+
+            IDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+                depositDates.Add((string)dr[0]);
+
+            dr.Close();
+            con.Close();
+
+            return depositDates;
+        }
+
         public IList<Payment> Load(DateTime month, long familyId)
         {
             string monthStart = month.ToSQLiteDate();

@@ -1,0 +1,29 @@
+﻿@Master['ReportMaster.html']
+
+@Section['Content']
+
+<h1>Payments Deposit</h1>
+
+<table class="table table-striped">
+    <tr>
+        <th>Date</th>
+        <th>Family</th>
+        <th>Fee</th>
+        <th>Amount</th>
+        <th>Notes</th>
+    </tr>
+    <tbody>
+        @Each
+        <tr>
+            <td>@Current.DateText</td>
+            <td>@Current.FamilyName</td>
+            <td>@Current.FeeName</td>
+            <td class="text-right">@Current.AmountText</td>
+            <td>@Current.Notes</td>
+        </tr>
+        @EndEach
+    </tbody>
+
+</table>
+
+@EndSection

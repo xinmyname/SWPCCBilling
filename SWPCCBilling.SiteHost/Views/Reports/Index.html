@@ -30,6 +30,20 @@
             <button type="submit" class="btn"><i class="icon-cog"></i> Generate</button>
         </form>
     </li>
+    <li>
+        <h3>Deposit Report</h3>
+        <form class="form-inline" action="/reports/deposit" method="POST">
+            <div class="input-append">
+                <select id="depositDate" name="DepositDate">
+                    @Each.DepositDates
+                    <option value="@Current">@Current</option>
+                    @EndEach
+                </select>
+            </div>
+            <button type="submit" class="btn"><i class="icon-cog"></i> Generate</button>
+        </form>
+
+    </li>
 
 </ul>
 

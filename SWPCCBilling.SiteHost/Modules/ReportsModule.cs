@@ -26,7 +26,15 @@ namespace SWPCCBilling.Modules
             _invoiceStore = invoiceStore;
             _paymentStore = paymentStore;
 
-            Get["/reports"] = _ => View["Index"];
+            Get["/reports"] = _ =>
+            {
+                var model = new
+                {
+                    DepositDates = paymentStore.LoadDepositDates()
+                };
+
+                return View["Index", model];
+            };
 
             Get["/reports/childdays"] = _ => View["ChildDays", familyStore.LoadAll()];
 
@@ -106,6 +114,35 @@ namespace SWPCCBilling.Modules
                     Deposits = deposits
                 };
                 return View["Monthly", model];
+            };
+
+            Post["/reports/deposit"] = _ =>
+            {
+                DateTime depositDate = Request.Form["DepositDate"];
+                var monthStart = new DateTime(depositDate.Year, depositDate.Month, 1);
+                var fees = _feeStore.LoadAll().ToLookup(f => f.Id);
+                var families = _familyStore.LoadAll().ToLookup(f => f.Id);
+
+                var model = _ledgerStore.Load(monthStart, depositDate)
+                    .Select(ll =>
+                        new PaymentDepositViewModel
+                        {
+                            FamilyId = ll.FamilyId,
+                            FamilyName = families[ll.FamilyId].Single().FamilyName,
+                            Date = ll.Date.ToSQLiteDate(),
+                            DateText = ll.Date.ToSQLiteDate().HasValue
+                                ? ll.Date.ToSQLiteDate().Value.ToShortDateString()
+                                : "",
+                            FeeId = ll.FeeId,
+                            FeeName = ll.FeeId.HasValue 
+                                ? fees[ll.FeeId.Value].Single().Name
+                                : "",
+                            Amount = (decimal)ll.Amount,
+                            AmountText = ll.Amount.ToString("C"),
+                            Notes = ll.Notes
+                        });
+
+                return View["PaymentsDeposit", model];
             };
         }
 

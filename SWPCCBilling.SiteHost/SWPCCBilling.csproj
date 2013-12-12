@@ -125,6 +125,7 @@
     <Compile Include="ViewModels\FeeEditorViewModel.cs" />
     <Compile Include="ViewModels\MonthViewModel.cs" />
     <Compile Include="ViewModels\ParentEditorViewModel.cs" />
+    <Compile Include="ViewModels\PaymentDepositViewModel.cs" />
     <Compile Include="ViewModels\PaymentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +252,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Reports\PaymentsDeposit.html" />
     <EmbeddedResource Include="Views\Payments\Index.html" />
     <EmbeddedResource Include="Views\Reports\Monthly.html" />
     <EmbeddedResource Include="Views\InvoiceTemplate.html" />
