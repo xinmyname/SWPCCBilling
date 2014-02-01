@@ -37,7 +37,7 @@ namespace SWPCCBilling.Infrastructure
 
             IDbConnection con = _dbFactory.OpenDatabase();
 
-            IDbCommand cmd = con.CreateCommand("SELECT DISTINCT Deposited FROM Payment ORDER BY Deposited DESC");
+            IDbCommand cmd = con.CreateCommand("SELECT DISTINCT Deposited FROM Payment WHERE Deposited IS NOT NULL ORDER BY Deposited DESC");
 
             IDataReader dr = cmd.ExecuteReader();
 

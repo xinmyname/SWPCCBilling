@@ -56,7 +56,7 @@ namespace SWPCCBilling.Modules
                     .Select(l => new LedgerLineReport
                                  {
                                      Date = l.Date.ToSQLiteDate().Value.ToShortDateString(),
-                                     FamilyName = families.Single(f => f.Id == l.FamilyId).FamilyName,
+                                     FamilyName = GetFamilyName(l.FamilyId, families),
                                      Description = GetDescription(l, fees),
                                      UnitPrice = l.UnitPrice.ToString("C"),
                                      Quantity = l.Quantity,
@@ -198,6 +198,14 @@ namespace SWPCCBilling.Modules
                 group (decimal) p.Amount by p.Deposited.ToSQLiteDateTime()
                 into gr
                 select new DepositViewModel(++n, gr.Key, gr.Sum());
+        }
+
+        private string GetFamilyName(long familyId, IEnumerable<Family> families)
+        {
+            Family family = families.SingleOrDefault(f => f.Id == familyId);
+            if (family == null)
+                return String.Format("(Departed Family {0})", familyId);
+            return family.FamilyName;
         }
     }
 }
