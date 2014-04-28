@@ -81,7 +81,7 @@ namespace SWPCCBilling.Infrastructure
 
         public string GetPathToAllInvoices()
         {
-            string dbPath = Properties.Settings.Default.DatabasePath;
+            string dbPath = Properties.Settings.Default.InvoicePath;
             string invoicePath = String.Format("{0}{1}{2}", 
                 Path.GetDirectoryName(dbPath),
                 Path.DirectorySeparatorChar,

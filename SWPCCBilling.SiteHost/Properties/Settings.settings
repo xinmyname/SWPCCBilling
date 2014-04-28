@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DatabasePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\Users\\xinmy_000\\Documents\\SWPCCBilling\\FY2014.s3db</Value>
+      <Value Profile="(Default)">C:\Users\xinmy_000\Documents\SWPCCBilling\FY2014-Camp.s3db</Value>
     </Setting>
     <Setting Name="HostUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://localhost:8081/</Value>
@@ -19,6 +19,9 @@
     </Setting>
     <Setting Name="EmailSSL" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InvoicePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\xinmy_000\Documents\SWPCCBilling\FY2014-Camp\</Value>
     </Setting>
   </Settings>
 </SettingsFile>

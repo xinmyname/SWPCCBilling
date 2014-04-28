@@ -5,6 +5,14 @@ namespace SWPCCBilling.Infrastructure
 {
     public class DocumentPath
     {
+        public static string For(string name)
+        {
+            return String.Format("{1}{0}SWPCCBilling{0}{2}\\",
+                Path.DirectorySeparatorChar,
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                name);
+        }
+
         public static string For(string name, string extension)
         {
             return String.Format("{1}{0}SWPCCBilling{0}{2}.{3}",

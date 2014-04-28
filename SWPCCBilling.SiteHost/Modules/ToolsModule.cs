@@ -44,6 +44,21 @@ namespace SWPCCBilling.Modules
                 return Response.AsRedirect("/");
             };
 
+            Post["/tools/switch"] = _ =>
+            {
+                string dbPath = DocumentPath.For(Request.Form.Name, "s3db");
+                string invoicePath = DocumentPath.For(Request.Form.Name);
+
+                Settings.Default.DatabasePath = dbPath;
+                Settings.Default.InvoicePath = invoicePath;
+                Settings.Default.Save();
+
+                log.InfoFormat("Switched to database file: {0}", dbPath);
+
+                return Response.AsRedirect("/");
+            };
+
+
             Post["/tools/email"] = _ =>
             {
                 Settings.Default.EmailServer = Request.Form.Server;

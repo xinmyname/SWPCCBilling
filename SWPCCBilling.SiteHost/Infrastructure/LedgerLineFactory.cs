@@ -13,7 +13,10 @@ namespace SWPCCBilling.Infrastructure
         public LedgerLineFactory(IEnumerable<Discount> discounts, IEnumerable<Fee> fees)
         {
             _discounts = new List<Discount>(discounts);
-            _financialAidFeeId = fees.Single(f => f.Name == "Financial Aid").Id;
+            Fee financialAidFee = fees.SingleOrDefault(f => f.Name == "Financial Aid");
+            _financialAidFeeId = financialAidFee != null
+                ? financialAidFee.Id
+                : -1;
         }
 
         public IEnumerable<LedgerLine> CalculateCharges(ChargeRequest chargeRequest, Fee fee, Family family)
