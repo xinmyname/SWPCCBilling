@@ -37,6 +37,7 @@ namespace SWPCCBilling.Infrastructure
             {
                 From = new MailAddress(Settings.Default.EmailFrom),
                 Subject = String.Format("SWPCC {0:MMMM yyyy} Invoice for {1}", invoice.Date, invoice.FamilyName)
+//                Subject = String.Format("SWPCC Summer Camp 2014 Invoice for {1}", invoice.Date, invoice.FamilyName)
             };
 
             foreach (string to in emailTo)

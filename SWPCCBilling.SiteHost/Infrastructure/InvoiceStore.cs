@@ -23,12 +23,21 @@ namespace SWPCCBilling.Infrastructure
 
             IDbConnection con = _dbFactory.OpenDatabase();
 
+            var numInvoices = con.ExecuteScalar<long>("SELECT COUNT(*) FROM Invoice WHERE FamilyId=? AND Date=?",
+                                               new { familyId, month });
+
+            if (numInvoices == 0)
+                return null;
+
             var amountDue = con.ExecuteScalar<double>("SELECT Amount FROM Invoice WHERE FamilyId=? AND Date=?",
                                                new { familyId, month });
 
             con.Close();
 
             string path = GetPathToInvoice(date, familyName, InvoiceBodyType.HTML);
+
+            if (!File.Exists(path))
+                return null;
 
             return new Invoice(date, familyId, familyName) 
             { 

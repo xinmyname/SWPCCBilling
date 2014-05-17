@@ -79,11 +79,16 @@ namespace SWPCCBilling.Modules
                     try
                     {
                         Invoice invoice = invoiceStore.Load(invoiceDate, family.Id, family.FamilyName);
-                        invoiceMailer.Send(invoice, request.Password, family.Parents.Where(p => p.Email != null).Select(p => p.Email).ToList());
+
+                        if (invoice != null)
+                            invoiceMailer.Send(invoice, request.Password, family.Parents.Where(p => p.Email != null).Select(p => p.Email).ToList());
+                        else
+                            log.WarnFormat("No invoice file found for {0} in {1}", family.FamilyName, invoiceDate.ToShortDateString());
                     }
                     catch (Exception ex)
                     {
                         receipt.NumErrors++;
+                        log.ErrorFormat("!!! Failed to send invoice for {0}", family.FamilyName);
                         log.Error(ex);
                     }
 

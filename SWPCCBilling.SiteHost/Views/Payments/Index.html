@@ -17,7 +17,30 @@
     #deposited {
         margin-top: 1em;
     }
-     
+
+    @media print {
+        .navbar {
+            display: none;
+        }
+        h1 {
+            display: none;
+        }
+        #deposited {
+            display: none;
+        }
+        #allPaymentsCheckbox {
+            display: none;
+        }
+        h2,h3 {
+            font-size: 12px;
+            margin: 6px 0 0 0;
+        }
+        body, label, input[type='checkbox'] {
+            font-size: 9pt;
+            margin: 0;
+            padding: 0;
+        }
+    }     
 </style>
 @EndSection
 
@@ -26,7 +49,7 @@
 <h1>Payments</h1>
 
 <h2>Undeposited</h2>
-<label class="checkbox"><input id="allPayments" type="checkbox"> All Payments</label>        
+<label class="checkbox" id="allPaymentsCheckbox"><input id="allPayments" type="checkbox"> All Payments</label>        
 <form id="paymentList" action="/payments/deposit" method="POST">
     @Each.Model.UndepositedPayments
     <label class="checkbox"><input type="checkbox" value="@Current.PaymentId" name="PaymentIds"/>

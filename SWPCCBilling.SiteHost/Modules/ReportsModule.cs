@@ -169,6 +169,9 @@ namespace SWPCCBilling.Modules
             {
                 Invoice invoice = _invoiceStore.Load(month, family.Id, family.FamilyName);
 
+                if (invoice == null)
+                    continue;
+
                 var statement = new Statement(family.Id, family.FamilyName, invoice.AmountDue);
 
                 foreach (Payment payment in _paymentStore.Load(month, family.Id))
